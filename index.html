@@ -3,127 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yılan Oyunu</title>
+    <title>Cyberkoc.co</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #snakeGame { position: relative; border: 1px solid #000; width: 400px; height: 400px; margin: 20px auto; }
-        .snake { position: absolute; }
-        .food { background: red; position: absolute; }
-        #result { margin-top: 20px; }
-        #score { position: absolute; top: 10px; right: 10px; font-size: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        header {
+            background-color: #ff5722;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <h1>Yılan Oyunu</h1>
-    <label for="speed">Oyun Hızı (ms): </label>
-    <select id="speed">
-        <option value="100">Hızlı</option>
-        <option value="150">Orta</option>
-        <option value="200">Yavaş</option>
-    </select>
-    <button onclick="startGame()">Başla</button>
-    <div id="snakeGame">
-        <div id="score">Skor: 0</div>
-    </div>
-    <p id="result"></p>
 
-    <script>
-        let snake, food, direction, gameInterval, score;
+<header>
+    <h1>Cyberkoc.co</h1>
+    <nav>
+        <a href="#about">Hakkında</a>
+        <a href="#member">Üye</a>
+        <a href="#contact">İletişim</a>
+    </nav>
+</header>
 
-        function startGame() {
-            snake = [{ x: 8, y: 8 }];
-            direction = { x: 0, y: 0 };
-            score = 0;
-            placeFood();
-            document.getElementById('result').textContent = '';
-            document.getElementById('score').textContent = `Skor: ${score}`;
-            clearInterval(gameInterval);
-            const speed = parseInt(document.getElementById('speed').value);
-            gameInterval = setInterval(gameLoop, speed);
-            document.addEventListener('keydown', changeDirection);
-        }
+<div class="container">
+    <section id="about">
+        <h2>Hakkında</h2>
+        <p>Cyberkoc, teknoloji ve inovasyon odaklı bir takım olup, dijital dönüşüm süreçlerinde öncü bir rol oynamaktadır. Takımımız, alanında uzman profesyonellerden oluşmakta ve çeşitli projelerde yenilikçi çözümler geliştirmektedir. Amacımız, geleceğin teknolojilerini şekillendirmek ve bu alandaki en son trendleri takip ederek, kullanıcılarımıza en iyi hizmeti sunmaktır.</p>
+        <p>Cyberkoc, sadece bir takım değil, aynı zamanda bir topluluk ve düşünce liderliği platformudur. Yazılım geliştirme, veri analizi ve sistem mühendisliği gibi çeşitli alanlarda çalışarak, farklı disiplinlerdeki yetenekleri bir araya getiriyoruz. Takımımız, problem çözme yeteneklerini ve yaratıcılığını birleştirerek, karmaşık projeleri başarıyla hayata geçirmektedir.</p>
+        <p>Bizler, sadece projelerimizle değil, aynı zamanda işbirlikçi yaklaşımımızla da öne çıkıyoruz. Müşterilerimizle yakın işbirliği içinde çalışarak, onların ihtiyaçlarını anlıyor ve özelleştirilmiş çözümler sunuyoruz. Cyberkoc olarak, teknoloji alanında yenilikleri takip ediyor ve bu yenilikleri projelerimize entegre ederek, her zaman bir adım önde olmayı hedefliyoruz.</p>
+    </section>
 
-        function gameLoop() {
-            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
-            if (head.x === food.x && head.y === food.y) {
-                snake.unshift(head);
-                placeFood();
-                score++;
-                document.getElementById('score').textContent = `Skor: ${score}`;
-            } else {
-                snake.unshift(head);
-                snake.pop();
-            }
-            drawGame();
-            if (isGameOver(head)) {
-                clearInterval(gameInterval);
-                document.getElementById('result').textContent = 'Oyun Bitti! Yeniden Başla.';
-            }
-        }
+    <section id="member">
+        <h2>Üye</h2>
+        <h3>Yasin Emir Koç</h3>
+        <p>Yasin Emir Koç, Cyberkoc takımında yaratıcı düşünce ve teknik becerileriyle projelere katkı sağlamaktadır. Yazılım geliştirme alanındaki deneyimi ve yenilikçi bakış açısıyla takımımızın önemli bir parçasıdır. Her projede en iyi sonuçları elde etmek için çalışmaktadır.</p>
+    </section>
 
-        function placeFood() {
-            food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
-        }
+    <section id="contact">
+        <h2>İletişim</h2>
+        <p>Bize ulaşmak için <a href="mailto:info@cyberkoc.com" style="color: #ff5722;">info@cyberkoc.com</a> veya <a href="mailto:yasinemirkoc99@gmail.com" style="color: #ff5722;">yasinemirkoc99@gmail.com</a> adresine e-posta gönderebilirsiniz.</p>
+    </section>
+</div>
 
-        function changeDirection(event) {
-            switch (event.key) {
-                case 'w':
-                case 'W':
-                    direction = { x: 0, y: -1 };
-                    break;
-                case 's':
-                case 'S':
-                    direction = { x: 0, y: 1 };
-                    break;
-                case 'a':
-                case 'A':
-                    direction = { x: -1, y: 0 };
-                    break;
-                case 'd':
-                case 'D':
-                    direction = { x: 1, y: 0 };
-                    break;
-            }
-        }
+<footer>
+    <p>Cyberkoc.co</p>
+</footer>
 
-        function drawGame() {
-            const gameArea = document.getElementById('snakeGame');
-            gameArea.innerHTML = '<div id="score">Skor: ' + score + '</div>';
-
-            snake.forEach((segment, index) => {
-                const segmentDiv = document.createElement('div');
-                segmentDiv.classList.add('snake');
-                segmentDiv.style.width = '20px';
-                segmentDiv.style.height = '20px';
-                segmentDiv.style.left = `${segment.x * 20}px`;
-                segmentDiv.style.top = `${segment.y * 20}px`;
-                
-                // Renk değiştirme
-                const colors = ['blue', 'green', 'purple', 'orange', 'yellow'];
-                segmentDiv.style.backgroundColor = colors[index % colors.length];
-                
-                gameArea.appendChild(segmentDiv);
-            });
-
-            const foodDiv = document.createElement('div');
-            foodDiv.classList.add('food');
-            foodDiv.style.width = '20px';
-            foodDiv.style.height = '20px';
-            foodDiv.style.left = `${food.x * 20}px`;
-            foodDiv.style.top = `${food.y * 20}px`;
-            gameArea.appendChild(foodDiv);
-        }
-
-        function isGameOver(head) {
-            return (
-                head.x < 0 || 
-                head.x >= 20 || 
-                head.y < 0 || 
-                head.y >= 20 || 
-                snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
-            );
-        }
-    </script>
 </body>
 </html>
+
 
