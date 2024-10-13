@@ -1,146 +1,219 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basit İddia Oyunu</title>
+    <title>Two-Player Chess with Rules</title>
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
         }
+
         h1 {
-            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
-        .match {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: 90vw;
+            height: 90vw;
+            max-width: 600px;
+            max-height: 600px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+
+        .square {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            user-select: none;
         }
-        .balance {
-            font-weight: bold;
-            margin: 20px;
+
+        .black {
+            background-color: #769656;
+        }
+
+        .white {
+            background-color: #eeeed2;
+        }
+
+        .selected {
+            border: 3px solid yellow;
         }
     </style>
 </head>
 <body>
-    <h1>Basit Süper Lig İddia Oyunu</h1>
-    <div id="balance" class="balance">Bakiyeniz: 1000₺</div>
-    <div id="matches"></div>
-    <h2>Bahis Yap</h2>
-    <label for="betAmount">Bahis Miktarı (₺):</label>
-    <input type="number" id="betAmount" min="1" max="1000">
-    <br><br>
-    <label for="betTeam">Takım Seçiniz:</label>
-    <select id="betTeam"></select>
-    <br><br>
-    <button onclick="placeBet()">Bahis Yap</button>
 
-    <script>
-        // 2023-2024 sezonu Süper Lig sıralaması (1 en yüksek, 12 en düşük)
-        const teams = [
-            { name: "Galatasaray", rank: 1 },
-            { name: "Fenerbahçe", rank: 2 },
-            { name: "Beşiktaş", rank: 3 },
-            { name: "Trabzonspor", rank: 4 },
-            { name: "Başakşehir", rank: 5 },
-            { name: "Adana Demirspor", rank: 6 },
-            { name: "Konyaspor", rank: 7 },
-            { name: "Antalyaspor", rank: 8 },
-            { name: "Sivasspor", rank: 9 },
-            { name: "Alanyaspor", rank: 10 },
-            { name: "Kayserispor", rank: 11 },
-            { name: "Hatayspor", rank: 12 }
-        ];
+<h1>Two-Player Chess</h1>
+<div id="chessboard"></div>
 
-        let balance = 1000;
-        let selectedTeam = null;
-        let betAmount = 0;
+<script>
+    const initialBoard = [
+        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+    ];
 
-        // Sıralamaya göre kazananı belirler
-        function determineWinner(team1, team2) {
-            return team1.rank < team2.rank ? team1.name : team2.name;
-        }
+    let chessboard = document.getElementById('chessboard');
+    let selectedPiece = null;
+    let selectedPosition = null;
+    let turn = 'white'; // Oyuncu sırası
 
-        // Maçları ve kazananları ekranda gösterir
-        function displayMatches() {
-            const matchesDiv = document.getElementById('matches');
-            matchesDiv.innerHTML = '';
-            for (let i = 0; i < teams.length; i += 2) {
-                let homeTeam = teams[i];
-                let awayTeam = teams[i + 1];
-                let winner = determineWinner(homeTeam, awayTeam);
-                let matchDiv = document.createElement('div');
-                matchDiv.className = 'match';
-                matchDiv.innerHTML = `<strong>${homeTeam.name} vs ${awayTeam.name}</strong> - Kazanan: ${winner}`;
-                matchesDiv.appendChild(matchDiv);
+    function createBoard() {
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                let square = document.createElement('div');
+                square.classList.add('square');
+                square.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
+                square.id = `${row}-${col}`;
+                square.textContent = initialBoard[row][col];
+                square.addEventListener('click', () => selectSquare(row, col));
+                chessboard.appendChild(square);
             }
         }
+    }
 
-        function updateBalance() {
-            const balanceDiv = document.getElementById('balance');
-            balanceDiv.textContent = `Bakiyeniz: ${balance}₺`;
+    function selectSquare(row, col) {
+        let selectedSquare = document.getElementById(`${row}-${col}`);
+
+        if (selectedPiece) {
+            if (isValidMove(selectedPosition, [row, col], selectedPiece)) {
+                movePiece(selectedPosition, [row, col]);
+                turn = (turn === 'white') ? 'black' : 'white';
+            }
+            selectedPiece = null;
+            selectedPosition = null;
+            clearSelection();
+        } else {
+            if ((turn === 'white' && isWhitePiece(initialBoard[row][col])) || 
+                (turn === 'black' && isBlackPiece(initialBoard[row][col]))) {
+                selectedPiece = initialBoard[row][col];
+                selectedPosition = [row, col];
+                selectedSquare.classList.add('selected');
+            }
+        }
+    }
+
+    function isValidMove(from, to, piece) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        const targetPiece = initialBoard[toRow][toCol];
+
+        // Her taşın hareket kuralları
+        if (piece === '♙') return isValidPawnMove(from, to, targetPiece, 'white');
+        if (piece === '♟') return isValidPawnMove(from, to, targetPiece, 'black');
+        if (piece === '♖' || piece === '♜') return isValidRookMove(from, to);
+        if (piece === '♘' || piece === '♞') return isValidKnightMove(from, to);
+        if (piece === '♗' || piece === '♝') return isValidBishopMove(from, to);
+        if (piece === '♕' || piece === '♛') return isValidQueenMove(from, to);
+        if (piece === '♔' || piece === '♚') return isValidKingMove(from, to);
+
+        return false;
+    }
+
+    function isValidPawnMove(from, to, targetPiece, color) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        const direction = color === 'white' ? -1 : 1;
+        const startingRow = color === 'white' ? 6 : 1;
+        const isEnemyPiece = color === 'white' ? isBlackPiece(targetPiece) : isWhitePiece(targetPiece);
+
+        // Normal hareket
+        if (fromCol === toCol && !targetPiece) {
+            if (toRow === fromRow + direction) return true;
+            if (toRow === fromRow + 2 * direction && fromRow === startingRow && !initialBoard[toRow - direction][fromCol]) return true;
         }
 
-        function setupBetOptions() {
-            const betTeamSelect = document.getElementById('betTeam');
-            teams.forEach(team => {
-                let option = document.createElement('option');
-                option.value = team.name;
-                option.text = team.name;
-                betTeamSelect.add(option);
-            });
+        // Diagonal vurma
+        if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + direction && isEnemyPiece) {
+            return true;
         }
 
-        function placeBet() {
-            const betAmountInput = document.getElementById('betAmount');
-            const betTeamSelect = document.getElementById('betTeam');
-            
-            betAmount = parseInt(betAmountInput.value);
-            selectedTeam = betTeamSelect.value;
+        return false;
+    }
 
-            if (betAmount > balance || betAmount <= 0) {
-                alert("Geçersiz bahis miktarı!");
-                return;
-            }
+    function isValidRookMove(from, to) {
+        return isStraightMove(from, to) && isPathClear(from, to);
+    }
 
-            // Seçilen takımın kazanan olup olmadığını belirle
-            let isWinner = false;
-            for (let i = 0; i < teams.length; i += 2) {
-                let homeTeam = teams[i];
-                let awayTeam = teams[i + 1];
-                let winner = determineWinner(homeTeam, awayTeam);
+    function isValidKnightMove(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        const rowDiff = Math.abs(fromRow - toRow);
+        const colDiff = Math.abs(fromCol - toCol);
+        return (rowDiff === 2 && colDiff === 1) || (rowDiff === 1 && colDiff === 2);
+    }
 
-                if (selectedTeam === winner) {
-                    isWinner = true;
-                    break;
-                }
-            }
+    function isValidBishopMove(from, to) {
+        return isDiagonalMove(from, to) && isPathClear(from, to);
+    }
 
-            if (isWinner) {
-                balance += betAmount; // Kazanırsa bahis miktarı kadar para eklenir
-                alert(`Tebrikler! ${selectedTeam} kazandı. ${betAmount}₺ kazandınız!`);
-            } else {
-                balance -= betAmount; // Kaybederse bahis miktarı kadar para çıkar
-                alert(`Üzgünüz, ${selectedTeam} kaybetti. ${betAmount}₺ kaybettiniz.`);
-            }
+    function isValidQueenMove(from, to) {
+        return (isStraightMove(from, to) || isDiagonalMove(from, to)) && isPathClear(from, to);
+    }
 
-            updateBalance();
-            displayMatches();
+    function isValidKingMove(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        const rowDiff = Math.abs(fromRow - toRow);
+        const colDiff = Math.abs(fromCol - toCol);
+        return rowDiff <= 1 && colDiff <= 1;
+    }
+
+    function isStraightMove(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        return fromRow === toRow || fromCol === toCol;
+    }
+
+    function isDiagonalMove(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        return Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol);
+    }
+
+    function isPathClear(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+
+        const rowStep = Math.sign(toRow - fromRow);
+        const colStep = Math.sign(toCol - fromCol);
+
+        let currentRow = fromRow + rowStep;
+        let currentCol = fromCol + colStep;
+
+        while (currentRow !== toRow || currentCol !== toCol) {
+            if (initialBoard[currentRow][currentCol] !== '') return false;
+            currentRow += rowStep;
+            currentCol += colStep;
         }
 
-        window.onload = function() {
-            setupBetOptions();
-            displayMatches();
-            updateBalance();
-        };
-    </script>
-</body>
-</html>
+        return true;
+    }
+
+    function movePiece(from, to) {
+        const [fromRow, fromCol] = from;
+        const [toRow, toCol] = to;
+        initialBoard[toRow][toCol] = initialBoard[fromRow][fromCol];
+        initialBoard[fromRow][fromCol] = '';
+        updateBoard();
+    }
+
+    function isWhitePiece(piece) {
+        return ['♖', '♘', '♗', '♕', '♔', '♙'].includes(piece);
