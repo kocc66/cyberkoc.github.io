@@ -1,132 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake Game</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-      margin: 0;
-      position: relative;
-    }
-    canvas {
-      border: 2px solid #000;
-      background-color: #fafafa;
-      touch-action: none;
-    }
-    .watermark {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      font-size: 16px;
-      color: #888;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit İddia Oyunu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .match {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .balance {
+            font-weight: bold;
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="400" height="400"></canvas>
-  <div class="watermark">Made by Yasin Emir Koç</div>
+    <h1>Basit Süper Lig İddia Oyunu</h1>
+    <div id="balance" class="balance">Bakiyeniz: 1000₺</div>
+    <div id="matches"></div>
+    <h2>Bahis Yap</h2>
+    <label for="betAmount">Bahis Miktarı (₺):</label>
+    <input type="number" id="betAmount" min="1" max="1000">
+    <br><br>
+    <label for="betTeam">Takım Seçiniz:</label>
+    <select id="betTeam"></select>
+    <br><br>
+    <button onclick="placeBet()">Bahis Yap</button>
 
-  <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
+    <script>
+        // 2023-2024 sezonu Süper Lig sıralaması (1 en yüksek, 12 en düşük)
+        const teams = [
+            { name: "Galatasaray", rank: 1 },
+            { name: "Fenerbahçe", rank: 2 },
+            { name: "Beşiktaş", rank: 3 },
+            { name: "Trabzonspor", rank: 4 },
+            { name: "Başakşehir", rank: 5 },
+            { name: "Adana Demirspor", rank: 6 },
+            { name: "Konyaspor", rank: 7 },
+            { name: "Antalyaspor", rank: 8 },
+            { name: "Sivasspor", rank: 9 },
+            { name: "Alanyaspor", rank: 10 },
+            { name: "Kayserispor", rank: 11 },
+            { name: "Hatayspor", rank: 12 }
+        ];
 
-    const box = 20;
-    let snake = [{ x: 9 * box, y: 10 * box }];
-    let direction = 'RIGHT';
-    let food = {
-      x: Math.floor(Math.random() * 19 + 1) * box,
-      y: Math.floor(Math.random() * 19 + 1) * box,
-    };
-    let score = 0;
+        let balance = 1000;
+        let selectedTeam = null;
+        let betAmount = 0;
 
-    let touchStartX = 0;
-    let touchStartY = 0;
+        // Sıralamaya göre kazananı belirler
+        function determineWinner(team1, team2) {
+            return team1.rank < team2.rank ? team1.name : team2.name;
+        }
 
-    canvas.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    });
+        // Maçları ve kazananları ekranda gösterir
+        function displayMatches() {
+            const matchesDiv = document.getElementById('matches');
+            matchesDiv.innerHTML = '';
+            for (let i = 0; i < teams.length; i += 2) {
+                let homeTeam = teams[i];
+                let awayTeam = teams[i + 1];
+                let winner = determineWinner(homeTeam, awayTeam);
+                let matchDiv = document.createElement('div');
+                matchDiv.className = 'match';
+                matchDiv.innerHTML = `<strong>${homeTeam.name} vs ${awayTeam.name}</strong> - Kazanan: ${winner}`;
+                matchesDiv.appendChild(matchDiv);
+            }
+        }
 
-    canvas.addEventListener('touchmove', (e) => {
-      const touchEndX = e.touches[0].clientX;
-      const touchEndY = e.touches[0].clientY;
+        function updateBalance() {
+            const balanceDiv = document.getElementById('balance');
+            balanceDiv.textContent = `Bakiyeniz: ${balance}₺`;
+        }
 
-      const dx = touchEndX - touchStartX;
-      const dy = touchEndY - touchStartY;
+        function setupBetOptions() {
+            const betTeamSelect = document.getElementById('betTeam');
+            teams.forEach(team => {
+                let option = document.createElement('option');
+                option.value = team.name;
+                option.text = team.name;
+                betTeamSelect.add(option);
+            });
+        }
 
-      if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 0 && direction !== 'LEFT') direction = 'RIGHT';
-        else if (dx < 0 && direction !== 'RIGHT') direction = 'LEFT';
-      } else {
-        if (dy > 0 && direction !== 'UP') direction = 'DOWN';
-        else if (dy < 0 && direction !== 'DOWN') direction = 'UP';
-      }
-    });
+        function placeBet() {
+            const betAmountInput = document.getElementById('betAmount');
+            const betTeamSelect = document.getElementById('betTeam');
+            
+            betAmount = parseInt(betAmountInput.value);
+            selectedTeam = betTeamSelect.value;
 
-    function collision(head, array) {
-      for (let i = 0; i < array.length; i++) {
-        if (head.x === array[i].x && head.y === array[i].y) return true;
-      }
-      return false;
-    }
+            if (betAmount > balance || betAmount <= 0) {
+                alert("Geçersiz bahis miktarı!");
+                return;
+            }
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Seçilen takımın kazanan olup olmadığını belirle
+            let isWinner = false;
+            for (let i = 0; i < teams.length; i += 2) {
+                let homeTeam = teams[i];
+                let awayTeam = teams[i + 1];
+                let winner = determineWinner(homeTeam, awayTeam);
 
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? 'green' : 'white';
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-        ctx.strokeStyle = 'black';
-        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-      }
+                if (selectedTeam === winner) {
+                    isWinner = true;
+                    break;
+                }
+            }
 
-      ctx.fillStyle = 'red';
-      ctx.fillRect(food.x, food.y, box, box);
+            if (isWinner) {
+                balance += betAmount; // Kazanırsa bahis miktarı kadar para eklenir
+                alert(`Tebrikler! ${selectedTeam} kazandı. ${betAmount}₺ kazandınız!`);
+            } else {
+                balance -= betAmount; // Kaybederse bahis miktarı kadar para çıkar
+                alert(`Üzgünüz, ${selectedTeam} kaybetti. ${betAmount}₺ kaybettiniz.`);
+            }
 
-      let snakeX = snake[0].x;
-      let snakeY = snake[0].y;
+            updateBalance();
+            displayMatches();
+        }
 
-      if (direction === 'LEFT') snakeX -= box;
-      if (direction === 'UP') snakeY -= box;
-      if (direction === 'RIGHT') snakeX += box;
-      if (direction === 'DOWN') snakeY += box;
-
-      if (snakeX === food.x && snakeY === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * 19 + 1) * box,
-          y: Math.floor(Math.random() * 19 + 1) * box,
+        window.onload = function() {
+            setupBetOptions();
+            displayMatches();
+            updateBalance();
         };
-      } else {
-        snake.pop();
-      }
-
-      const newHead = { x: snakeX, y: snakeY };
-
-      if (
-        snakeX < 0 ||
-        snakeY < 0 ||
-        snakeX >= canvas.width ||
-        snakeY >= canvas.height ||
-        collision(newHead, snake)
-      ) {
-        clearInterval(game);
-      }
-
-      snake.unshift(newHead);
-
-      ctx.fillStyle = 'black';
-      ctx.font = '45px Arial';
-      ctx.fillText(score, 2 * box, 1.6 * box);
-    }
-
-    const game = setInterval(draw, 100);
-  </script>
+    </script>
 </body>
 </html>
