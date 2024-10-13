@@ -1,84 +1,132 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberkoc.co</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: #ffffff;
-        }
-        header {
-            background-color: #ff5722;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .container {
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+      position: relative;
+    }
+    canvas {
+      border: 2px solid #000;
+      background-color: #fafafa;
+      touch-action: none;
+    }
+    .watermark {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      font-size: 16px;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+  <div class="watermark">Made by Yasin Emir Koç</div>
 
-<header>
-    <h1>Cyberkoc.co</h1>
-    <nav>
-        <a href="#about">Hakkında</a>
-        <a href="#member">Üye</a>
-        <a href="#contact">İletişim</a>
-    </nav>
-</header>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-<div class="container">
-    <section id="about">
-        <h2>Hakkında</h2>
-        <p>Cyberkoc, teknoloji ve inovasyon odaklı bir takım olup, dijital dönüşüm süreçlerinde öncü bir rol oynamaktadır. Takımımız, alanında uzman profesyonellerden oluşmakta ve çeşitli projelerde yenilikçi çözümler geliştirmektedir. Amacımız, geleceğin teknolojilerini şekillendirmek ve bu alandaki en son trendleri takip ederek, kullanıcılarımıza en iyi hizmeti sunmaktır.</p>
-        <p>Cyberkoc, sadece bir takım değil, aynı zamanda bir topluluk ve düşünce liderliği platformudur. Yazılım geliştirme, veri analizi ve sistem mühendisliği gibi çeşitli alanlarda çalışarak, farklı disiplinlerdeki yetenekleri bir araya getiriyoruz. Takımımız, problem çözme yeteneklerini ve yaratıcılığını birleştirerek, karmaşık projeleri başarıyla hayata geçirmektedir.</p>
-        <p>Bizler, sadece projelerimizle değil, aynı zamanda işbirlikçi yaklaşımımızla da öne çıkıyoruz. Müşterilerimizle yakın işbirliği içinde çalışarak, onların ihtiyaçlarını anlıyor ve özelleştirilmiş çözümler sunuyoruz. Cyberkoc olarak, teknoloji alanında yenilikleri takip ediyor ve bu yenilikleri projelerimize entegre ederek, her zaman bir adım önde olmayı hedefliyoruz.</p>
-    </section>
+    const box = 20;
+    let snake = [{ x: 9 * box, y: 10 * box }];
+    let direction = 'RIGHT';
+    let food = {
+      x: Math.floor(Math.random() * 19 + 1) * box,
+      y: Math.floor(Math.random() * 19 + 1) * box,
+    };
+    let score = 0;
 
-    <section id="member">
-        <h2>Üye</h2>
-        <h3>Yasin Emir Koç</h3>
-        <p>Yasin Emir Koç, Cyberkoc takımında yaratıcı düşünce ve teknik becerileriyle projelere katkı sağlamaktadır. Yazılım geliştirme alanındaki deneyimi ve yenilikçi bakış açısıyla takımımızın önemli bir parçasıdır. Her projede en iyi sonuçları elde etmek için çalışmaktadır.</p>
-    </section>
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    <section id="contact">
-        <h2>İletişim</h2>
-        <p>Bize ulaşmak için <a href="mailto:info@cyberkoc.com" style="color: #ff5722;">info@cyberkoc.com</a> veya <a href="mailto:yasinemirkoc99@gmail.com" style="color: #ff5722;">yasinemirkoc99@gmail.com</a> adresine e-posta gönderebilirsiniz.</p>
-    </section>
-</div>
+    canvas.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
 
-<footer>
-    <p>Cyberkoc.co</p>
-</footer>
+    canvas.addEventListener('touchmove', (e) => {
+      const touchEndX = e.touches[0].clientX;
+      const touchEndY = e.touches[0].clientY;
 
+      const dx = touchEndX - touchStartX;
+      const dy = touchEndY - touchStartY;
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0 && direction !== 'LEFT') direction = 'RIGHT';
+        else if (dx < 0 && direction !== 'RIGHT') direction = 'LEFT';
+      } else {
+        if (dy > 0 && direction !== 'UP') direction = 'DOWN';
+        else if (dy < 0 && direction !== 'DOWN') direction = 'UP';
+      }
+    });
+
+    function collision(head, array) {
+      for (let i = 0; i < array.length; i++) {
+        if (head.x === array[i].x && head.y === array[i].y) return true;
+      }
+      return false;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = i === 0 ? 'green' : 'white';
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+      }
+
+      ctx.fillStyle = 'red';
+      ctx.fillRect(food.x, food.y, box, box);
+
+      let snakeX = snake[0].x;
+      let snakeY = snake[0].y;
+
+      if (direction === 'LEFT') snakeX -= box;
+      if (direction === 'UP') snakeY -= box;
+      if (direction === 'RIGHT') snakeX += box;
+      if (direction === 'DOWN') snakeY += box;
+
+      if (snakeX === food.x && snakeY === food.y) {
+        score++;
+        food = {
+          x: Math.floor(Math.random() * 19 + 1) * box,
+          y: Math.floor(Math.random() * 19 + 1) * box,
+        };
+      } else {
+        snake.pop();
+      }
+
+      const newHead = { x: snakeX, y: snakeY };
+
+      if (
+        snakeX < 0 ||
+        snakeY < 0 ||
+        snakeX >= canvas.width ||
+        snakeY >= canvas.height ||
+        collision(newHead, snake)
+      ) {
+        clearInterval(game);
+      }
+
+      snake.unshift(newHead);
+
+      ctx.fillStyle = 'black';
+      ctx.font = '45px Arial';
+      ctx.fillText(score, 2 * box, 1.6 * box);
+    }
+
+    const game = setInterval(draw, 100);
+  </script>
 </body>
 </html>
-
-
