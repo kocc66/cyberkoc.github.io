@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberKoc - Yılan Oyunu</title>
+
+    <!-- Google AdSense Kodu -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372851583834918"
+         crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -160,15 +165,26 @@
         <button class="menu-button" onclick="hideEvents()">Geri Dön</button>
     </div>
 
+    <!-- Reklam Alanı -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4372851583834918"
+         data-ad-slot="XXXXXXX"  <!-- Buraya kendi reklam slot ID'nizi ekleyin -->
+         data-ad-format="auto"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     <script>
         let canvas = document.getElementById('gameCanvas');
         let ctx = canvas.getContext('2d');
         let box = 20;
         let snake = [{ x: 9 * box, y: 9 * box }];
-        let direction = 'RIGHT'; // Başlangıç yönü
+        let direction;
         let food;
         let score = 0;
         let playerName = '';
+        let scores = { 100: [], 75: [], 50: [] };
         let money = 0;
         let hasRainbowTail = false;
         let gameInterval;
@@ -202,15 +218,15 @@
         function startGame() {
             score = 0;
             snake = [{ x: 9 * box, y: 9 * box }];
-            direction = 'RIGHT'; // Başlangıç yönü ayarlandı
+            direction = null;
             spawnFood();
             document.getElementById('score').innerText = 'Puan: ' + score;
             document.getElementById('score').style.display = 'block';
             document.getElementById('money').innerText = 'Para: ' + money;
             document.getElementById('money').style.display = 'block';
-            document.getElementById('gameControls').style.display = 'block';
-            canvas.style.display = 'block';
-            game(100); // Varsayılan hız
+            document.getElementById('gameControls').style.display = 'flex';
+            document.getElementById('gameCanvas').style.display = 'block';
+            game(100);
         }
 
         function spawnFood() {
@@ -336,4 +352,5 @@
     </script>
 </body>
 </html>
+
 
