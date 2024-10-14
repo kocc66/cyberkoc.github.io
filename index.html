@@ -3,195 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cyberkoc.co Forum</title>
+    <title>CyberKoc - Yılan Oyunu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            border: 2px solid #fff;
+            background-color: #000;
+            margin-bottom: 20px;
+        }
+        #menu, #market, #dailyTasks, #events {
             margin: 20px;
-            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .forum-container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
+        .menu-button {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 200px;
         }
-        .topic {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
+        .menu-button:hover {
+            background-color: #218838;
         }
-        .topic-title {
-            font-weight: bold;
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
         }
-        .reply {
-            margin-top: 10px;
+        .control-button {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 24px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .control-button:hover {
+            background-color: #555;
+        }
+        input[type="text"] {
             padding: 10px;
-            background: #f9f9f9;
-            border-radius: 3px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
         }
-        .hidden {
-            display: none;
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        #scoreboard, #rules, #market, #dailyTasks, #events {
+            color: #fff;
+            text-align: left;
+            margin: 20px;
+        }
+        #money {
+            font-size: 1.5em;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
-
-<div class="forum-container">
-    <h1>cyberkoc.co Forum</h1>
+    <h1>CyberKoc - Yılan Oyunu</h1>
+    <div id="loginForm">
+        <input type="text" id="playerName" placeholder="Oyuncu Adı" />
+        <button class="menu-button" onclick="login()">Giriş Yap</button>
+    </div>
     
-    <div id="authContainer">
-        <h2>Kayıt Ol</h2>
-        <input type="text" id="username" placeholder="Kullanıcı Adı" />
-        <input type="password" id="password" placeholder="Şifre" />
-        <button onclick="register()">Kayıt Ol</button>
-        
-        <h2>Giriş Yap</h2>
-        <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" />
-        <input type="password" id="loginPassword" placeholder="Şifre" />
-        <button onclick="login()">Giriş Yap</button>
+    <div id="menu" style="display: none;">
+        <label for="speedSelect">Hız:</label>
+        <select id="speedSelect">
+            <option value="100">Normal</option>
+            <option value="75">Hızlı</option>
+            <option value="50">Çok Hızlı</option>
+        </select>
+        <button class="menu-button" onclick="startGame()">Oyunu Başlat</button>
+        <button class="menu-button" onclick="showScores()">Sıralamayı Göster</button>
+        <button class="menu-button" onclick="showMarket()">Market</button>
+        <button class="menu-button" onclick="showRules()">Kurallar</button>
+    </div>
+    
+    <canvas id="gameCanvas" width="400" height="400" style="display: none;"></canvas>
+    <div id="score" style="display: none;">Puan: 0</div>
+    <div id="money" style="display: none;">Para: 0</div>
+    
+    <div class="controls" id="gameControls" style="display: none;">
+        <button class="control-button" onclick="changeDirection('UP')">↑</button>
+        <button class="control-button" onclick="changeDirection('LEFT')">←</button>
+        <button class="control-button" onclick="changeDirection('DOWN')">↓</button>
+        <button class="control-button" onclick="changeDirection('RIGHT')">→</button>
+    </div>
+    
+    <div id="scoreboard" style="display:none;"></div>
+    <div id="rules" style="display:none;">
+        <h2>Kurallar</h2>
+        <p>1. Yılanın hareketi "W", "A", "S", "D" tuşları ile kontrol edilir (klavye için).</p>
+        <p>2. Ekranda bulunan yön butonları ile de kontrol edilebilir (mobil için).</p>
+        <p>3. Yılanın yemi yediğinde puan kazanırsın.</p>
+        <p>4. Yılan kendine çarparsa oyun sona erer.</p>
+        <p>5. Aynı isimle sadece bir kere sıralamada yer alabilirsin.</p>
+        <button class="menu-button" onclick="hideRules()">Geri Dön</button>
     </div>
 
-    <div id="forumContainer" class="hidden">
-        <input type="text" id="topicInput" placeholder="Konu Başlığı" />
-        <button onclick="addTopic()">Konu Aç</button>
-
-        <div id="topics"></div>
+    <div id="market" style="display:none;">
+        <h2>Market</h2>
+        <p>Yılanın Kuyruğu: <strong>100 Para</strong></p>
+        <button class="menu-button" onclick="buyRainbowTail()">Rainbow Kuyruğu Al</button>
+        <button class="menu-button" onclick="hideMarket()">Geri Dön</button>
     </div>
-</div>
 
-<script>
-    const apiUrl = 'http://localhost:5000'; // API URL
+    <div id="dailyTasks" style="display:none;">
+        <h2>Günlük Görevler</h2>
+        <p>1. 5 yem ye.</p>
+        <p>2. 100 puan kazan.</p>
+        <button class="menu-button" onclick="hideDailyTasks()">Geri Dön</button>
+    </div>
 
-    async function register() {
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
+    <div id="events" style="display:none;">
+        <h2>Etkinlikler</h2>
+        <p>Özel etkinlikler için katılabilirsiniz!</p>
+        <button class="menu-button" onclick="participateEvent()">Etkinliğe Katıl</button>
+        <button class="menu-button" onclick="hideEvents()">Geri Dön</button>
+    </div>
 
-        if (username && password) {
-            try {
-                const response = await fetch(`${apiUrl}/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                const message = await response.text();
-                alert(message);
-                if (response.ok) {
-                    document.getElementById('username').value = '';
-                    document.getElementById('password').value = '';
+    <script>
+        let canvas = document.getElementById('gameCanvas');
+        let ctx = canvas.getContext('2d');
+        let box = 20;
+        let snake = [{ x: 9 * box, y: 9 * box }];
+        let direction = 'RIGHT'; // Başlangıç yönü
+        let food;
+        let score = 0;
+        let playerName = '';
+        let money = 0;
+        let hasRainbowTail = false;
+        let gameInterval;
+
+        document.addEventListener('keydown', directionControl);
+
+        function directionControl(event) {
+            if (event.key === 'a' && direction !== 'RIGHT') direction = 'LEFT';
+            else if (event.key === 'w' && direction !== 'DOWN') direction = 'UP';
+            else if (event.key === 'd' && direction !== 'LEFT') direction = 'RIGHT';
+            else if (event.key === 's' && direction !== 'UP') direction = 'DOWN';
+        }
+
+        function changeDirection(dir) {
+            if (dir === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
+            if (dir === 'UP' && direction !== 'DOWN') direction = 'UP';
+            if (dir === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
+            if (dir === 'DOWN' && direction !== 'UP') direction = 'DOWN';
+        }
+
+        function login() {
+            playerName = document.getElementById('playerName').value;
+            if (!playerName) {
+                alert('Lütfen bir oyuncu adı girin.');
+                return;
+            }
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
+        }
+
+        function startGame() {
+            score = 0;
+            snake = [{ x: 9 * box, y: 9 * box }];
+            direction = 'RIGHT'; // Başlangıç yönü ayarlandı
+            spawnFood();
+            document.getElementById('score').innerText = 'Puan: ' + score;
+            document.getElementById('score').style.display = 'block';
+            document.getElementById('money').innerText = 'Para: ' + money;
+            document.getElementById('money').style.display = 'block';
+            document.getElementById('gameControls').style.display = 'block';
+            canvas.style.display = 'block';
+            game(100); // Varsayılan hız
+        }
+
+        function spawnFood() {
+            const foodTypes = [
+                { color: 'red', speed: 100 },  // Normal
+                { color: 'green', speed: 200 }, // Yavaşlatıcı
+                { color: 'blue', speed: 50 }   // Hızlandırıcı
+            ];
+            const randomFood = foodTypes[Math.floor(Math.random() * foodTypes.length)];
+            food = {
+                x: Math.floor(Math.random() * 20) * box,
+                y: Math.floor(Math.random() * 20) * box,
+                color: randomFood.color,
+                speed: randomFood.speed
+            };
+        }
+
+        function game(speed) {
+            if (snake[0].x < 0 || snake[0].y < 0 || snake[0].x >= canvas.width || snake[0].y >= canvas.height || collision(snake[0], snake)) {
+                alert('Oyun Bitti! Puanınız: ' + score);
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? (hasRainbowTail ? 'rainbow' : 'green') : 'white';
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            ctx.fillStyle = food.color;
+            ctx.fillRect(food.x, food.y, box, box);
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (direction === 'LEFT') snakeX -= box;
+            if (direction === 'UP') snakeY -= box;
+            if (direction === 'RIGHT') snakeX += box;
+            if (direction === 'DOWN') snakeY += box;
+
+            if (snakeX === food.x && snakeY === food.y) {
+                score++;
+                money += 10; 
+                spawnFood();
+            } else {
+                snake.pop();
+            }
+
+            let newHead = { x: snakeX, y: snakeY };
+            snake.unshift(newHead);
+
+            document.getElementById('score').innerText = 'Puan: ' + score;
+            document.getElementById('money').innerText = 'Para: ' + money;
+            gameInterval = setTimeout(() => game(speed), speed);
+        }
+
+        function collision(head, array) {
+            for (let i = 1; i < array.length; i++) {
+                if (head.x === array[i].x && head.y === array[i].y) {
+                    return true;
                 }
-            } catch (error) {
-                alert("Hata: " + error.message);
             }
-        } else {
-            alert("Lütfen kullanıcı adı ve şifre girin.");
+            return false;
         }
-    }
 
-    async function login() {
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
+        function showScores() {
+            document.getElementById('scoreboard').style.display = 'block';
+            document.getElementById('rules').style.display = 'none';
+            document.getElementById('market').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
 
-        if (username && password) {
-            try {
-                const response = await fetch(`${apiUrl}/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                const message = await response.text();
-                alert(message);
-                if (response.ok) {
-                    document.getElementById('authContainer').classList.add('hidden');
-                    document.getElementById('forumContainer').classList.remove('hidden');
-                    loadTopics();
-                }
-            } catch (error) {
-                alert("Hata: " + error.message);
+        function showRules() {
+            document.getElementById('rules').style.display = 'block';
+            document.getElementById('scoreboard').style.display = 'none';
+            document.getElementById('market').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showMarket() {
+            document.getElementById('market').style.display = 'block';
+            document.getElementById('scoreboard').style.display = 'none';
+            document.getElementById('rules').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function buyRainbowTail() {
+            if (money >= 100) {
+                money -= 100; 
+                hasRainbowTail = true; 
+                alert('Rainbow kuyruğu aldınız!');
+                document.getElementById('money').innerText = 'Para: ' + money;
+            } else {
+                alert('Yeterli paranız yok!');
             }
-        } else {
-            alert("Lütfen kullanıcı adı ve şifre girin.");
         }
-    }
 
-    async function loadTopics() {
-        const topicsDiv = document.getElementById('topics');
-        topicsDiv.innerHTML = '';
-        const response = await fetch(`${apiUrl}/topics`);
-        const topics = await response.json();
-
-        topics.forEach(topic => {
-            const topicDiv = document.createElement('div');
-            topicDiv.classList.add('topic');
-            topicDiv.innerHTML = `
-                <div class="topic-title">${topic.title} (Yazan: ${topic.author})</div>
-                <input type="text" placeholder="Cevap yaz..." />
-                <button onclick="addReply(this, '${topic.title}')">Cevapla</button>
-                <div class="replies">${topic.replies.map(reply => `<div class="reply">${reply}</div>`).join('')}</div>
-            `;
-            topicsDiv.appendChild(topicDiv);
-        });
-    }
-
-    async function addTopic() {
-        const topicInput = document.getElementById('topicInput');
-        const topicTitle = topicInput.value.trim();
-
-        if (topicTitle) {
-            try {
-                await fetch(`${apiUrl}/topics`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ title: topicTitle, author: currentUser, replies: [] })
-                });
-                loadTopics();
-                topicInput.value = '';
-            } catch (error) {
-                alert("Hata: " + error.message);
-            }
-        } else {
-            alert("Lütfen bir konu başlığı girin.");
+        function hideMarket() {
+            document.getElementById('market').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
         }
-    }
 
-    async function addReply(button, topicTitle) {
-        const topicDiv = button.parentElement;
-        const replyInput = topicDiv.querySelector('input[type="text"]');
-        const replyText = replyInput.value.trim();
-
-        if (replyText) {
-            try {
-                const topics = await fetch(`${apiUrl}/topics`);
-                const topicsList = await topics.json();
-                const topic = topicsList.find(t => t.title === topicTitle);
-                topic.replies.push(`${currentUser}: ${replyText}`);
-
-                await fetch(`${apiUrl}/topics`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(topic)
-                });
-
-                loadTopics();
-                replyInput.value = '';
-            } catch (error) {
-                alert("Hata: " + error.message);
-            }
-        } else {
-            alert("Lütfen bir cevap girin.");
+        function hideRules() {
+            document.getElementById('rules').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
+            window.scrollTo(0, 0);
         }
-    }
-</script>
 
+        function hideDailyTasks() {
+            document.getElementById('dailyTasks').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
+        }
+
+        function hideEvents() {
+            document.getElementById('events').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
+        }
+
+        function participateEvent() {
+            alert('Etkinliğe katıldınız!');
+            hideEvents();
+        }
+    </script>
 </body>
 </html>
 
