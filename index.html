@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basit Forum Uygulaması</title>
+    <title>cyberkoc.co Forum</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,7 +39,7 @@
 <body>
 
 <div class="forum-container">
-    <h1>Forum Uygulaması</h1>
+    <h1>cyberkoc.co Forum</h1>
     
     <div id="authContainer">
         <h2>Kayıt Ol</h2>
@@ -62,18 +62,26 @@
 </div>
 
 <script>
-    let users = [];
+    let users = JSON.parse(localStorage.getItem('users')) || [];
     let currentUser = null;
 
     function register() {
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
 
+        // Kullanıcı adının daha önce alınıp alınmadığını kontrol et
+        const userExists = users.some(u => u.username === username);
+
         if (username && password) {
-            users.push({ username, password });
-            alert("Kayıt başarılı! Giriş yapabilirsiniz.");
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
+            if (userExists) {
+                alert("Bu kullanıcı adı zaten alınmış. Lütfen başka bir kullanıcı adı seçin.");
+            } else {
+                users.push({ username, password });
+                localStorage.setItem('users', JSON.stringify(users));
+                alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            }
         } else {
             alert("Lütfen kullanıcı adı ve şifre girin.");
         }
@@ -89,6 +97,7 @@
             alert(`Hoş geldin, ${currentUser}!`);
             document.getElementById('authContainer').classList.add('hidden');
             document.getElementById('forumContainer').classList.remove('hidden');
+            loadTopics();
         } else {
             alert("Kullanıcı adı veya şifre hatalı.");
         }
@@ -99,20 +108,32 @@
         const topicTitle = topicInput.value.trim();
 
         if (topicTitle) {
-            const topicsDiv = document.getElementById('topics');
-            const topicDiv = document.createElement('div');
-            topicDiv.classList.add('topic');
-            topicDiv.innerHTML = `
-                <div class="topic-title">${topicTitle} (Yazan: ${currentUser})</div>
-                <input type="text" placeholder="Cevap yaz..." />
-                <button onclick="addReply(this)">Cevapla</button>
-                <div class="replies"></div>
-            `;
-            topicsDiv.appendChild(topicDiv);
+            const topics = JSON.parse(localStorage.getItem('topics')) || [];
+            topics.push({ title: topicTitle, author: currentUser, replies: [] });
+            localStorage.setItem('topics', JSON.stringify(topics));
+            loadTopics();
             topicInput.value = '';
         } else {
             alert("Lütfen bir konu başlığı girin.");
         }
+    }
+
+    function loadTopics() {
+        const topicsDiv = document.getElementById('topics');
+        topicsDiv.innerHTML = '';
+        const topics = JSON.parse(localStorage.getItem('topics')) || [];
+
+        topics.forEach(topic => {
+            const topicDiv = document.createElement('div');
+            topicDiv.classList.add('topic');
+            topicDiv.innerHTML = `
+                <div class="topic-title">${topic.title} (Yazan: ${topic.author})</div>
+                <input type="text" placeholder="Cevap yaz..." />
+                <button onclick="addReply(this)">Cevapla</button>
+                <div class="replies">${topic.replies.map(reply => `<div class="reply">${reply}</div>`).join('')}</div>
+            `;
+            topicsDiv.appendChild(topicDiv);
+        });
     }
 
     function addReply(button) {
@@ -121,11 +142,12 @@
         const replyText = replyInput.value.trim();
 
         if (replyText) {
-            const repliesDiv = topicDiv.querySelector('.replies');
-            const replyDiv = document.createElement('div');
-            replyDiv.classList.add('reply');
-            replyDiv.textContent = `${currentUser}: ${replyText}`;
-            repliesDiv.appendChild(replyDiv);
+            const topicTitle = topicDiv.querySelector('.topic-title').textContent.split(' (Yazan:')[0];
+            const topics = JSON.parse(localStorage.getItem('topics')) || [];
+            const topic = topics.find(t => t.title === topicTitle);
+            topic.replies.push(`${currentUser}: ${replyText}`);
+            localStorage.setItem('topics', JSON.stringify(topics));
+            loadTopics();
             replyInput.value = '';
         } else {
             alert("Lütfen bir cevap girin.");
@@ -135,3 +157,4 @@
 
 </body>
 </html>
+
