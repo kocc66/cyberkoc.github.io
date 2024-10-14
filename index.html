@@ -1,132 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake Game</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-      margin: 0;
-      position: relative;
-    }
-    canvas {
-      border: 2px solid #000;
-      background-color: #fafafa;
-      touch-action: none;
-    }
-    .watermark {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      font-size: 16px;
-      color: #888;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit Forum Uygulaması</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .forum-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .topic {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .topic-title {
+            font-weight: bold;
+        }
+        .reply {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="400" height="400"></canvas>
-  <div class="watermark">Made by Yasin Emir Koç</div>
 
-  <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
+<div class="forum-container">
+    <h1>Forum Uygulaması</h1>
+    
+    <div id="authContainer">
+        <h2>Kayıt Ol</h2>
+        <input type="text" id="username" placeholder="Kullanıcı Adı" />
+        <input type="password" id="password" placeholder="Şifre" />
+        <button onclick="register()">Kayıt Ol</button>
+        
+        <h2>Giriş Yap</h2>
+        <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" />
+        <input type="password" id="loginPassword" placeholder="Şifre" />
+        <button onclick="login()">Giriş Yap</button>
+    </div>
 
-    const box = 20;
-    let snake = [{ x: 9 * box, y: 10 * box }];
-    let direction = 'RIGHT';
-    let food = {
-      x: Math.floor(Math.random() * 19 + 1) * box,
-      y: Math.floor(Math.random() * 19 + 1) * box,
-    };
-    let score = 0;
+    <div id="forumContainer" class="hidden">
+        <input type="text" id="topicInput" placeholder="Konu Başlığı" />
+        <button onclick="addTopic()">Konu Aç</button>
 
-    let touchStartX = 0;
-    let touchStartY = 0;
+        <div id="topics"></div>
+    </div>
+</div>
 
-    canvas.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    });
+<script>
+    let users = [];
+    let currentUser = null;
 
-    canvas.addEventListener('touchmove', (e) => {
-      const touchEndX = e.touches[0].clientX;
-      const touchEndY = e.touches[0].clientY;
+    function register() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
 
-      const dx = touchEndX - touchStartX;
-      const dy = touchEndY - touchStartY;
-
-      if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 0 && direction !== 'LEFT') direction = 'RIGHT';
-        else if (dx < 0 && direction !== 'RIGHT') direction = 'LEFT';
-      } else {
-        if (dy > 0 && direction !== 'UP') direction = 'DOWN';
-        else if (dy < 0 && direction !== 'DOWN') direction = 'UP';
-      }
-    });
-
-    function collision(head, array) {
-      for (let i = 0; i < array.length; i++) {
-        if (head.x === array[i].x && head.y === array[i].y) return true;
-      }
-      return false;
+        if (username && password) {
+            users.push({ username, password });
+            alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        } else {
+            alert("Lütfen kullanıcı adı ve şifre girin.");
+        }
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function login() {
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
 
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? 'green' : 'white';
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-        ctx.strokeStyle = 'black';
-        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-      }
-
-      ctx.fillStyle = 'red';
-      ctx.fillRect(food.x, food.y, box, box);
-
-      let snakeX = snake[0].x;
-      let snakeY = snake[0].y;
-
-      if (direction === 'LEFT') snakeX -= box;
-      if (direction === 'UP') snakeY -= box;
-      if (direction === 'RIGHT') snakeX += box;
-      if (direction === 'DOWN') snakeY += box;
-
-      if (snakeX === food.x && snakeY === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * 19 + 1) * box,
-          y: Math.floor(Math.random() * 19 + 1) * box,
-        };
-      } else {
-        snake.pop();
-      }
-
-      const newHead = { x: snakeX, y: snakeY };
-
-      if (
-        snakeX < 0 ||
-        snakeY < 0 ||
-        snakeX >= canvas.width ||
-        snakeY >= canvas.height ||
-        collision(newHead, snake)
-      ) {
-        clearInterval(game);
-      }
-
-      snake.unshift(newHead);
-
-      ctx.fillStyle = 'black';
-      ctx.font = '45px Arial';
-      ctx.fillText(score, 2 * box, 1.6 * box);
+        const user = users.find(u => u.username === username && u.password === password);
+        if (user) {
+            currentUser = user.username;
+            alert(`Hoş geldin, ${currentUser}!`);
+            document.getElementById('authContainer').classList.add('hidden');
+            document.getElementById('forumContainer').classList.remove('hidden');
+        } else {
+            alert("Kullanıcı adı veya şifre hatalı.");
+        }
     }
 
-    const game = setInterval(draw, 100);
-  </script>
+    function addTopic() {
+        const topicInput = document.getElementById('topicInput');
+        const topicTitle = topicInput.value.trim();
+
+        if (topicTitle) {
+            const topicsDiv = document.getElementById('topics');
+            const topicDiv = document.createElement('div');
+            topicDiv.classList.add('topic');
+            topicDiv.innerHTML = `
+                <div class="topic-title">${topicTitle} (Yazan: ${currentUser})</div>
+                <input type="text" placeholder="Cevap yaz..." />
+                <button onclick="addReply(this)">Cevapla</button>
+                <div class="replies"></div>
+            `;
+            topicsDiv.appendChild(topicDiv);
+            topicInput.value = '';
+        } else {
+            alert("Lütfen bir konu başlığı girin.");
+        }
+    }
+
+    function addReply(button) {
+        const topicDiv = button.parentElement;
+        const replyInput = topicDiv.querySelector('input[type="text"]');
+        const replyText = replyInput.value.trim();
+
+        if (replyText) {
+            const repliesDiv = topicDiv.querySelector('.replies');
+            const replyDiv = document.createElement('div');
+            replyDiv.classList.add('reply');
+            replyDiv.textContent = `${currentUser}: ${replyText}`;
+            repliesDiv.appendChild(replyDiv);
+            replyInput.value = '';
+        } else {
+            alert("Lütfen bir cevap girin.");
+        }
+    }
+</script>
+
 </body>
 </html>
