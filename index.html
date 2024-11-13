@@ -1,356 +1,121 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberKoc - Yılan Oyunu</title>
-
-    <!-- Google AdSense Kodu -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4372851583834918"
-         crossorigin="anonymous"></script>
-
+    <title>Advanced Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #111;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
         }
-        canvas {
-            border: 2px solid #fff;
-            background-color: #000;
-            margin-bottom: 20px;
+        .calculator {
+            width: 320px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            color: white;
         }
-        #menu, #market, #dailyTasks, #events {
-            margin: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .display {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            text-align: right;
+            background-color: #222;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
-        .menu-button {
-            padding: 15px 25px;
-            margin: 10px;
-            font-size: 20px;
-            background-color: #28a745;
-            color: #fff;
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            padding: 15px;
+            font-size: 18px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            width: 200px;
-        }
-        .menu-button:hover {
-            background-color: #218838;
-        }
-        .controls {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        .control-button {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            font-size: 24px;
-            background-color: #444;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .control-button:hover {
+            color: white;
             background-color: #555;
         }
-        input[type="text"] {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 200px;
+        .button.operator {
+            background-color: #ff8c00;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .button.equal {
+            background-color: #4caf50;
+            grid-column: span 2;
         }
-        button:hover {
-            background-color: #218838;
+        .button.clear {
+            background-color: #e53935;
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        #scoreboard, #rules, #market, #dailyTasks, #events {
-            color: #fff;
-            text-align: left;
-            margin: 20px;
-        }
-        #money {
-            font-size: 1.5em;
-            margin: 10px;
+        .button:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <h1>CyberKoc - Yılan Oyunu</h1>
-    <div id="loginForm">
-        <input type="text" id="playerName" placeholder="Oyuncu Adı" />
-        <button class="menu-button" onclick="login()">Giriş Yap</button>
+    <div class="calculator">
+        <input type="text" id="display" class="display" readonly>
+        <div class="buttons">
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+            
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button operator" onclick="appendToDisplay('*')">×</button>
+            
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button operator" onclick="appendToDisplay('-')">−</button>
+            
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendToDisplay('+')">+</button>
+            
+            <button class="button" onclick="appendToDisplay('Math.sqrt(')">√</button>
+            <button class="button" onclick="appendToDisplay('**')">^</button>
+            <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
+            <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
+            
+            <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
+            <button class="button" onclick="appendToDisplay('Math.log(')">log</button>
+            <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
+            <button class="button equal" onclick="calculateResult()">=</button>
+        </div>
     </div>
-    
-    <div id="menu" style="display: none;">
-        <label for="speedSelect">Hız:</label>
-        <select id="speedSelect">
-            <option value="100">Normal</option>
-            <option value="75">Hızlı</option>
-            <option value="50">Çok Hızlı</option>
-        </select>
-        <button class="menu-button" onclick="startGame()">Oyunu Başlat</button>
-        <button class="menu-button" onclick="showScores()">Sıralamayı Göster</button>
-        <button class="menu-button" onclick="showMarket()">Market</button>
-        <button class="menu-button" onclick="showRules()">Kurallar</button>
-    </div>
-    
-    <canvas id="gameCanvas" width="400" height="400" style="display: none;"></canvas>
-    <div id="score" style="display: none;">Puan: 0</div>
-    <div id="money" style="display: none;">Para: 0</div>
-    
-    <div class="controls" id="gameControls" style="display: none;">
-        <button class="control-button" onclick="changeDirection('UP')">↑</button>
-        <button class="control-button" onclick="changeDirection('LEFT')">←</button>
-        <button class="control-button" onclick="changeDirection('DOWN')">↓</button>
-        <button class="control-button" onclick="changeDirection('RIGHT')">→</button>
-    </div>
-    
-    <div id="scoreboard" style="display:none;"></div>
-    <div id="rules" style="display:none;">
-        <h2>Kurallar</h2>
-        <p>1. Yılanın hareketi "W", "A", "S", "D" tuşları ile kontrol edilir (klavye için).</p>
-        <p>2. Ekranda bulunan yön butonları ile de kontrol edilebilir (mobil için).</p>
-        <p>3. Yılanın yemi yediğinde puan kazanırsın.</p>
-        <p>4. Yılan kendine çarparsa oyun sona erer.</p>
-        <p>5. Aynı isimle sadece bir kere sıralamada yer alabilirsin.</p>
-        <button class="menu-button" onclick="hideRules()">Geri Dön</button>
-    </div>
-
-    <div id="market" style="display:none;">
-        <h2>Market</h2>
-        <p>Yılanın Kuyruğu: <strong>100 Para</strong></p>
-        <button class="menu-button" onclick="buyRainbowTail()">Rainbow Kuyruğu Al</button>
-        <button class="menu-button" onclick="hideMarket()">Geri Dön</button>
-    </div>
-
-    <div id="dailyTasks" style="display:none;">
-        <h2>Günlük Görevler</h2>
-        <p>1. 5 yem ye.</p>
-        <p>2. 100 puan kazan.</p>
-        <button class="menu-button" onclick="hideDailyTasks()">Geri Dön</button>
-    </div>
-
-    <div id="events" style="display:none;">
-        <h2>Etkinlikler</h2>
-        <p>Özel etkinlikler için katılabilirsiniz!</p>
-        <button class="menu-button" onclick="participateEvent()">Etkinliğe Katıl</button>
-        <button class="menu-button" onclick="hideEvents()">Geri Dön</button>
-    </div>
-
-    <!-- Reklam Alanı -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-4372851583834918"
-         data-ad-slot="XXXXXXX"  <!-- Buraya kendi reklam slot ID'nizi ekleyin -->
-         data-ad-format="auto"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
 
     <script>
-        let canvas = document.getElementById('gameCanvas');
-        let ctx = canvas.getContext('2d');
-        let box = 20;
-        let snake = [{ x: 9 * box, y: 9 * box }];
-        let direction;
-        let food;
-        let score = 0;
-        let playerName = '';
-        let scores = { 100: [], 75: [], 50: [] };
-        let money = 0;
-        let hasRainbowTail = false;
-        let gameInterval;
-
-        document.addEventListener('keydown', directionControl);
-
-        function directionControl(event) {
-            if (event.key === 'a' && direction !== 'RIGHT') direction = 'LEFT';
-            else if (event.key === 'w' && direction !== 'DOWN') direction = 'UP';
-            else if (event.key === 'd' && direction !== 'LEFT') direction = 'RIGHT';
-            else if (event.key === 's' && direction !== 'UP') direction = 'DOWN';
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            display.value += value;
         }
 
-        function changeDirection(dir) {
-            if (dir === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
-            if (dir === 'UP' && direction !== 'DOWN') direction = 'UP';
-            if (dir === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
-            if (dir === 'DOWN' && direction !== 'UP') direction = 'DOWN';
+        function clearDisplay() {
+            document.getElementById('display').value = '';
         }
 
-        function login() {
-            playerName = document.getElementById('playerName').value;
-            if (!playerName) {
-                alert('Lütfen bir oyuncu adı girin.');
-                return;
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'Error';
             }
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('menu').style.display = 'block';
-        }
-
-        function startGame() {
-            score = 0;
-            snake = [{ x: 9 * box, y: 9 * box }];
-            direction = null;
-            spawnFood();
-            document.getElementById('score').innerText = 'Puan: ' + score;
-            document.getElementById('score').style.display = 'block';
-            document.getElementById('money').innerText = 'Para: ' + money;
-            document.getElementById('money').style.display = 'block';
-            document.getElementById('gameControls').style.display = 'flex';
-            document.getElementById('gameCanvas').style.display = 'block';
-            game(100);
-        }
-
-        function spawnFood() {
-            const foodTypes = [
-                { color: 'red', speed: 100 },  // Normal
-                { color: 'green', speed: 200 }, // Yavaşlatıcı
-                { color: 'blue', speed: 50 }   // Hızlandırıcı
-            ];
-            const randomFood = foodTypes[Math.floor(Math.random() * foodTypes.length)];
-            food = {
-                x: Math.floor(Math.random() * 20) * box,
-                y: Math.floor(Math.random() * 20) * box,
-                color: randomFood.color,
-                speed: randomFood.speed
-            };
-        }
-
-        function game(speed) {
-            if (snake[0].x < 0 || snake[0].y < 0 || snake[0].x >= canvas.width || snake[0].y >= canvas.height || collision(snake[0], snake)) {
-                alert('Oyun Bitti! Puanınız: ' + score);
-                return;
-            }
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? (hasRainbowTail ? 'rainbow' : 'green') : 'white';
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-            }
-
-            ctx.fillStyle = food.color;
-            ctx.fillRect(food.x, food.y, box, box);
-
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
-
-            if (direction === 'LEFT') snakeX -= box;
-            if (direction === 'UP') snakeY -= box;
-            if (direction === 'RIGHT') snakeX += box;
-            if (direction === 'DOWN') snakeY += box;
-
-            if (snakeX === food.x && snakeY === food.y) {
-                score++;
-                money += 10; 
-                spawnFood();
-            } else {
-                snake.pop();
-            }
-
-            let newHead = { x: snakeX, y: snakeY };
-            snake.unshift(newHead);
-
-            document.getElementById('score').innerText = 'Puan: ' + score;
-            document.getElementById('money').innerText = 'Para: ' + money;
-            gameInterval = setTimeout(() => game(speed), speed);
-        }
-
-        function collision(head, array) {
-            for (let i = 1; i < array.length; i++) {
-                if (head.x === array[i].x && head.y === array[i].y) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function showScores() {
-            document.getElementById('scoreboard').style.display = 'block';
-            document.getElementById('rules').style.display = 'none';
-            document.getElementById('market').style.display = 'none';
-            window.scrollTo(0, 0);
-        }
-
-        function showRules() {
-            document.getElementById('rules').style.display = 'block';
-            document.getElementById('scoreboard').style.display = 'none';
-            document.getElementById('market').style.display = 'none';
-            window.scrollTo(0, 0);
-        }
-
-        function showMarket() {
-            document.getElementById('market').style.display = 'block';
-            document.getElementById('scoreboard').style.display = 'none';
-            document.getElementById('rules').style.display = 'none';
-            window.scrollTo(0, 0);
-        }
-
-        function buyRainbowTail() {
-            if (money >= 100) {
-                money -= 100; 
-                hasRainbowTail = true; 
-                alert('Rainbow kuyruğu aldınız!');
-                document.getElementById('money').innerText = 'Para: ' + money;
-            } else {
-                alert('Yeterli paranız yok!');
-            }
-        }
-
-        function hideMarket() {
-            document.getElementById('market').style.display = 'none';
-            document.getElementById('menu').style.display = 'block';
-        }
-
-        function hideRules() {
-            document.getElementById('rules').style.display = 'none';
-            document.getElementById('menu').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function hideDailyTasks() {
-            document.getElementById('dailyTasks').style.display = 'none';
-            document.getElementById('menu').style.display = 'block';
-        }
-
-        function hideEvents() {
-            document.getElementById('events').style.display = 'none';
-            document.getElementById('menu').style.display = 'block';
-        }
-
-        function participateEvent() {
-            alert('Etkinliğe katıldınız!');
-            hideEvents();
         }
     </script>
 </body>
 </html>
-
-
