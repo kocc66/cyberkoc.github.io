@@ -13,6 +13,7 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
+            position: relative;
         }
         .calculator {
             width: 320px;
@@ -60,6 +61,21 @@
         .button:hover {
             opacity: 0.9;
         }
+        /* Sağ alt köşedeki yazı stili */
+        .floating-text {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            animation: fade 2s infinite alternate;
+        }
+        /* Yanıp sönme animasyonu */
+        @keyframes fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -96,6 +112,11 @@
             <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
             <button class="button equal" onclick="calculateResult()">=</button>
         </div>
+    </div>
+
+    <!-- Sağ alt köşede animasyonlu yazı -->
+    <div class="floating-text">
+        Ben Yasin Emir Koç ve babam Besim Koç'u çok seviyorum
     </div>
 
     <script>
