@@ -3,140 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
+    <title>Haxball Tarzı Top Oyunu</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            position: relative;
-        }
-        .calculator {
-            width: 320px;
-            padding: 20px;
-            background-color: #333;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            color: white;
-        }
-        .display {
-            width: 100%;
-            padding: 10px;
-            font-size: 24px;
-            text-align: right;
-            background-color: #222;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        .button {
-            padding: 15px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            background-color: #555;
-        }
-        .button.operator {
-            background-color: #ff8c00;
-        }
-        .button.equal {
-            background-color: #4caf50;
-            grid-column: span 2;
-        }
-        .button.clear {
-            background-color: #e53935;
-        }
-        .button:hover {
-            opacity: 0.9;
-        }
-        /* Sağ alt köşedeki yazı stili */
-        .floating-text {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 16px;
-            color: #333;
-            font-weight: bold;
-            animation: fade 2s infinite alternate;
-        }
-        /* Yanıp sönme animasyonu */
-        @keyframes fade {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        canvas {
+            background-color: #28a745;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" class="display" readonly>
-        <div class="buttons">
-            <button class="button" onclick="appendToDisplay('7')">7</button>
-            <button class="button" onclick="appendToDisplay('8')">8</button>
-            <button class="button" onclick="appendToDisplay('9')">9</button>
-            <button class="button operator" onclick="appendToDisplay('/')">÷</button>
-            
-            <button class="button" onclick="appendToDisplay('4')">4</button>
-            <button class="button" onclick="appendToDisplay('5')">5</button>
-            <button class="button" onclick="appendToDisplay('6')">6</button>
-            <button class="button operator" onclick="appendToDisplay('*')">×</button>
-            
-            <button class="button" onclick="appendToDisplay('1')">1</button>
-            <button class="button" onclick="appendToDisplay('2')">2</button>
-            <button class="button" onclick="appendToDisplay('3')">3</button>
-            <button class="button operator" onclick="appendToDisplay('-')">−</button>
-            
-            <button class="button" onclick="appendToDisplay('0')">0</button>
-            <button class="button" onclick="appendToDisplay('.')">.</button>
-            <button class="button clear" onclick="clearDisplay()">C</button>
-            <button class="button operator" onclick="appendToDisplay('+')">+</button>
-            
-            <button class="button" onclick="appendToDisplay('Math.sqrt(')">√</button>
-            <button class="button" onclick="appendToDisplay('**')">^</button>
-            <button class="button" onclick="appendToDisplay('Math.sin(')">sin</button>
-            <button class="button" onclick="appendToDisplay('Math.cos(')">cos</button>
-            
-            <button class="button" onclick="appendToDisplay('Math.tan(')">tan</button>
-            <button class="button" onclick="appendToDisplay('Math.log(')">log</button>
-            <button class="button" onclick="appendToDisplay('Math.PI')">π</button>
-            <button class="button equal" onclick="calculateResult()">=</button>
-        </div>
-    </div>
 
-    <!-- Sağ alt köşede animasyonlu yazı -->
-    <div class="floating-text">
-        Ben Yasin Emir Koç ve babam Besim Koç'u çok seviyorum
-    </div>
+<canvas id="gameCanvas" width="800" height="400"></canvas>
 
-    <script>
-        function appendToDisplay(value) {
-            const display = document.getElementById('display');
-            display.value += value;
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const playerWidth = 20, playerHeight = 80;
+    const ballSize = 15;
+    
+    // Oyuncular
+    const player1 = { x: 20, y: canvas.height / 2 - playerHeight / 2, dy: 0 };
+    const player2 = { x: canvas.width - 40, y: canvas.height / 2 - playerHeight / 2, dy: 0 };
+    
+    // Top
+    const ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+    
+    // Klavye kontrolü
+    const keys = {};
+    document.addEventListener('keydown', (e) => keys[e.key] = true);
+    document.addEventListener('keyup', (e) => keys[e.key] = false);
+
+    function drawPlayer(player) {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(player.x, player.y, playerWidth, playerHeight);
+    }
+
+    function drawBall() {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function updatePlayer(player, upKey, downKey) {
+        if (keys[upKey]) player.dy = -5;
+        else if (keys[downKey]) player.dy = 5;
+        else player.dy = 0;
+
+        player.y += player.dy;
+
+        // Duvar sınırları
+        if (player.y < 0) player.y = 0;
+        if (player.y + playerHeight > canvas.height) player.y = canvas.height - playerHeight;
+    }
+
+    function updateBall() {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        // Üst ve alt sınır çarpışması
+        if (ball.y - ballSize < 0 || ball.y + ballSize > canvas.height) {
+            ball.dy *= -1;
         }
 
-        function clearDisplay() {
-            document.getElementById('display').value = '';
+        // Oyuncu çarpışmaları
+        if (
+            ball.x - ballSize < player1.x + playerWidth &&
+            ball.y > player1.y &&
+            ball.y < player1.y + playerHeight
+        ) {
+            ball.dx *= -1;
+            ball.x = player1.x + playerWidth + ballSize; // Çarpışma sonrası pozisyon ayarı
         }
 
-        function calculateResult() {
-            const display = document.getElementById('display');
-            try {
-                display.value = eval(display.value);
-            } catch (error) {
-                display.value = 'Error';
-            }
+        if (
+            ball.x + ballSize > player2.x &&
+            ball.y > player2.y &&
+            ball.y < player2.y + playerHeight
+        ) {
+            ball.dx *= -1;
+            ball.x = player2.x - ballSize; // Çarpışma sonrası pozisyon ayarı
         }
-    </script>
+
+        // Saha sınırlarını aşarsa topu merkeze geri döndür
+        if (ball.x < 0 || ball.x > canvas.width) {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx *= -1; // Yön değiştir
+        }
+    }
+
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        drawPlayer(player1);
+        drawPlayer(player2);
+        drawBall();
+
+        updatePlayer(player1, 'w', 's');
+        updatePlayer(player2, 'ArrowUp', 'ArrowDown');
+        updateBall();
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+</script>
+
 </body>
 </html>
