@@ -1,117 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haxball Tarzı Top Oyunu</title>
-    <style>
-        canvas {
-            background-color: #28a745;
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <title>Cyberkoc - Siber Güvenlik Derneği</title>
 </head>
-<body>
-
-<canvas id="gameCanvas" width="800" height="400"></canvas>
-
-<script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-
-    const playerWidth = 20, playerHeight = 80;
-    const ballSize = 15;
-    
-    // Oyuncular
-    const player1 = { x: 20, y: canvas.height / 2 - playerHeight / 2, dy: 0 };
-    const player2 = { x: canvas.width - 40, y: canvas.height / 2 - playerHeight / 2, dy: 0 };
-    
-    // Top
-    const ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
-    
-    // Klavye kontrolü
-    const keys = {};
-    document.addEventListener('keydown', (e) => keys[e.key] = true);
-    document.addEventListener('keyup', (e) => keys[e.key] = false);
-
-    function drawPlayer(player) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(player.x, player.y, playerWidth, playerHeight);
-    }
-
-    function drawBall() {
-        ctx.beginPath();
-        ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
-        ctx.fillStyle = 'yellow';
-        ctx.fill();
-        ctx.closePath();
-    }
-
-    function updatePlayer(player, upKey, downKey) {
-        if (keys[upKey]) player.dy = -5;
-        else if (keys[downKey]) player.dy = 5;
-        else player.dy = 0;
-
-        player.y += player.dy;
-
-        // Duvar sınırları
-        if (player.y < 0) player.y = 0;
-        if (player.y + playerHeight > canvas.height) player.y = canvas.height - playerHeight;
-    }
-
-    function updateBall() {
-        ball.x += ball.dx;
-        ball.y += ball.dy;
-
-        // Üst ve alt sınır çarpışması
-        if (ball.y - ballSize < 0 || ball.y + ballSize > canvas.height) {
-            ball.dy *= -1;
-        }
-
-        // Oyuncu çarpışmaları
-        if (
-            ball.x - ballSize < player1.x + playerWidth &&
-            ball.y > player1.y &&
-            ball.y < player1.y + playerHeight
-        ) {
-            ball.dx *= -1;
-            ball.x = player1.x + playerWidth + ballSize; // Çarpışma sonrası pozisyon ayarı
-        }
-
-        if (
-            ball.x + ballSize > player2.x &&
-            ball.y > player2.y &&
-            ball.y < player2.y + playerHeight
-        ) {
-            ball.dx *= -1;
-            ball.x = player2.x - ballSize; // Çarpışma sonrası pozisyon ayarı
-        }
-
-        // Saha sınırlarını aşarsa topu merkeze geri döndür
-        if (ball.x < 0 || ball.x > canvas.width) {
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height / 2;
-            ball.dx *= -1; // Yön değiştir
-        }
-    }
-
-    function gameLoop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        drawPlayer(player1);
-        drawPlayer(player2);
-        drawBall();
-
-        updatePlayer(player1, 'w', 's');
-        updatePlayer(player2, 'ArrowUp', 'ArrowDown');
-        updateBall();
-
-        requestAnimationFrame(gameLoop);
-    }
-
-    gameLoop();
-</script>
-
+<body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0;">
+    <header style="text-align: center; background-color: #333; color: white; padding: 20px 0;">
+        <h1>Cyberkoc</h1>
+        <p>Birlikte Daha Güvenli Bir Dijital Dünya</p>
+    </header>
+    <main style="padding: 20px;">
+        <section style="margin-bottom: 20px;">
+            <h2>Biz Kimiz?</h2>
+            <p>Cyberkoc, siber güvenlik konusunda farkındalık yaratmak ve dijital dünyada daha güvenli bir ortam oluşturmak için kurulmuş bir dernektir. Amacımız, herkesin siber tehditlere karşı bilinçli bir şekilde hareket edebilmesine yardımcı olmak.</p>
+        </section>
+        <section style="margin-bottom: 20px;">
+            <h2>Ne Yapıyoruz?</h2>
+            <p>Siber güvenlik hakkında bilgilendirici içerikler hazırlıyor, toplumun her kesimini kapsayan etkinliklerle güvenlik bilincini artırıyoruz. Cyberkoc olarak, karmaşık teknik konuları herkes için anlaşılır hale getiriyoruz.</p>
+        </section>
+        <section style="margin-bottom: 20px;">
+            <h2>Neden Biz?</h2>
+            <p>Cyberkoc, teknoloji dünyasında olumlu bir fark yaratmayı hedefleyen bir grup insanın ortak çabasıdır. Burada ticari bir kaygı yok; yalnızca daha iyi bir dijital dünya için çalışıyoruz.</p>
+        </section>
+    </main>
+    <footer style="text-align: center; background-color: #f4f4f4; padding: 10px 0; margin-top: 20px;">
+        <p>Cyberkoc © 2024 | Güvenlik için buradayız.</p>
+    </footer>
 </body>
 </html>
+
