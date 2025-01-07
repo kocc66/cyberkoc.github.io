@@ -1,32 +1,104 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberkoc - Siber Güvenlik Derneği</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eren Berk Roklu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    #game-container, #start-screen {
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    #start-screen {
+      display: none;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #444;
+    }
+    p {
+      font-size: 1rem;
+      margin: 15px 0;
+    }
+    .button {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0;">
-    <header style="text-align: center; background-color: #333; color: white; padding: 20px 0;">
-        <h1>Cyberkoc</h1>
-        <p>Birlikte Daha Güvenli Bir Dijital Dünya</p>
-    </header>
-    <main style="padding: 20px;">
-        <section style="margin-bottom: 20px;">
-            <h2>Biz Kimiz?</h2>
-            <p>Cyberkoc, siber güvenlik konusunda farkındalık yaratmak ve dijital dünyada daha güvenli bir ortam oluşturmak için kurulmuş bir dernektir. Amacımız, herkesin siber tehditlere karşı bilinçli bir şekilde hareket edebilmesine yardımcı olmak.</p>
-        </section>
-        <section style="margin-bottom: 20px;">
-            <h2>Ne Yapıyoruz?</h2>
-            <p>Siber güvenlik hakkında bilgilendirici içerikler hazırlıyor, toplumun her kesimini kapsayan etkinliklerle güvenlik bilincini artırıyoruz. Cyberkoc olarak, karmaşık teknik konuları herkes için anlaşılır hale getiriyoruz.</p>
-        </section>
-        <section style="margin-bottom: 20px;">
-            <h2>Neden Biz?</h2>
-            <p>Cyberkoc, teknoloji dünyasında olumlu bir fark yaratmayı hedefleyen bir grup insanın ortak çabasıdır. Burada ticari bir kaygı yok; yalnızca daha iyi bir dijital dünya için çalışıyoruz.</p>
-        </section>
-    </main>
-    <footer style="text-align: center; background-color: #f4f4f4; padding: 10px 0; margin-top: 20px;">
-        <p>Cyberkoc © 2024 | Güvenlik için buradayız.</p>
-    </footer>
+<body>
+  <!-- Giriş Ekranı -->
+  <div id="start-screen">
+    <h1>Eren Berk Roklu</h1>
+    <p>Orta Çağ dünyasına hoş geldiniz! Bu macerada seçimleriniz hayatta kalma şansınızı belirleyecek.</p>
+    <button class="button" onclick="startGame()">Başla</button>
+  </div>
+
+  <!-- Oyun Ekranı -->
+  <div id="game-container" style="display: none;">
+    <h1>Eren Berk Roklu</h1>
+    <div id="story">Merhaba, Orta Çağ'dasınız! Hayatta kalabilecek misiniz?</div>
+    <div id="choices">
+      <button class="button" onclick="makeChoice(1)">Köyde çiftçilik yapmayı seç.</button>
+      <button class="button" onclick="makeChoice(2)">Şövalye olmaya karar ver.</button>
+    </div>
+  </div>
+
+  <script>
+    // Oyunu başlatan fonksiyon
+    function startGame() {
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("game-container").style.display = "block";
+    }
+
+    // Hikaye seçimlerini kontrol eden fonksiyon
+    function makeChoice(choice) {
+      const storyElement = document.getElementById("story");
+      const choicesElement = document.getElementById("choices");
+
+      if (choice === 1) {
+        storyElement.textContent = "Köyde çiftçi oldunuz ve zor bir yaşam sürüyorsunuz. Ama en azından huzurlusunuz.";
+        choicesElement.innerHTML = '<button class="button" onclick="restart()">Baştan başla</button>';
+      } else if (choice === 2) {
+        storyElement.textContent = "Şövalye oldunuz! Ancak savaşta ciddi bir yara aldınız.";
+        choicesElement.innerHTML = '<button class="button" onclick="restart()">Baştan başla</button>';
+      }
+    }
+
+    // Oyunu yeniden başlatan fonksiyon
+    function restart() {
+      document.getElementById("story").textContent = "Merhaba, Orta Çağ'dasınız! Hayatta kalabilecek misiniz?";
+      document.getElementById("choices").innerHTML = `
+        <button class="button" onclick="makeChoice(1)">Köyde çiftçilik yapmayı seç.</button>
+        <button class="button" onclick="makeChoice(2)">Şövalye olmaya karar ver.</button>
+      `;
+    }
+
+    // Giriş ekranını varsayılan olarak göster
+    document.getElementById("start-screen").style.display = "block";
+  </script>
 </body>
 </html>
-
