@@ -1,104 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eren Berk Roklu</title>
+  <title>KaltejOS</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      text-align: center;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0f0f0f, #050505);
+      color: white;
+      overflow-x: hidden;
     }
-    #game-container, #start-screen {
-      max-width: 90%;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    #start-screen {
-      display: none;
+    header {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
+      animation: fadeIn 2s ease-in-out;
     }
     h1 {
-      font-size: 1.8rem;
-      color: #444;
+      font-size: 4rem;
+      animation: wave 2s infinite;
+      color: #00ffe0;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+    }
+    @keyframes wave {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    section {
+      padding: 60px 30px;
+      background-color: #121212;
+      animation: slideUp 1s ease-out forwards;
+    }
+    h2 {
+      font-size: 2.5rem;
+      color: #00ffe0;
+      text-shadow: 0 0 10px #00ffe0;
+      margin-bottom: 20px;
     }
     p {
-      font-size: 1rem;
-      margin: 15px 0;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 800px;
     }
-    .button {
-      display: inline-block;
-      margin: 10px 0;
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+    nav button {
+      background: #00ffe0;
+      color: black;
       border: none;
-      border-radius: 5px;
+      padding: 10px 20px;
       font-size: 1rem;
+      margin: 0 5px;
       cursor: pointer;
-      text-decoration: none;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #00ffe0;
+      transition: background 0.3s;
     }
-    .button:hover {
-      background: #0056b3;
+    nav button:hover {
+      background: #00ddc0;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <!-- Giriş Ekranı -->
-  <div id="start-screen">
-    <h1>Eren Berk Roklu</h1>
-    <p>Orta Çağ dünyasına hoş geldiniz! Bu macerada seçimleriniz hayatta kalma şansınızı belirleyecek.</p>
-    <button class="button" onclick="startGame()">Başla</button>
-  </div>
+  <nav>
+    <button onclick="showSection('intro')">Ana Sayfa</button>
+    <button onclick="showSection('about')">Tanıtım</button>
+  </nav>
 
-  <!-- Oyun Ekranı -->
-  <div id="game-container" style="display: none;">
-    <h1>Eren Berk Roklu</h1>
-    <div id="story">Merhaba, Orta Çağ'dasınız! Hayatta kalabilecek misiniz?</div>
-    <div id="choices">
-      <button class="button" onclick="makeChoice(1)">Köyde çiftçilik yapmayı seç.</button>
-      <button class="button" onclick="makeChoice(2)">Şövalye olmaya karar ver.</button>
-    </div>
-  </div>
+  <header id="intro">
+    <h1>KaltejOS</h1>
+  </header>
+
+  <section id="about" class="hidden">
+    <h2>Nedir KaltejOS?</h2>
+    <p>
+      KaltejOS, hız, güvenlik ve özgürlük odaklı yeni nesil bir Linux dağıtımıdır. 
+      Sade tasarımı, modern altyapısı ve güçlü performansıyla kullanıcıya kesintisiz bir deneyim sunar. 
+      Geliştiriciler, oyuncular ve teknoloji meraklıları için özel olarak optimize edilmiştir.
+    </p>
+    <p>
+      Hafif masaüstü ortamı, özelleştirilebilir yapısı ve yenilikçi paket yöneticisi sayesinde KaltejOS ile tanıştığınızda bir daha başka dağıtım kullanmak istemeyeceksiniz.
+    </p>
+  </section>
 
   <script>
-    // Oyunu başlatan fonksiyon
-    function startGame() {
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("game-container").style.display = "block";
+    function showSection(id) {
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('about').classList.add('hidden');
+      document.getElementById(id).classList.remove('hidden');
     }
-
-    // Hikaye seçimlerini kontrol eden fonksiyon
-    function makeChoice(choice) {
-      const storyElement = document.getElementById("story");
-      const choicesElement = document.getElementById("choices");
-
-      if (choice === 1) {
-        storyElement.textContent = "Köyde çiftçi oldunuz ve zor bir yaşam sürüyorsunuz. Ama en azından huzurlusunuz.";
-        choicesElement.innerHTML = '<button class="button" onclick="restart()">Baştan başla</button>';
-      } else if (choice === 2) {
-        storyElement.textContent = "Şövalye oldunuz! Ancak savaşta ciddi bir yara aldınız.";
-        choicesElement.innerHTML = '<button class="button" onclick="restart()">Baştan başla</button>';
-      }
-    }
-
-    // Oyunu yeniden başlatan fonksiyon
-    function restart() {
-      document.getElementById("story").textContent = "Merhaba, Orta Çağ'dasınız! Hayatta kalabilecek misiniz?";
-      document.getElementById("choices").innerHTML = `
-        <button class="button" onclick="makeChoice(1)">Köyde çiftçilik yapmayı seç.</button>
-        <button class="button" onclick="makeChoice(2)">Şövalye olmaya karar ver.</button>
-      `;
-    }
-
-    // Giriş ekranını varsayılan olarak göster
-    document.getElementById("start-screen").style.display = "block";
   </script>
 </body>
 </html>
