@@ -4,19 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KaltejOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-dark: #0f0f0f;
+      --bg-light: #ffffff;
+      --text-dark: #ffffff;
+      --text-light: #000000;
+      --accent: #00ffe0;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at top, #0f0f0f, #050505);
-      color: white;
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
       overflow-x: hidden;
       transition: background 0.5s, color 0.5s;
     }
+
     body.light-theme {
-      background: #ffffff;
-      color: #000000;
+      background: var(--bg-light);
+      color: var(--text-light);
     }
+
     header {
       height: 100vh;
       display: flex;
@@ -25,41 +36,27 @@
       align-items: center;
       background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
       animation: fadeIn 2s ease-in-out;
+      text-align: center;
     }
+
+    .logo-img {
+      width: 150px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px var(--accent));
+    }
+
     h1 {
       font-size: 4rem;
       animation: wave 2s infinite;
-      color: #00ffe0;
-      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
     }
+
     @keyframes wave {
       0%, 100% { transform: rotate(-2deg); }
       50% { transform: rotate(2deg); }
     }
-    section {
-      padding: 60px 30px;
-      background-color: #121212;
-      animation: slideUp 1s ease-out forwards;
-    }
-    h2 {
-      font-size: 2.5rem;
-      color: #00ffe0;
-      text-shadow: 0 0 10px #00ffe0;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      max-width: 800px;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+
     nav {
       position: fixed;
       top: 20px;
@@ -67,57 +64,95 @@
       transform: translateX(-50%);
       z-index: 1000;
     }
+
     nav button {
-      background: #00ffe0;
+      background: var(--accent);
       color: black;
       border: none;
       padding: 10px 20px;
       font-size: 1rem;
       margin: 0 5px;
       cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 0 10px #00ffe0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--accent);
       transition: background 0.3s;
     }
+
     nav button:hover {
-      background: #00ddc0;
+      background: #00ccaa;
     }
+
+    section {
+      padding: 60px 30px;
+      animation: slideUp 1s ease-out forwards;
+    }
+
     .hidden {
       display: none;
     }
-    .logo {
-      width: 100px;
-      height: 100px;
+
+    h2 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
       margin-bottom: 20px;
+      text-align: center;
     }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: auto;
+    }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
       margin-top: 30px;
+      padding: 0 20px;
     }
+
     .gallery img {
       width: 100%;
       border-radius: 10px;
-      box-shadow: 0 0 10px #00ffe0;
+      box-shadow: 0 0 15px var(--accent);
+      transition: transform 0.3s;
     }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
     footer {
       text-align: center;
       padding: 30px;
       background: #0a0a0a;
       font-size: 0.9rem;
     }
+
     .toggle-theme {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #00ffe0;
+      background: var(--accent);
       color: black;
       border: none;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 10px #00ffe0;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
@@ -129,10 +164,7 @@
   </nav>
 
   <header id="intro">
-    <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="48" stroke="#00ffe0" stroke-width="4" fill="none"/>
-      <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="28" fill="#00ffe0" font-family="monospace">K</text>
-    </svg>
+    <img src="https://via.placeholder.com/150x150.png?text=KaltejOS+Logo" class="logo-img" alt="KaltejOS Logo">
     <h1>KaltejOS</h1>
   </header>
 
