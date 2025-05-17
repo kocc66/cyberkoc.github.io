@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaltejOS - Hafif, Güçlü, Özgür</title>
+  <title>KaltejOS - Lightweight, Powerful, Free</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -46,7 +46,7 @@
       font-size: 3rem;
       color: var(--accent);
       text-shadow: 0 0 10px var(--accent);
-      margin: 0;
+      margin: 0 auto;
       animation: pulseGlow 2.5s ease-in-out infinite;
     }
 
@@ -139,6 +139,28 @@
       text-align: center;
     }
 
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #222;
+      color: var(--accent);
+    }
+
+    td {
+      background: #111;
+    }
+
     footer {
       text-align: center;
       padding: 30px 15px;
@@ -174,52 +196,84 @@
 </head>
 <body>
   <nav>
-    <button onclick="showSection('intro')">🏠 Ana Sayfa</button>
-    <button onclick="showSection('about')">🚀 Tanıtım</button>
+    <button onclick="showSection('intro')">🏠 Home</button>
+    <button onclick="showSection('about')">🚀 About</button>
+    <button onclick="showSection('requirements')">🖥️ System Requirements</button>
   </nav>
 
   <header id="intro">
     <h1>KaltejOS</h1>
-    <p class="intro-subtext">Hız, sadelik ve özgürlük — hepsi bir arada. KaltejOS, hem eski makinelerde hem de yeni sistemlerde ışık hızında çalışır.</p>
+    <p class="intro-subtext">Speed, simplicity and freedom — all in one. KaltejOS runs even on a toaster.</p>
     <div class="features">
       <div class="feature-box">
-        💨 <strong>Ultra Hafif:</strong> Bir tost makinesinde bile çalışabilecek kadar optimize edilmiş bir sistem.
+        💨 <strong>Ultra Lightweight:</strong> Optimized to run on extremely low-end hardware.
       </div>
       <div class="feature-box">
-        🎨 <strong>Modern Tasarım:</strong> Sade ve şık bir kullanıcı deneyimi.
+        🎨 <strong>Modern Design:</strong> Clean, sharp and elegant user experience.
       </div>
       <div class="feature-box">
-        🧩 <strong>Modüler Yapı:</strong> İstediğiniz bileşeni ekleyin, istemediğinizi kaldırın.
+        🧩 <strong>Modular:</strong> Add what you want, remove what you don’t.
       </div>
       <div class="feature-box">
-        🔒 <strong>Güvenlik Öncelikli:</strong> Güncel çekirdek ve yapılandırmalar.
+        🔒 <strong>Security First:</strong> Built with the latest kernel and hardened configs.
       </div>
     </div>
   </header>
 
   <section id="about" class="hidden">
-    <h2>KaltejOS Nedir?</h2>
+    <h2>What is KaltejOS?</h2>
     <p>
-      KaltejOS, hafifliğiyle öne çıkan, ultra optimize edilmiş bir Linux dağıtımıdır. O kadar hafiftir ki, bir tost makinesinde bile çalışabilecek kadar az sistem kaynağına ihtiyaç duyar. Ama bu hafiflik sizi yanıltmasın; içindeki güç ile hem geliştiriciler hem de sade sistem isteyen kullanıcılar için modern bir deneyim sunar.
+      KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency. It’s so lightweight that it can run on a toaster — yet powerful enough to deliver a premium desktop experience.
     </p>
     <p>
-      KaltejOS, eski donanımlarınızı hayata döndürürken, yeni sistemlerde ise ışık hızında çalışır. Paket yöneticisi, masaüstü ortamı ve çekirdeği, tamamen performans ve sade arayüz önceliğiyle yapılandırılmıştır. Hedefimiz: özgürlük, hız ve şıklığı bir arada sunmak.
+      It revives old hardware and flies on modern systems. With a custom kernel, a minimal desktop environment, and focused performance tweaks, KaltejOS is freedom, speed, and simplicity blended into one.
     </p>
     <p>
-      Minimalist yapısı, açık kaynak felsefesi ve özelleştirme seçenekleri ile her kullanıcıya hitap eder. İster geliştirici olun, ister sıradan bir kullanıcı — KaltejOS sizin için inşa edildi.
+      Built for hackers, minimalists, and freedom lovers, KaltejOS is highly customizable and fully open source.
     </p>
   </section>
 
+  <section id="requirements" class="hidden">
+    <h2>Minimum System Requirements</h2>
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Minimum Requirement</th>
+      </tr>
+      <tr>
+        <td>Processor</td>
+        <td>1 GHz (single-core)</td>
+      </tr>
+      <tr>
+        <td>RAM</td>
+        <td>512 MB</td>
+      </tr>
+      <tr>
+        <td>Storage</td>
+        <td>4 GB available space</td>
+      </tr>
+      <tr>
+        <td>Graphics</td>
+        <td>Basic VGA (800x600)</td>
+      </tr>
+      <tr>
+        <td>Boot</td>
+        <td>BIOS or UEFI</td>
+      </tr>
+    </table>
+  </section>
+
   <footer>
-    <p>İletişim: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/yasinemirkoc" target="_blank">@yasinemirkoc</a></p>
+    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/yasinemirkoc" target="_blank">@yasinemirkoc</a></p>
   </footer>
 
-  <button class="toggle-theme" onclick="toggleTheme()">Tema Değiştir</button>
+  <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
 
   <script>
     function showSection(id) {
       document.getElementById('intro').classList.add('hidden');
       document.getElementById('about').classList.add('hidden');
+      document.getElementById('requirements').classList.add('hidden');
       document.getElementById(id).classList.remove('hidden');
     }
 
