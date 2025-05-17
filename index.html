@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaltejOS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <title>KaltejOS - Hafif, Güçlü, Özgür</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #0f0f0f;
-      --bg-light: #ffffff;
+      --bg-light: #f9f9f9;
       --text-dark: #ffffff;
       --text-light: #000000;
       --accent: #00ffe0;
@@ -20,11 +20,10 @@
 
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg-dark);
       color: var(--text-dark);
-      overflow-x: hidden;
-      transition: background 0.5s, color 0.5s;
+      transition: background 0.4s, color 0.4s;
     }
 
     body.light-theme {
@@ -33,58 +32,64 @@
     }
 
     header {
-      height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
+      justify-content: center;
+      height: 100vh;
       text-align: center;
       padding: 20px;
     }
 
     .logo-img {
-      width: 120px;
+      width: 140px;
       max-width: 80vw;
       margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
 
     h1 {
+      font-family: 'Orbitron', sans-serif;
       font-size: 3rem;
       color: var(--accent);
-      text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+      margin: 0;
     }
 
     nav {
       display: flex;
       justify-content: center;
       gap: 10px;
-      flex-wrap: wrap;
-      padding: 15px 10px;
+      padding: 10px;
+      background: #1a1a1a;
       position: sticky;
       top: 0;
-      background: #0f0f0f;
-      z-index: 100;
+      z-index: 10;
     }
 
     nav button {
       background: var(--accent);
-      color: black;
+      color: #000;
       border: none;
       padding: 10px 20px;
-      font-size: 1rem;
       border-radius: 8px;
-      box-shadow: 0 0 10px var(--accent);
-      transition: all 0.3s;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
     }
 
     nav button:hover {
-      background: #00ccaa;
       transform: scale(1.05);
     }
 
     section {
-      padding: 40px 20px;
+      padding: 60px 20px;
       animation: fadeIn 0.5s ease-in-out;
     }
 
@@ -101,7 +106,7 @@
 
     p {
       font-size: 1.1rem;
-      line-height: 1.6;
+      line-height: 1.8;
       max-width: 800px;
       margin: auto;
       text-align: center;
@@ -110,8 +115,8 @@
     footer {
       text-align: center;
       padding: 30px 15px;
-      font-size: 0.9rem;
       background: #0a0a0a;
+      font-size: 0.9rem;
     }
 
     .toggle-theme {
@@ -128,22 +133,15 @@
       z-index: 1000;
     }
 
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.5rem; }
+      nav button { padding: 8px 14px; font-size: 0.9rem; }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1.5rem;
-      }
-      nav button {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-      }
     }
   </style>
 </head>
@@ -154,19 +152,20 @@
   </nav>
 
   <header id="intro">
-    <img src="KaltejOS-logo.png" class="logo-img" alt="KaltejOS Logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/KaltejOS-logo.png" class="logo-img" alt="KaltejOS Logo">
     <h1>KaltejOS</h1>
   </header>
 
   <section id="about" class="hidden">
-    <h2>Nedir KaltejOS?</h2>
+    <h2>KaltejOS Nedir?</h2>
     <p>
-      KaltejOS, ultra hafif yapısı sayesinde neredeyse bir tost makinesinde bile çalışabilecek kadar performans odaklı bir Linux dağıtımıdır. 
-      Minimum donanım gereksinimi, yüksek hız ve sade kullanıcı arayüzü ile hem eski hem de yeni sistemlerde kusursuz çalışır.
+      KaltejOS, hafifliğiyle öne çıkan, ultra optimize edilmiş bir Linux dağıtımıdır. O kadar hafiftir ki, bir tost makinesinde bile çalışabilecek kadar az sistem kaynağına ihtiyaç duyar. Ama bu hafiflik sizi yanıltmasın; içindeki güç ile hem geliştiriciler hem de sade sistem isteyen kullanıcılar için modern bir deneyim sunar.
     </p>
     <p>
-      Geliştiriciler, oyuncular ve minimalist kullanıcılar için özel olarak optimize edilmiştir. 
-      Sisteminizin potansiyelini sonuna kadar kullanmak istiyorsanız KaltejOS sizin için biçilmiş kaftan.
+      KaltejOS, eski donanımlarınızı hayata döndürürken, yeni sistemlerde ise ışık hızında çalışır. Paket yöneticisi, masaüstü ortamı ve çekirdeği, tamamen performans ve sade arayüz önceliğiyle yapılandırılmıştır. Hedefimiz: özgürlük, hız ve şıklığı bir arada sunmak.
+    </p>
+    <p>
+      Minimalist yapısı, açık kaynak felsefesi ve özelleştirme seçenekleri ile her kullanıcıya hitap eder. İster geliştirici olun, ister sıradan bir kullanıcı — KaltejOS sizin için inşa edildi.
     </p>
   </section>
 
