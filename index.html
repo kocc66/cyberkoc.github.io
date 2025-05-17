@@ -41,25 +41,52 @@
       padding: 20px;
     }
 
-    .logo-img {
-      width: 140px;
-      max-width: 80vw;
-      margin-bottom: 20px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 3rem;
       color: var(--accent);
       text-shadow: 0 0 10px var(--accent);
       margin: 0;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+      }
+      50% {
+        text-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent);
+      }
+    }
+
+    .intro-subtext {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      max-width: 600px;
+      color: #bbb;
+    }
+
+    .features {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 700px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .feature-box {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      transition: transform 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: scale(1.02);
     }
 
     nav {
@@ -152,8 +179,22 @@
   </nav>
 
   <header id="intro">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/KaltejOS-logo.png" class="logo-img" alt="KaltejOS Logo">
     <h1>KaltejOS</h1>
+    <p class="intro-subtext">Hız, sadelik ve özgürlük — hepsi bir arada. KaltejOS, hem eski makinelerde hem de yeni sistemlerde ışık hızında çalışır.</p>
+    <div class="features">
+      <div class="feature-box">
+        💨 <strong>Ultra Hafif:</strong> Bir tost makinesinde bile çalışabilecek kadar optimize edilmiş bir sistem.
+      </div>
+      <div class="feature-box">
+        🎨 <strong>Modern Tasarım:</strong> Sade ve şık bir kullanıcı deneyimi.
+      </div>
+      <div class="feature-box">
+        🧩 <strong>Modüler Yapı:</strong> İstediğiniz bileşeni ekleyin, istemediğinizi kaldırın.
+      </div>
+      <div class="feature-box">
+        🔒 <strong>Güvenlik Öncelikli:</strong> Güncel çekirdek ve yapılandırmalar.
+      </div>
+    </div>
   </header>
 
   <section id="about" class="hidden">
