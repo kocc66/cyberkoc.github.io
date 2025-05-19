@@ -1,7 +1,4 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -233,7 +230,7 @@
     <button onclick="showSection('intro')">🏠 Home</button>
     <button onclick="showSection('about')">🚀 About</button>
     <button onclick="showSection('requirements')">🖥️ System Requirements</button>
-    <button onclick="showSection('chat')">🤖 Chat</button>
+    <button onclick="showSection('why')">❓ Why KaltejOS?</button>
   </nav>
 
   <header id="intro">
@@ -241,24 +238,18 @@
     <p class="intro-subtext">Speed, simplicity and freedom — all in one. KaltejOS runs even on a toaster.</p>
     <button class="download-btn">Download</button>
     <div class="features">
-      <div class="feature-box">
-        💨 <strong>Ultra Lightweight:</strong> Optimized to run on extremely low-end hardware.
-      </div>
-      <div class="feature-box">
-        🎨 <strong>Modern Design:</strong> Clean, sharp and elegant user experience.
-      </div>
-      <div class="feature-box">
-        🧩 <strong>Modular:</strong> Add what you want, remove what you don’t.
-      </div>
-      <div class="feature-box">
-        🔒 <strong>Security First:</strong> Built with the latest kernel and hardened configs.
-      </div>
+      <div class="feature-box">💨 <strong>Ultra Lightweight:</strong> Optimized to run on extremely low-end hardware.</div>
+      <div class="feature-box">🎨 <strong>Modern Design:</strong> Clean, sharp and elegant user experience.</div>
+      <div class="feature-box">🧩 <strong>Modular:</strong> Add what you want, remove what you don’t.</div>
+      <div class="feature-box">🔒 <strong>Security First:</strong> Built with the latest kernel and hardened configs.</div>
     </div>
   </header>
 
   <section id="about" class="hidden">
     <h2>What is KaltejOS?</h2>
-    <p>KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency...</p>
+    <p>KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency. It’s so lightweight that it can run on a toaster — yet powerful enough to deliver a premium desktop experience.</p>
+    <p>It revives old hardware and flies on modern systems. With a custom kernel, a minimal desktop environment, and focused performance tweaks, KaltejOS is freedom, speed, and simplicity blended into one.</p>
+    <p>Built for hackers, minimalists, and freedom lovers, KaltejOS is highly customizable and fully open source.</p>
   </section>
 
   <section id="requirements" class="hidden">
@@ -273,25 +264,24 @@
     </table>
   </section>
 
-  <section id="chat" class="hidden">
-    <h2>Talk with KaltejOS AI</h2>
-    <iframe
-      src="https://www.chatbase.co/chatbot-iframe/ZgC-njrHgepvwTbpnRFOK"
-      width="100%"
-      style="height: 100%; min-height: 700px"
-      frameborder="0"
-    ></iframe>
+  <section id="why" class="hidden">
+    <h2>Why KaltejOS?</h2>
+    <p>KaltejOS is not just another Linux distro. It’s a statement — that computing should be fast, simple, and free. Built from the ground up to breathe new life into old machines, KaltejOS empowers users to break free from bloated systems and embrace minimalism with power.</p>
+    <p>Unlike mainstream OSes that require gigabytes of RAM and storage just to boot, KaltejOS runs beautifully on machines with less than 1 GB of RAM. It loads fast, runs smooth, and does what you need — without wasting your resources.</p>
+    <p>Its modular approach means *you* are in control. Want a media center? Add it. Prefer a terminal-only experience? Strip it down. KaltejOS respects your choices.</p>
+    <p>Security is built-in — with a hardened kernel and privacy-conscious defaults, KaltejOS helps you stay safe by design, not by add-on.</p>
+    <p>Whether you’re a hacker, a student, a traveler with an old netbook, or someone who just loves speed and simplicity — KaltejOS is your perfect companion. Experience the freedom of a truly lightweight OS.</p>
   </section>
 
   <footer>
-    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/yasinemirkoc" target="_blank">@yasinemirkoc</a></p>
+    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/kaltejos" target="_blank">@kaltejos</a></p>
   </footer>
 
   <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
 
   <script>
     function showSection(id) {
-      const sections = ['intro', 'about', 'requirements', 'chat'];
+      const sections = ['intro', 'about', 'requirements', 'why'];
       sections.forEach(sec => {
         document.getElementById(sec).classList.add('hidden');
       });
@@ -304,5 +294,3 @@
   </script>
 </body>
 </html>
-
-
