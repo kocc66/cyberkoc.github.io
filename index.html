@@ -1,11 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KaltejOS - Lightweight, Powerful, Free</title>
+  <title>KaltejOS - Fast, Simple & Modular Linux OS</title>
+  <meta name="description" content="KaltejOS is a blazing-fast, ultra-lightweight Linux distribution that runs on almost any hardware. Simple, secure, and modular." />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -232,8 +231,8 @@
   <nav>
     <button onclick="showSection('intro')">🏠 Home</button>
     <button onclick="showSection('about')">🚀 About</button>
-    <button onclick="showSection('requirements')">🖥️ System Requirements</button>
     <button onclick="showSection('why')">❓ Why KaltejOS?</button>
+    <button onclick="showSection('requirements')">🖥️ System Requirements</button>
     <button onclick="showSection('chat')">🤖 Chat</button>
   </nav>
 
@@ -259,7 +258,13 @@
 
   <section id="about" class="hidden">
     <h2>What is KaltejOS?</h2>
-    <p>KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency...</p>
+    <p>KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency, especially for low-end or legacy systems. It focuses on simplicity, minimalism, and modularity. Whether you’re reviving an old laptop or building a blazing-fast VM, KaltejOS gives you freedom and performance.</p>
+  </section>
+
+  <section id="why" class="hidden">
+    <h2>Why KaltejOS?</h2>
+    <p>Because not everyone needs bloated operating systems. KaltejOS is for the rebels, the tinkerers, the curious minds who want control and speed. It’s for students with old laptops, coders who love lean environments, and geeks who say “no” to unnecessary background services. KaltejOS is built to serve, not to rule.</p>
+    <p>You choose what gets installed. You choose what runs. You’re not just a user — you’re in command.</p>
   </section>
 
   <section id="requirements" class="hidden">
@@ -274,14 +279,6 @@
     </table>
   </section>
 
-  <section id="why" class="hidden">
-    <h2>Why KaltejOS?</h2>
-    <p>KaltejOS is designed to provide a lightning-fast, ultra-lightweight Linux experience for users who demand speed without compromise. It runs smoothly even on the most modest hardware, making technology accessible to everyone.</p>
-    <p>With a focus on simplicity and modularity, KaltejOS allows you to add or remove features effortlessly, tailoring the OS exactly to your needs.</p>
-    <p>Security is a top priority, built on the latest kernel and hardened configurations to keep your system safe without slowing it down.</p>
-    <p>Whether you are a developer, hobbyist, or casual user, KaltejOS offers the perfect balance of power and minimalism.</p>
-  </section>
-
   <section id="chat" class="hidden">
     <h2>Talk with KaltejOS AI</h2>
     <iframe
@@ -293,14 +290,14 @@
   </section>
 
   <footer>
-    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/kaltejos" target="_blank">@kaltejos</a></p>
+    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/yasinemirkoc" target="_blank">@yasinemirkoc</a></p>
   </footer>
 
   <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
 
   <script>
     function showSection(id) {
-      const sections = ['intro', 'about', 'requirements', 'why', 'chat'];
+      const sections = ['intro', 'about', 'why', 'requirements', 'chat'];
       sections.forEach(sec => {
         document.getElementById(sec).classList.add('hidden');
       });
@@ -313,5 +310,3 @@
   </script>
 </body>
 </html>
-
-
