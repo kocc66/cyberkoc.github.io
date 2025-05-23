@@ -1,312 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KaltejOS - Fast, Simple & Modular Linux OS</title>
-  <meta name="description" content="KaltejOS is a blazing-fast, ultra-lightweight Linux distribution that runs on almost any hardware. Simple, secure, and modular." />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>KaltejOS Geliştirme Süreci Sonlandırıldı</title>
   <style>
-    :root {
-      --bg-dark: #000000;
-      --bg-light: #ffffff;
-      --text-dark: #ffffff;
-      --text-light: #000000;
-      --accent: #00ffe0;
-    }
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-dark);
-      transition: background 0.4s, color 0.4s;
-    }
-
-    body.light-theme {
-      background: var(--bg-light);
-      color: var(--text-light);
-    }
-
-    header {
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d0d0d;
+      color: #e0e0e0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
-      padding: 20px;
-      background: black;
-      position: relative;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,255,224,0.1);
     }
 
     h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      color: var(--accent);
-      text-shadow: 0 0 10px var(--accent);
-      margin: 0 auto;
-      animation: pulseGlow 2.5s ease-in-out infinite;
-      z-index: 1;
-      position: relative;
-    }
-
-    .download-btn {
-      margin-top: 25px;
-      background: var(--accent);
-      color: black;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: not-allowed;
-      box-shadow: 0 0 15px var(--accent);
-      position: relative;
-      z-index: 1;
-    }
-
-    .download-btn::after {
-      content: "Coming Soon";
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-      }
-      50% {
-        text-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent);
-      }
-    }
-
-    .intro-subtext {
-      font-size: 1.2rem;
-      margin-top: 15px;
-      max-width: 600px;
-      color: #bbb;
-      z-index: 1;
-    }
-
-    .features {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 700px;
-      width: 100%;
-      padding: 0 20px;
-      z-index: 1;
-    }
-
-    .feature-box {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: left;
-      transition: transform 0.3s;
-    }
-
-    .feature-box:hover {
-      transform: scale(1.02);
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px;
-      background: #1a1a1a;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    nav button {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s;
-    }
-
-    nav button:hover {
-      transform: scale(1.05);
-    }
-
-    section {
-      padding: 60px 20px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    h2 {
+      color: #00ffe0;
       font-size: 2rem;
-      color: var(--accent);
+      margin-bottom: 25px;
       text-align: center;
-      margin-bottom: 20px;
     }
 
     p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: auto;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin-top: -10px;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.95rem;
       text-align: center;
-    }
-
-    table {
-      width: 100%;
-      max-width: 600px;
-      margin: 20px auto;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #444;
-      padding: 10px;
-      text-align: center;
-    }
-
-    th {
-      background: #222;
-      color: var(--accent);
-    }
-
-    td {
-      background: #111;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 15px;
-      background: #0a0a0a;
-      font-size: 0.9rem;
-    }
-
-    .toggle-theme {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: black;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--accent);
-      z-index: 1000;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      h2 { font-size: 1.5rem; }
-      .intro-subtext { font-size: 1rem; }
-      .download-btn { font-size: 0.9rem; padding: 10px 18px; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <button onclick="showSection('intro')">🏠 Home</button>
-    <button onclick="showSection('about')">🚀 About</button>
-    <button onclick="showSection('why')">❓ Why KaltejOS?</button>
-    <button onclick="showSection('requirements')">🖥️ System Requirements</button>
-    <button onclick="showSection('chat')">🤖 Chat</button>
-  </nav>
-
-  <header id="intro">
-    <h1>KaltejOS</h1>
-    <p class="intro-subtext">Speed, simplicity and freedom — all in one. KaltejOS runs even on a toaster.</p>
-    <button class="download-btn">Download</button>
-    <div class="features">
-      <div class="feature-box">
-        💨 <strong>Ultra Lightweight:</strong> Optimized to run on extremely low-end hardware.
-      </div>
-      <div class="feature-box">
-        🎨 <strong>Modern Design:</strong> Clean, sharp and elegant user experience.
-      </div>
-      <div class="feature-box">
-        🧩 <strong>Modular:</strong> Add what you want, remove what you don’t.
-      </div>
-      <div class="feature-box">
-        🔒 <strong>Security First:</strong> Built with the latest kernel and hardened configs.
-      </div>
-    </div>
-  </header>
-
-  <section id="about" class="hidden">
-    <h2>What is KaltejOS?</h2>
-    <p>KaltejOS is an ultra-lightweight Linux distribution designed for maximum speed and efficiency, especially for low-end or legacy systems. It focuses on simplicity, minimalism, and modularity. Whether you’re reviving an old laptop or building a blazing-fast VM, KaltejOS gives you freedom and performance.</p>
-  </section>
-
-  <section id="why" class="hidden">
-    <h2>Why KaltejOS?</h2>
-    <p>Because not everyone needs bloated operating systems. KaltejOS is for the rebels, the tinkerers, the curious minds who want control and speed. It’s for students with old laptops, coders who love lean environments, and geeks who say “no” to unnecessary background services. KaltejOS is built to serve, not to rule.</p>
-    <p>You choose what gets installed. You choose what runs. You’re not just a user — you’re in command.</p>
-  </section>
-
-  <section id="requirements" class="hidden">
-    <h2>Minimum System Requirements</h2>
-    <table>
-      <tr><th>Component</th><th>Minimum Requirement</th></tr>
-      <tr><td>Processor</td><td>1 GHz (single-core)</td></tr>
-      <tr><td>RAM</td><td>512 MB</td></tr>
-      <tr><td>Storage</td><td>4 GB available space</td></tr>
-      <tr><td>Graphics</td><td>Basic VGA (800x600)</td></tr>
-      <tr><td>Boot</td><td>BIOS or UEFI</td></tr>
-    </table>
-  </section>
-
-  <section id="chat" class="hidden">
-    <h2>Talk with KaltejOS AI</h2>
-    <iframe
-      src="https://www.chatbase.co/chatbot-iframe/ZgC-njrHgepvwTbpnRFOK"
-      width="100%"
-      style="height: 100%; min-height: 700px"
-      frameborder="0"
-    ></iframe>
-  </section>
-
-  <footer>
-    <p>Contact: <a href="mailto:y4sinemirkoc66@gmail.com">y4sinemirkoc66@gmail.com</a> | Instagram: <a href="https://instagram.com/yasinemirkoc" target="_blank">@yasinemirkoc</a></p>
-  </footer>
-
-  <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
-
-  <script>
-    function showSection(id) {
-      const sections = ['intro', 'about', 'why', 'requirements', 'chat'];
-      sections.forEach(sec => {
-        document.getElementById(sec).classList.add('hidden');
-      });
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-theme');
-    }
-  </script>
+  <div class="container">
+    <h1>KaltejOS Geliştirme Süreci Sonlandırıldı</h1>
+    <p>Merhaba herkese, <br> Uzun zamandır üzerinde çalıştığım KaltejOS projesini maalesef süresiz olarak durdurma kararı aldım.</p>
+    <p>Proje başlangıcında hedefim; düşük donanımlı cihazlarda yüksek performans sunan, modüler ve kullanıcı dostu bir işletim sistemi oluşturmaktı. Ancak süreç içinde aşağıdaki teknik ve yapısal zorluklarla karşılaştım:</p>
+    <ul>
+      <li><strong>Donanım uyumluluğu:</strong> Farklı sistemlerde kararlı çalışacak çekirdek yapılandırmalarını sağlamak, beklediğimden daha karmaşık hale geldi.</li>
+      <li><strong>Paket yöneticisi ve bağımlılık yönetimi:</strong> Hafiflik ve esneklik arasında denge kurmak oldukça zorlayıcıydı.</li>
+      <li><strong>GUI geliştirme:</strong> Düşük kaynak tüketimli arayüzler (Openbox, Wayland vs.) beklenen esnekliği sağlayamadı.</li>
+      <li><strong>Geliştirici eksikliği:</strong> Tek başıma çekirdek, arayüz ve sistem altyapısıyla ilgilenmek sürdürülebilir olmadı.</li>
+    </ul>
+    <p>Kısacası, sürdürülebilirlik ve kalite açısından gerekli teknik alt yapıyı tek başıma sağlamak şu aşamada mümkün görünmüyor.</p>
+    <p>Bu karar, KaltejOS'un sonu değil. Edindiğim deneyimlerle farklı projelere yönelmek istiyorum. <strong>CyberKoç</strong> çatısı altında yeni fikirlerle tekrar görüşmek üzere.</p>
+    <div class="footer">Destek veren herkese teşekkür ederim.</div>
+  </div>
 </body>
 </html>
