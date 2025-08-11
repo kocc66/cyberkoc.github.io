@@ -1,101 +1,941 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1 Pages 1 Dollar</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body, html { height: 100%; background: #000; overflow: hidden; }
-  canvas { position: absolute; top: 0; left: 0; }
-  .intro-text {
-    position: absolute; 
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    z-index: 10;
-  }
-  .intro-text h1 {
-    font-size: 4rem;
-    letter-spacing: 2px;
-    animation: fadeInUp 2s ease forwards;
-  }
-  .intro-text p {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    animation: fadeInUp 2s ease 1s forwards;
-    opacity: 0;
-  }
-  .enter-btn {
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 0;
-    animation: fadeInUp 2s ease 2s forwards;
-  }
-  .enter-btn:hover {
-    background: white;
-    color: black;
-  }
-  @keyframes fadeInUp {
-    0% { transform: translate(-50%, -40%); opacity: 0; }
-    100% { transform: translate(-50%, -50%); opacity: 1; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100,000 Pages | 1 Dollar Per Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-secondary: #FFD700;
+            --gold-dark: #B8860B;
+            --paper-bg: #F9F6F0;
+            --ink-dark: #2C2416;
+            --crimson: #8B0000;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1208, #2c2416, #1a0d05);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        /* Grand Background */
+        .grand-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                linear-gradient(to bottom, #1a1208, #0d0802);
+            z-index: -2;
+        }
+        
+        .floating-pages {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .page-particle {
+            position: absolute;
+            background: rgba(249, 246, 240, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transform-origin: center;
+            opacity: 0;
+            animation: floatPage 20s linear infinite;
+        }
+        
+        @keyframes floatPage {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--gold-secondary), var(--gold-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #f9f295, #e0aa3e, #f9f295, #b88a44);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: shimmer 8s ease infinite;
+            line-height: 1.1;
+        }
+        
+        .hero h1 .large-number {
+            font-size: 8rem;
+            display: block;
+            line-height: 0.9;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .slogan {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold-secondary);
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+        
+        .slogan::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        }
+        
+        .hero p {
+            font-size: 1.6rem;
+            max-width: 900px;
+            margin: 3rem 0;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stat-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.05);
+            z-index: -1;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+        
+        /* Progress Visualization */
+        .progress-section {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--gold-primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: var(--gold-primary);
+        }
+        
+        .progress-container {
+            background: rgba(20, 15, 5, 0.7);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .progress-visual {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 3rem 0;
+            min-height: 300px;
+            align-items: center;
+        }
+        
+        .page-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+        
+        .page-dot.reserved {
+            background: var(--gold-primary);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            transform: scale(1.3);
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            margin: 4rem 0 2rem;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--gold-dark);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
+            width: 12%;
+            border-radius: 25px;
+            position: relative;
+            transition: width 2s ease;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(20, 15, 5, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--gold-primary);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold-secondary);
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+        
+        /* Contribution Section */
+        .contribution {
+            max-width: 900px;
+            margin: 8rem auto;
+            padding: 5rem 3rem;
+            background: linear-gradient(135deg, rgba(44, 36, 22, 0.8), rgba(20, 15, 5, 0.9));
+            border: 2px solid var(--gold-primary);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .contribution::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, 
+                    transparent 48%, 
+                    rgba(212, 175, 55, 0.05) 50%, 
+                    transparent 52%),
+                linear-gradient(-45deg, 
+                    transparent 48%, 
+                    rgba(212, 175, 55, 0.05) 50%, 
+                    transparent 52%);
+            background-size: 40px 40px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .contribution-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contribution h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--gold-primary);
+        }
+        
+        .contribution p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #000;
+            font-weight: 800;
+            font-size: 2.5rem;
+            padding: 1.5rem 3.5rem;
+            border-radius: 60px;
+            margin: 3rem 0;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button {
+            padding: 1.5rem 4.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #000;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            z-index: 1;
+            margin-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.7s;
+            z-index: -1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.6);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Global Impact */
+        .global-impact {
+            max-width: 1400px;
+            margin: 8rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .world-map {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 5rem auto;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg') center/cover;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .contributor-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        
+        /* Footer */
+        footer {
+            padding: 6rem 0 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 4rem;
+            background: rgba(10, 7, 2, 0.7);
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--gold-secondary), var(--gold-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            margin-top: 3rem;
+        }
+        
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 5rem;
+            }
+            
+            .hero h1 .large-number {
+                font-size: 6.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 6rem 2rem 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero h1 .large-number {
+                font-size: 5rem;
+            }
+            
+            .slogan {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.4rem;
+            }
+            
+            .stat-circle {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .hero h1 .large-number {
+                font-size: 4rem;
+            }
+            
+            .slogan {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .contribution h2 {
+                font-size: 2.8rem;
+            }
+            
+            .contribution p {
+                font-size: 1.2rem;
+            }
+            
+            .price-tag {
+                font-size: 2rem;
+                padding: 1.2rem 2.5rem;
+            }
+            
+            .cta-button {
+                padding: 1.2rem 3rem;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 .large-number {
+                font-size: 3rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .stat-circle {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<canvas id="bgCanvas"></canvas>
-<div class="intro-text">
-  <h1>1 Pages 1 Dollar</h1>
-  <p>A special touch just for you</p>
-  <button class="enter-btn" onclick="enterSite()">Enter</button>
-</div>
-<script>
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+    <!-- Background Elements -->
+    <div class="grand-background"></div>
+    <div class="floating-pages" id="floatingPages"></div>
+    
+    <!-- Main Content -->
+    <header>
+        <div class="logo">100K Pages</div>
+        <nav class="nav-links">
+            <a href="#">The Project</a>
+            <a href="#">Contribute</a>
+            <a href="#">Progress</a>
+            <a href="#">Gallery</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1><span class="large-number">100,000</span>Pages 1 Dollar</h1>
+        <div class="slogan">A special touch just for you</div>
+        <p>Join our monumental collaborative project where each person contributes one unique page for just $1. Together, we're creating a 100,000-page masterpiece that captures the diversity of human creativity from around the globe.</p>
+        <button class="cta-button">Reserve Your Page</button>
+        
+        <div class="hero-stats">
+            <div class="stat-circle">
+                <div class="stat-number">12,459</div>
+                <div class="stat-label">Pages Reserved</div>
+            </div>
+            <div class="stat-circle">
+                <div class="stat-number">84</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-circle">
+                <div class="stat-number">$12,459</div>
+                <div class="stat-label">Raised for Charity</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="progress-section">
+        <h2 class="section-title">Global Progress</h2>
+        <p>Witness the collective effort as we build this unprecedented literary mosaic</p>
+        
+        <div class="progress-container">
+            <div class="progress-visual" id="progressVisual">
+                <!-- Page dots will be generated by JavaScript -->
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="progressFill">
+                    <div class="progress-text">12,459 of 100,000 Pages</div>
+                </div>
+            </div>
+            
+            <p class="contribution-call">Every dot represents a unique contribution. Be part of this historic project!</p>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-globe-americas"></i>
+            </div>
+            <h3>Global Collaboration</h3>
+            <p>Join creators from every continent to build the world's most diverse collaborative book project. Your voice alongside thousands of others.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h3>Historical Archive</h3>
+            <p>Your page becomes part of a permanent cultural artifact that will be preserved in libraries and museums worldwide.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Charity Impact</h3>
+            <p>All proceeds support global literacy programs. Your $1 helps provide books and education to children in need.</p>
+        </div>
+    </section>
+    
+    <section class="contribution">
+        <div class="contribution-content">
+            <h2>Your Page Awaits</h2>
+            <p>For just $1, you can claim your space in this monumental project. Share your story, art, poetry, or wisdom. Your unique contribution will be part of a 100,000-page legacy.</p>
+            <div class="price-tag">Only $1 Per Page</div>
+            <p>Every dollar brings us closer to completing this historic work while supporting literacy worldwide.</p>
+            <button class="cta-button">Contribute Now</button>
+        </div>
+    </section>
+    
+    <section class="global-impact">
+        <h2 class="section-title">Global Participation</h2>
+        <p>Creators from around the world are contributing to this project</p>
+        
+        <div class="world-map" id="worldMap">
+            <!-- Contributor dots will be generated by JavaScript -->
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-logo">100,000 Pages</div>
+        <div class="slogan">A special touch just for you</div>
+        <p class="copyright">© 2023 The 100,000 Pages Project. All rights reserved.</p>
+    </footer>
 
-  let particles = [];
-  for(let i=0; i<100; i++) {
-    particles.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      radius: Math.random()*2+1,
-      dx: (Math.random()-0.5)*2,
-      dy: (Math.random()-0.5)*2
-    });
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = 'white';
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      if(p.x<0 || p.x>canvas.width) p.dx *= -1;
-      if(p.y<0 || p.y>canvas.height) p.dy *= -1;
-    });
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-
-  function enterSite() {
-    document.body.style.transition = 'opacity 1s';
-    document.body.style.opacity = 0;
-    setTimeout(() => {
-      window.location.href = 'main.html';
-    }, 1000);
-  }
-</script>
+    <script>
+        // Create floating pages
+        const floatingPages = document.getElementById('floatingPages');
+        for (let i = 0; i < 100; i++) {
+            const page = document.createElement('div');
+            page.classList.add('page-particle');
+            
+            // Random properties
+            const size = Math.random() * 100 + 30;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 15;
+            
+            page.style.width = `${size}px`;
+            page.style.height = `${size * 1.4}px`;
+            page.style.left = `${left}%`;
+            page.style.animationDelay = `${delay}s`;
+            page.style.animationDuration = `${duration}s`;
+            
+            floatingPages.appendChild(page);
+        }
+        
+        // Create progress visualization
+        const progressVisual = document.getElementById('progressVisual');
+        const totalPages = 100000;
+        const reservedPages = 12459;
+        const dotsToShow = 2000; // Visual representation dots
+        
+        for (let i = 0; i < dotsToShow; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('page-dot');
+            
+            // Make some dots "reserved"
+            if (i < (reservedPages / totalPages) * dotsToShow) {
+                dot.classList.add('reserved');
+            }
+            
+            progressVisual.appendChild(dot);
+        }
+        
+        // Animate progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressFill = document.getElementById('progressFill');
+            setTimeout(() => {
+                progressFill.style.width = '12.459%';
+            }, 500);
+        });
+        
+        // Create world map contributors
+        const worldMap = document.getElementById('worldMap');
+        const contributorCount = 150;
+        
+        for (let i = 0; i < contributorCount; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('contributor-dot');
+            
+            // Random position (simplified world map positioning)
+            const left = Math.random() * 10 + 25; // Americas
+            if (Math.random() > 0.5) {
+                dot.style.left = `${Math.random() * 35 + 55}%`; // Europe/Asia/Africa
+            } else {
+                dot.style.left = `${left}%`;
+            }
+            
+            dot.style.top = `${Math.random() * 70 + 15}%`;
+            dot.style.animationDelay = `${Math.random() * 2}s`;
+            
+            worldMap.appendChild(dot);
+        }
+        
+        // Button ripple effect
+        const buttons = document.querySelectorAll('.cta-button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.8s linear';
+                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                button.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 800);
+                
+                // Show confirmation
+                setTimeout(() => {
+                    alert("Thank you for your contribution! You'll be redirected to our secure payment page.");
+                }, 400);
+            });
+        });
+        
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
