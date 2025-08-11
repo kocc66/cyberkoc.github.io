@@ -1,216 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1 Pages 1 Dollar</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>1 Pages 1 Dollar — Intro</title>
 <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background: #000;
-        overflow: hidden;
-        font-family: 'Segoe UI', sans-serif;
-        color: white;
-    }
+  :root{
+    --bg:#070507;
+    --gold-1:#ffd86b;
+    --gold-2:#ffb84d;
+    --gold-3:#ffcf7a;
+    --muted:rgba(255,255,255,0.06);
+    --text:#fff7ea;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);overflow:hidden}
 
-    canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
+  /* subtle film grain */
+  .grain{position:fixed;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:0.06;background-image:radial-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);background-size:6px 6px;z-index:60}
 
-    .center {
-        position: relative;
-        z-index: 1;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        transform: scale(1);
-        animation: zoomIn 8s ease-in-out forwards;
-    }
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
 
-    @keyframes zoomIn {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.05); }
-    }
+  /* Stage */
+  .stage{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:4rem;perspective:1400px}
+  .card{width:min(1100px,95%);text-align:center;padding:3.2rem 2.25rem;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));backdrop-filter: blur(6px) saturate(120%);box-shadow:0 30px 80px rgba(3,2,2,0.6);position:relative;overflow:visible}
 
-    h1 {
-        font-size: 3rem;
-        letter-spacing: 2px;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 3px solid rgba(255,215,0,0.75);
-        width: 0;
-        animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
-        background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(255,215,0,0.9);
-    }
+  .logo-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .badge{width:96px;height:96px;border-radius:999px;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle at 30% 25%, rgba(255,250,220,0.18), transparent 40%), linear-gradient(135deg,var(--gold-2),var(--gold-1));box-shadow:0 10px 40px rgba(255,170,60,0.08), inset 0 -6px 18px rgba(0,0,0,0.18);transform:translateZ(60px) rotateX(8deg) rotateY(-6deg)}
+  .badge svg{width:64px;height:64px}
+  .gloss{position:absolute;inset:0;border-radius:999px;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,0.19), rgba(255,255,255,0.02));mix-blend-mode:soft-light}
 
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 20ch; }
-    }
+  /* Title */
+  h1.title{margin:0;font-size:clamp(28px,6vw,64px);letter-spacing:2px;line-height:1.02;display:inline-block}
+  h1.title .char{display:inline-block;opacity:0;transform:translateY(26px) rotateX(18deg);will-change:transform,opacity}
+  h1.title .char.light{position:relative}
+  h1.title .char::after{content:'';position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);transform:translateX(-140%);mix-blend-mode:screen}
 
-    @keyframes blink {
-        from, to { border-color: transparent; }
-        50% { border-color: rgba(255,215,0,0.75); }
-    }
+  .slogan{margin-top:1rem;opacity:0;transform:translateY(8px);font-size:clamp(13px,1.6vw,18px);color:var(--text);letter-spacing:.6px}
 
-    .slogan {
-        font-size: 1.2rem;
-        margin-top: 15px;
-        opacity: 0;
-        background: linear-gradient(90deg, #FFD700, #FFA500);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 10px rgba(255,215,0,0.6);
-        animation: fadeIn 2s ease forwards;
-        animation-delay: 4.5s;
-    }
+  .enter-row{margin-top:2rem;display:flex;gap:1rem;justify-content:center;align-items:center}
+  .enter-btn{--padx:30px;--pady:14px;background:linear-gradient(90deg,var(--gold-1),var(--gold-2));border:none;padding:var(--pady) var(--padx);font-weight:800;border-radius:999px;cursor:pointer;box-shadow:0 10px 40px rgba(255,176,54,0.14);transform:translateY(18px);opacity:0}
+  .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:12px 18px;border-radius:999px;font-weight:600}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+  .underline{height:4px;width:140px;margin:18px auto 0;border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold-3),transparent);opacity:0;transform:scaleX(.6)}
 
-    button {
-        margin-top: 40px;
-        padding: 15px 35px;
-        font-size: 1.2rem;
-        background: linear-gradient(90deg, #FFD700, #FFA500);
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        color: black;
-        font-weight: bold;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.8s ease;
-        box-shadow: 0 0 20px rgba(255,215,0,0.6);
-        animation: fadeIn 1s ease forwards;
-        animation-delay: 6.5s;
-    }
+  /* show state */
+  .show .enter-btn{opacity:1;transform:none;transition:all .6s cubic-bezier(.2,.9,.2,1) 0.05s}
+  .show .slogan{opacity:1;transform:none;transition:all .6s cubic-bezier(.2,.9,.2,1) 0.05s}
+  .show .underline{opacity:1;transform:none;transition:all .6s cubic-bezier(.2,.9,.2,1)}
 
-    button:hover {
-        box-shadow: 0 0 40px rgba(255,215,0,1);
-        transform: scale(1.05);
-    }
+  /* reveal overlay */
+  .reveal{position:fixed;inset:0;z-index:55;pointer-events:none;opacity:0;transition:opacity .45s ease}
+
+  .main-content{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#060506,#030203);display:flex;align-items:center;justify-content:center;color:var(--text);opacity:0;pointer-events:none}
+  .main-content.show{opacity:1;pointer-events:auto}
+
+  @media (max-width:720px){.card{padding:1.6rem}.badge{width:76px;height:76px}}
 </style>
 </head>
 <body>
+  <div class="grain" aria-hidden></div>
+  <canvas id="bg"></canvas>
 
-<canvas id="bg"></canvas>
+  <div class="stage" id="stage">
+    <div class="card" id="card" role="dialog" aria-label="Intro">
+      <div class="logo-wrap">
+        <div class="badge" aria-hidden>
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#fff1c4" stop-opacity="0.95"/>
+                <stop offset="1" stop-color="#ffb84d" stop-opacity="0.95"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="34" fill="url(#g1)" opacity="0.12" />
+            <path d="M36 34c6-6 20-6 24 2 4.8 8.7-4 14-12 16s-8 8-4 12 20 6 24-2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.95"/>
+            <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          </svg>
+          <div class="gloss"></div>
+        </div>
+      </div>
 
-<div class="center">
-    <h1 id="title">1 Pages 1 Dollar</h1>
-    <div class="slogan">A special touch just for you</div>
-    <button id="enterBtn">Enter the Experience</button>
-</div>
+      <h1 class="title" id="title">1 Pages 1 Dollar</h1>
+      <div class="underline" id="underline"></div>
+      <p class="slogan" id="slogan">A special touch just for you</p>
+
+      <div class="enter-row" id="enterRow">
+        <button class="enter-btn" id="enterBtn" aria-label="Enter the experience">Enter the Experience</button>
+        <button class="ghost" id="skipBtn" aria-label="Skip intro">Skip Intro</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal" id="reveal"></div>
+  <div class="main-content" id="mainContent"><h2 style="font-size:22px">Welcome — Your 100,000 pages start here ✨</h2></div>
 
 <script>
-    
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
+// ---------- Canvas background: layered orbs + fast sparkles + rotating ring ----------
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = innerWidth, H = canvas.height = innerHeight;
+window.addEventListener('resize', ()=>{ W = canvas.width = innerWidth; H = canvas.height = innerHeight; init(); });
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+function rand(min,max){ return Math.random()*(max-min)+min }
+let soft = [], sparks = [], ring = {r: Math.min(W,H)*0.28, angle:0};
 
-    class Particle {
-        constructor(x, y, size, speedX, speedY) {
-            this.x = x;
-            this.y = y;
-            this.size = size;
-            this.speedX = speedX;
-            this.speedY = speedY;
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.x > canvas.width) this.x = 0;
-            if (this.y > canvas.height) this.y = 0;
-            if (this.x < 0) this.x = canvas.width;
-            if (this.y < 0) this.y = canvas.height;
-        }
-        draw() {
-            ctx.fillStyle = 'rgba(255,215,0,0.8)';
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.closePath();
-            ctx.fill();
-        }
-    }
+function init(){
+  soft = []; sparks = [];
+  const sc = Math.max(40, Math.floor((W*H)/16000));
+  for(let i=0;i<sc;i++) soft.push({x:rand(0,W), y:rand(0,H), r:rand(0.6,3.8), vx:rand(-0.12,0.12), vy:rand(-0.09,0.09), a:rand(0.06,0.9), ph:rand(0,Math.PI*2)});
+  const spc = Math.max(24, Math.floor((W*H)/90000));
+  for(let i=0;i<spc;i++) sparks.push({x:rand(0,W), y:rand(0,H), r:rand(0.8,1.9), vx:rand(-0.6,0.6), vy:rand(-0.6,0.6), life:rand(40,220)});
+  ring.r = Math.min(W,H)*0.28; ring.angle = 0;
+}
 
-    function initParticles() {
-        particlesArray = [];
-        let numberOfParticles = 90;
-        for (let i = 0; i < numberOfParticles; i++) {
-            let size = Math.random() * 2 + 1;
-            let x = Math.random() * canvas.width;
-            let y = Math.random() * canvas.height;
-            let speedX = (Math.random() - 0.5) * 0.5;
-            let speedY = (Math.random() - 0.5) * 0.5;
-            particlesArray.push(new Particle(x, y, size, speedX, speedY));
-        }
-    }
+function drawBg(){
+  ctx.clearRect(0,0,W,H);
+  // subtle gradient
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'rgba(10,8,6,0.06)'); g.addColorStop(1,'rgba(0,0,0,0.2)');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
 
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animateParticles);
-    }
+  // soft orbs
+  for(const p of soft){
+    p.x += p.vx; p.y += p.vy; p.ph += 0.01;
+    if(p.x>W+40) p.x=-40; if(p.x<-40) p.x=W+40; if(p.y>H+40) p.y=-40; if(p.y<-40) p.y=H+40;
+    const alpha = p.a * (0.6 + 0.4*Math.sin(p.ph));
+    const grd = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*12);
+    grd.addColorStop(0, `rgba(255,240,190,${alpha})`);
+    grd.addColorStop(0.5, `rgba(255,200,100,${alpha*0.45})`);
+    grd.addColorStop(1, 'rgba(255,150,40,0)');
+    ctx.beginPath(); ctx.fillStyle = grd; ctx.arc(p.x,p.y,p.r*12,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle = `rgba(255,220,120,${Math.min(1,alpha)})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+  }
 
-    initParticles();
-    animateParticles();
+  // rotating gold ring
+  const cx = W*0.5, cy = H*0.46;
+  ring.angle += 0.0009 * Math.max(1, W/1200);
+  ctx.save(); ctx.translate(cx,cy); ctx.rotate(ring.angle);
+  const rr = ring.r; const ringGrad = ctx.createLinearGradient(-rr,-rr,rr,rr);
+  ringGrad.addColorStop(0,'rgba(255,230,170,0.05)'); ringGrad.addColorStop(0.45,'rgba(255,200,90,0.12)'); ringGrad.addColorStop(1,'rgba(255,160,40,0.02)');
+  ctx.beginPath(); ctx.strokeStyle = ringGrad; ctx.lineWidth = Math.max(1, rr*0.02); ctx.arc(0,0,rr,0,Math.PI*2); ctx.stroke();
+  ctx.restore();
 
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-    });
+  // small fast sparks
+  for(const s of sparks){
+    s.x += s.vx; s.y += s.vy; s.life -= 1; if(s.life<=0 || s.x< -20 || s.x>W+20 || s.y<-20 || s.y>H+20){ s.x=rand(0,W); s.y=rand(0,H); s.vx=rand(-0.6,0.6); s.vy=rand(-0.6,0.6); s.life = rand(40,220);}    
+    ctx.beginPath(); ctx.fillStyle = `rgba(255,230,160,${Math.min(1,0.15 + s.life/260)})`; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+  }
 
-    
-    document.getElementById('enterBtn').addEventListener('click', function(e) {
-        const x = e.clientX;
-        const y = e.clientY;
-        for (let i = 0; i < 30; i++) {
-            const span = document.createElement('span');
-            span.style.position = 'absolute';
-            span.style.left = x + 'px';
-            span.style.top = y + 'px';
-            span.style.width = '4px';
-            span.style.height = '4px';
-            span.style.background = 'gold';
-            span.style.borderRadius = '50%';
-            span.style.pointerEvents = 'none';
-            document.body.appendChild(span);
+  requestAnimationFrame(drawBg);
+}
 
-            const angle = Math.random() * 2 * Math.PI;
-            const velocity = Math.random() * 4;
-            const dx = Math.cos(angle) * velocity;
-            const dy = Math.sin(angle) * velocity;
+init(); drawBg();
 
-            let opacity = 1;
-            function animateDust() {
-                span.style.left = parseFloat(span.style.left) + dx + 'px';
-                span.style.top = parseFloat(span.style.top) + dy + 'px';
-                opacity -= 0.02;
-                span.style.opacity = opacity;
-                if (opacity <= 0) span.remove();
-                else requestAnimationFrame(animateDust);
-            }
-            animateDust();
-        }
-    });
+// ---------- title split + cinematic reveal ----------
+const titleEl = document.getElementById('title');
+const titleText = titleEl.textContent.trim(); titleEl.textContent='';
+const chars = [];
+for(let i=0;i<titleText.length;i++){ const ch = titleText[i]; const sp = document.createElement('span'); sp.className='char'; sp.textContent = ch; titleEl.appendChild(sp); chars.push(sp);} 
+
+function reveal(){
+  chars.forEach((c,i)=>{
+    const d = i*50 + (Math.random()*80 - 40);
+    setTimeout(()=>{ c.style.transition = 'transform 700ms cubic-bezier(.2,.9,.2,1), opacity 500ms'; c.style.opacity=1; c.style.transform='translateY(0) rotateX(0)';
+      // light-sweep
+      c.animate([{transform:'translateX(-140%)'},{transform:'translateX(120%)'}],{duration:900,delay:120+d,iterations:1,easing:'cubic-bezier(.2,.9,.2,1)'});
+    }, d);
+  });
+  // reveal extras
+  setTimeout(()=>{ document.getElementById('card').classList.add('show'); }, chars.length*50 + 220);
+}
+setTimeout(reveal, 300);
+
+// subtle parallax
+const card = document.getElementById('card');
+addEventListener('mousemove', e=>{ const rx = (e.clientX - W/2)/W*18; const ry = (e.clientY - H/2)/H*10; card.style.transform = `translate3d(${rx}px,${ry}px,0) rotateX(${ry*-0.08}deg) rotateY(${rx*0.06}deg)` });
+
+// emblem stroke draw
+(function drawStroke(){ const path = document.querySelector('.badge svg path'); if(!path) return; const len = path.getTotalLength(); path.style.strokeDasharray = len; path.style.strokeDashoffset = len; path.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.2,.9,.2,1) .15s'; requestAnimationFrame(()=> path.style.strokeDashoffset='0'); })();
+
+// ---------- enter interaction: gold burst + screen wipe + optional sound ----------
+const enterBtn = document.getElementById('enterBtn'); const revealDiv = document.getElementById('reveal'); const mainContent = document.getElementById('mainContent');
+
+function goldBurst(x,y,count=80){
+  for(let i=0;i<count;i++){
+    const d = document.createElement('div'); d.style.position='fixed'; d.style.left = x+'px'; d.style.top = y+'px'; d.style.width = d.style.height = (4+Math.random()*8)+'px'; d.style.borderRadius='50%'; d.style.pointerEvents='none'; d.style.zIndex=80;
+    const tone = Math.random(); d.style.background = tone<0.33? 'radial-gradient(circle at 30% 30%, #fff8d6,#ffd86b)': tone<0.66? 'radial-gradient(circle at 30% 30%, #fff8d6,#ffb84d)': 'radial-gradient(circle at 30% 30%, #fff8d6,#ffc973)';
+    document.body.appendChild(d);
+    const angle = Math.random()*Math.PI*2; const speed = 60 + Math.random()*180; const vx = Math.cos(angle)*speed, vy = Math.sin(angle)*speed;
+    requestAnimationFrame(()=> d.style.transform = `translate(${vx}px,${vy}px) scale(${0.6+Math.random()})`);
+    d.style.transition = 'transform 900ms cubic-bezier(.18,.9,.28,1), opacity 900ms ease';
+    setTimeout(()=> d.style.opacity = '0', 560 + Math.random()*280);
+    setTimeout(()=> d.remove(), 1200);
+  }
+}
+
+enterBtn.addEventListener('click', e=>{
+  const r = enterBtn.getBoundingClientRect(); const cx = r.left + r.width/2, cy = r.top + r.height/2;
+  goldBurst(cx,cy,110);
+  // radial wipe
+  revealDiv.style.background = `radial-gradient(circle at ${(cx/W)*100}% ${(cy/H)*100}%, rgba(255,245,205,0.98) 0%, rgba(255,210,120,0.96) 12%, rgba(20,14,8,0) 32%)`;
+  revealDiv.style.opacity = '1'; revealDiv.style.transform = 'scale(0.9)';
+  revealDiv.style.transition = 'transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease';
+  setTimeout(()=>{ revealDiv.style.transform='scale(2.6)'; revealDiv.style.opacity='0'; mainContent.classList.add('show'); card.style.opacity='0.05'; }, 360);
+
+  // try to play subtle sound if user allows
+  try{ if(window.__introAudio){ window.__introAudio.currentTime=0; window.__introAudio.play().catch(()=>{}); } }catch(e){}
+});
+
+// Skip & keyboard
+document.getElementById('skipBtn').addEventListener('click', ()=>{ mainContent.classList.add('show'); card.style.opacity=0.06; });
+addEventListener('keydown', e=>{ if(e.key==='Enter') enterBtn.click(); if(e.key==='Escape') document.getElementById('skipBtn').click(); });
+
+// optional ambient audio (requires user gesture on some browsers) — kept small and optional
+(function prepareAudio(){
+  try{
+    const a = new Audio(); a.src = ''; // <-- if you want, place a short base64-encoded tiny ambience here or a URL
+    a.loop = false; a.volume = 0.12; window.__introAudio = a;
+  }catch(e){}
+})();
+
+// accessibility: ensure final reveal if animations blocked
+setTimeout(()=>{ document.querySelectorAll('.char').forEach(c=>{ c.style.opacity=1; c.style.transform='translateY(0) rotateX(0)'; }); document.getElementById('card').classList.add('show'); }, 2200);
+
 </script>
-
 </body>
 </html>
