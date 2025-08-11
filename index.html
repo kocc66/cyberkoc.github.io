@@ -1,163 +1,101 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>1 Pages 1 Dollar — Kolektif Kitap</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 Pages 1 Dollar</title>
 <style>
-:root{--bg:#060507;--gold1:#ffd86b;--gold2:#ffb84d;--muted:rgba(255,255,255,0.06);--text:#fff7ea}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:linear-gradient(180deg,#060506,#040304);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;color:var(--text);overflow:hidden}
-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0}
-.grain{position:fixed;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:0.05;background-image:radial-gradient(rgba(255,255,255,0.013) 1px, transparent 1px);background-size:6px 6px;z-index:60}
-.container{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3rem}
-.card{width:min(1100px,95%);padding:2.4rem;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));backdrop-filter:blur(6px);box-shadow:0 30px 90px rgba(0,0,0,0.6);text-align:center}
-.badge{width:88px;height:88px;border-radius:999px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--gold2),var(--gold1));display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(255,160,50,0.08)}
-h1{margin:0;font-size:clamp(26px,5.5vw,56px);letter-spacing:1px}
-.title-chars{display:inline-block}
-.title-chars .char{display:inline-block;opacity:0;transform:translateY(20px) rotateX(12deg)}
-.slogan{margin-top:0.8rem;opacity:0;transform:translateY(8px);font-size:clamp(13px,1.6vw,18px);color:var(--text)}
-.under{height:4px;width:160px;margin:18px auto 0;border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold1),transparent);opacity:0;transform:scaleX(.6)}
-.progress-wrap{margin-top:1.6rem;background:rgba(255,255,255,0.02);border-radius:14px;padding:14px}
-.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
-.progress-bar{height:16px;background:linear-gradient(90deg,#111,rgba(255,255,255,0.03));border-radius:12px;overflow:hidden}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold1),var(--gold2));box-shadow:0 8px 30px rgba(255,170,60,0.12);transition:width 1s cubic-bezier(.2,.9,.2,1)}
-.enter-row{margin-top:18px;display:flex;gap:12px;justify-content:center;align-items:center}
-.btn{padding:12px 22px;border-radius:999px;border:none;font-weight:700;cursor:pointer}
-.btn-primary{background:linear-gradient(90deg,var(--gold1),var(--gold2));color:#1b1206;box-shadow:0 12px 36px rgba(255,170,60,0.12)}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-.small{font-size:13px;color:rgba(255,255,255,0.66)}
-.contributors{margin-top:12px;display:flex;gap:8px;justify-content:center;align-items:center}
-.avatar{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#111}
-
-/* modal / editor */
-.modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.modal .panel{width:min(800px,92%);background:linear-gradient(180deg,#070606,#0b0a0a);border-radius:12px;padding:18px;box-shadow:0 30px 100px rgba(0,0,0,0.7);transform:translateY(20px);opacity:0;transition:all .28s ease;pointer-events:auto}
-.modal.show{pointer-events:auto}
-.modal.show .panel{transform:none;opacity:1}
-textarea{width:100%;min-height:240px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;color:var(--text);resize:vertical}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-
-/* page flip preview */
-.book{width:360px;height:240px;margin:20px auto 0;perspective:1200px}
-.page{width:100%;height:100%;background:linear-gradient(180deg,#fffdf7,#fff8ea);border-radius:8px;box-shadow:0 18px 40px rgba(4,3,3,0.6);transform-origin:left;transform:rotateY(0deg);display:flex;align-items:center;justify-content:center;padding:18px;color:#1b1206;font-weight:600}
-.page.flip{animation:flipPage .9s forwards}
-@keyframes flipPage{0%{transform:rotateY(0deg)}50%{transform:rotateY(-120deg)}100%{transform:rotateY(-180deg);opacity:0}}
-
-/* confetti */
-.confetti{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:130}
-.piece{position:absolute;width:10px;height:6px;opacity:1}
-
-/* responsive */
-@media (max-width:720px){.progress-info{font-size:12px}.book{width:280px;height:200px}}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body, html { height: 100%; background: #000; overflow: hidden; }
+  canvas { position: absolute; top: 0; left: 0; }
+  .intro-text {
+    position: absolute; 
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 10;
+  }
+  .intro-text h1 {
+    font-size: 4rem;
+    letter-spacing: 2px;
+    animation: fadeInUp 2s ease forwards;
+  }
+  .intro-text p {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    animation: fadeInUp 2s ease 1s forwards;
+    opacity: 0;
+  }
+  .enter-btn {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeInUp 2s ease 2s forwards;
+  }
+  .enter-btn:hover {
+    background: white;
+    color: black;
+  }
+  @keyframes fadeInUp {
+    0% { transform: translate(-50%, -40%); opacity: 0; }
+    100% { transform: translate(-50%, -50%); opacity: 1; }
+  }
 </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
-<div class="grain" aria-hidden></div>
-<div class="container">
-  <div class="card" role="main">
-    <div class="badge" aria-hidden><svg width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="36" fill="rgba(255,255,255,0.06)"/><path d="M36 34c6-6 20-6 24 2 4.8 8.7-4 14-12 16s-8 8-4 12 20 6 24-2" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/></svg></div>
-
-    <h1 id="title"><span class="title-chars">1 Pages 1 Dollar</span></h1>
-    <div class="under" id="under"></div>
-    <p class="slogan" id="slogan">Her insan bir sayfa yazsın — birlikte 100.000 sayfayı tamamlayalım.</p>
-
-    <div class="progress-wrap">
-      <div class="progress-info"><div><span class="small">İlerlemeniz</span></div><div id="countDisp">0 / 100.000</div></div>
-      <div class="progress-bar" aria-hidden><div class="progress-fill" id="progressFill"></div></div>
-      <div class="contributors" id="contributors" aria-hidden title="Son katkıda bulunanlar"></div>
-    </div>
-
-    <div class="enter-row">
-      <button class="btn btn-primary" id="writeBtn">Sayfanı Yaz</button>
-      <button class="btn btn-ghost" id="learnBtn">Nasıl katılırım?</button>
-    </div>
-    <div class="small" style="margin-top:10px">Sürükle ve bırakla paylaşım bağlantısı alırsın — herkes tek sayfa yazar, toplu bir kitap oluşur.</div>
-
-    <div class="book" id="bookPreview" aria-hidden><div class="page" id="pagePreview">Bir sayfanız burada görünecek...</div></div>
-  </div>
+<canvas id="bgCanvas"></canvas>
+<div class="intro-text">
+  <h1>1 Pages 1 Dollar</h1>
+  <p>A special touch just for you</p>
+  <button class="enter-btn" onclick="enterSite()">Enter</button>
 </div>
-
-<!-- editor modal -->
-<div class="modal" id="modal" aria-hidden>
-  <div class="panel" role="dialog" aria-modal="true" aria-label="Sayfa düzenleyici">
-    <h3 style="margin:0 0 8px">Sayfanızı yazın</h3>
-    <textarea id="editor" placeholder="Bir sayfa yazın — 300-800 kelime önerilir..."></textarea>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="cancel">İptal</button>
-      <button class="btn btn-primary" id="submit">Gönder / Sayfayı Paylaş</button>
-    </div>
-    <div class="small" style="margin-top:10px">Not: Bu demo, katılımcı sayısını tarayıcıda saklar (localStorage). Gerçek paylaşım için backend entegrasyonu gerekir.</div>
-  </div>
-</div>
-
-<div class="confetti" id="confetti"></div>
-
 <script>
-// Basic state using localStorage (demo). You can replace with server calls.
-const MAX = 100000; const KEY = 'pagesCount_v1'; const CONTRIBUTORS_KEY='contributors_v1';
-function getCount(){ return parseInt(localStorage.getItem(KEY)||'0',10) }
-function setCount(n){ localStorage.setItem(KEY,String(n)) }
-function getContributors(){ try{ return JSON.parse(localStorage.getItem(CONTRIBUTORS_KEY)||'[]') }catch(e){return[]} }
-function addContributor(name){ const arr=getContributors(); arr.unshift(name); if(arr.length>12) arr.pop(); localStorage.setItem(CONTRIBUTORS_KEY,JSON.stringify(arr)) }
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 
-// animate counter
-const countDisp = document.getElementById('countDisp'); const fill = document.getElementById('progressFill'); const contributorsEl=document.getElementById('contributors');
-function render(){ const c = getCount(); countDisp.textContent = c.toLocaleString('tr-TR') + ' / ' + MAX.toLocaleString('tr-TR'); const pct = Math.min(100, Math.round((c/MAX)*10000)/100); fill.style.width = pct + '%'; // show contributors
-  contributorsEl.innerHTML=''; getContributors().slice(0,8).forEach(n=>{ const a=document.createElement('div'); a.className='avatar'; a.textContent = n.slice(0,2).toUpperCase(); contributorsEl.appendChild(a) }); }
+  let particles = [];
+  for(let i=0; i<100; i++) {
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      radius: Math.random()*2+1,
+      dx: (Math.random()-0.5)*2,
+      dy: (Math.random()-0.5)*2
+    });
+  }
 
-render();
+  function drawParticles() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'white';
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if(p.x<0 || p.x>canvas.width) p.dx *= -1;
+      if(p.y<0 || p.y>canvas.height) p.dy *= -1;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
 
-// title split for cinematic reveal
-(function splitTitle(){ const el=document.querySelector('.title-chars'); const txt = el.textContent.trim(); el.textContent=''; for(let i=0;i<txt.length;i++){ const sp=document.createElement('span'); sp.className='char'; sp.textContent=txt[i]; sp.style.transition='transform .7s cubic-bezier(.2,.9,.2,1) , opacity .6s'; sp.style.transitionDelay=(i*45)+'ms'; el.appendChild(sp); } const chars = document.querySelectorAll('.title-chars .char'); setTimeout(()=>{ chars.forEach(c=>{ c.style.opacity=1; c.style.transform='translateY(0) rotateX(0)'; }); document.getElementById('under').style.opacity=1; document.getElementById('under').style.transform='none'; document.getElementById('slogan').style.opacity=1; document.querySelector('.enter-row .btn-primary').style.opacity=1; },300) })();
-
-// background canvas: gentle golden orbs (kept light)
-const canvas=document.getElementById('bg'); const ctx=canvas.getContext('2d'); let W=canvas.width=innerWidth, H=canvas.height=innerHeight; window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight; initBg()});
-let orbs=[]; function rand(min,max){return Math.random()*(max-min)+min}
-function initBg(){ orbs=[]; const n = Math.max(50, Math.floor((W*H)/16000)); for(let i=0;i<n;i++){ orbs.push({x:rand(0,W),y:rand(0,H),r:rand(0.6,3.4),vx:rand(-0.2,0.2),vy:rand(-0.15,0.15),a:rand(0.08,0.8),ph:rand(0,Math.PI*2)}) } }
-function drawBg(){ ctx.clearRect(0,0,W,H); // subtle bg
- const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'rgba(10,8,6,0.04)'); g.addColorStop(1,'rgba(0,0,0,0.18)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
- for(const p of orbs){ p.x+=p.vx; p.y+=p.vy; p.ph+=0.01; if(p.x>W+30)p.x=-30; if(p.x<-30)p.x=W+30; if(p.y>H+30)p.y=-30; if(p.y<-30)p.y=H+30; const alpha=p.a*(0.6+0.4*Math.sin(p.ph)); const grd=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*10); grd.addColorStop(0,`rgba(255,240,190,${alpha})`); grd.addColorStop(0.5,`rgba(255,200,100,${alpha*0.45})`); grd.addColorStop(1,'rgba(255,150,40,0)'); ctx.beginPath(); ctx.fillStyle=grd; ctx.arc(p.x,p.y,p.r*10,0,Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.fillStyle=`rgba(255,220,120,${Math.min(1,alpha)})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }
- requestAnimationFrame(drawBg);
-}
-initBg(); drawBg();
-
-// editor modal logic
-const modal=document.getElementById('modal'); const writeBtn=document.getElementById('writeBtn'); const cancel=document.getElementById('cancel'); const submit=document.getElementById('submit'); const editor=document.getElementById('editor'); const pagePreview=document.getElementById('pagePreview'); const bookPreview=document.getElementById('bookPreview');
-writeBtn.addEventListener('click',()=>{ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); editor.focus(); });
-cancel.addEventListener('click',()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); });
-
-// submit — simple local save + visual feedback
-submit.addEventListener('click', ()=>{
-  const text = editor.value.trim(); if(!text){ alert('Lütfen en az bir satır yazın.'); editor.focus(); return; }
-  // save: increment count and add contributor (demo)
-  const prev = getCount(); const next = Math.min(MAX, prev+1); setCount(next); addContributor((Math.random()>0.5? 'K' : 'A') + Math.floor(Math.random()*9000)); render();
-  // show page preview and flip
-  pagePreview.textContent = text.slice(0,260) + (text.length>260? '…':''); pagePreview.classList.remove('flip'); void pagePreview.offsetWidth; pagePreview.classList.add('flip');
-  // confetti + gold burst
-  spawnConfetti();
-  // close modal after animation
-  setTimeout(()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); editor.value=''; },900);
-});
-
-// simple confetti
-function spawnConfetti(){ const mount=document.getElementById('confetti'); for(let i=0;i<80;i++){ const el=document.createElement('div'); el.className='piece'; el.style.background = ['#ffd86b','#ffb84d','#ffc973'][Math.floor(Math.random()*3)]; el.style.left = (innerWidth*0.5 + (Math.random()-0.5)*200) + 'px'; el.style.top = (innerHeight*0.4 + (Math.random()-0.5)*40) + 'px'; el.style.transform = 'translateY(0)'; el.style.opacity = '1'; mount.appendChild(el); const ang = rand(-1.6,1.6); const dist = 200 + Math.random()*500; el.animate([{transform:'translate(0,0) rotate(0deg)', opacity:1},{transform:`translate(${Math.cos(ang)*dist}px,${Math.sin(ang)*dist + 200}px) rotate(${Math.random()*720-360}deg)`, opacity:0}],{duration:1100 + Math.random()*500, easing:'cubic-bezier(.2,.9,.2,1)'}); setTimeout(()=>el.remove(),1600); }
-}
-
-// helper: initial seed (only if not set) — keeps demo lively
-if(getCount()===0){ const seed = Math.floor(Math.random()*4200)+120; setCount(seed); // add fake contributors
-  const names=[]; for(let i=0;i<8;i++) names.push((Math.random()>0.5?'M':'E')+Math.floor(Math.random()*99)); localStorage.setItem(CONTRIBUTORS_KEY,JSON.stringify(names)); }
-render();
-
-// optional: share link (creates pseudo-link with page id)
-document.getElementById('learnBtn').addEventListener('click', ()=>{
-  alert('Her kişi bir sayfa yazar. Sayfanız gönderildiğinde paylaşılabilir bir bağlantı alırsınız. (Bu demo yerel saklama kullanır.)');
-});
-
-// accessibility: keyboard
-addEventListener('keydown', e=>{ if(e.key==='Escape') { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); } });
-
+  function enterSite() {
+    document.body.style.transition = 'opacity 1s';
+    document.body.style.opacity = 0;
+    setTimeout(() => {
+      window.location.href = 'main.html';
+    }, 1000);
+  }
 </script>
 </body>
 </html>
