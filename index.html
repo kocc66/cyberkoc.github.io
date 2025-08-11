@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>100,000 Pages | 1 Dollar Per Page</title>
+    <title>1D1P | Luxury Collaborative Publishing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold-primary: #D4AF37;
             --gold-secondary: #FFD700;
             --gold-dark: #B8860B;
-            --paper-bg: #F9F6F0;
-            --ink-dark: #2C2416;
-            --crimson: #8B0000;
+            --platinum: #E5E4E2;
+            --onyx: #0A0A0A;
+            --deep-burgundy: #800020;
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
@@ -25,63 +25,39 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #1a1208, #2c2416, #1a0d05);
-            color: #fff;
+            background: linear-gradient(135deg, #0a0806, #1a1612, #0a0806);
+            color: var(--platinum);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
             line-height: 1.6;
         }
         
-        /* Grand Background */
-        .grand-background {
+        /* Luxury Background */
+        .luxury-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
-                linear-gradient(to bottom, #1a1208, #0d0802);
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 20%),
+                linear-gradient(to bottom, #0a0806, #050403, #0a0806);
             z-index: -2;
         }
         
-        .floating-pages {
+        .gold-filigree {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.02) 0%, transparent 15%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.02) 0%, transparent 15%);
             z-index: -1;
             pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .page-particle {
-            position: absolute;
-            background: rgba(249, 246, 240, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            transform-origin: center;
-            opacity: 0;
-            animation: floatPage 20s linear infinite;
-        }
-        
-        @keyframes floatPage {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
         }
         
         /* Header */
@@ -92,48 +68,63 @@
             padding: 2rem 5%;
             max-width: 1600px;
             margin: 0 auto;
-            animation: fadeInDown 1s ease-out;
+            position: relative;
+            z-index: 100;
         }
         
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--gold-secondary), var(--gold-dark));
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--platinum), var(--gold-primary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
             letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '1D1P';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: transparent;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.3),
+                0 0 30px rgba(212, 175, 55, 0.2);
+            z-index: -1;
         }
         
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 3rem;
         }
         
         .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(229, 228, 226, 0.8);
             text-decoration: none;
             font-weight: 500;
             font-size: 1.1rem;
             transition: var(--transition);
             position: relative;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 300;
         }
         
         .nav-links a:hover {
-            color: var(--gold-secondary);
+            color: var(--gold-primary);
         }
         
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -8px;
             left: 0;
             width: 0;
-            height: 2px;
+            height: 1px;
             background: var(--gold-primary);
             transition: var(--transition);
         }
@@ -148,282 +139,262 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 8rem 2rem 6rem;
+            padding: 10rem 2rem 6rem;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
         }
         
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 6rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #f9f295, #e0aa3e, #f9f295, #b88a44);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 300% 300%;
-            animation: shimmer 8s ease infinite;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--platinum);
+            position: relative;
             line-height: 1.1;
         }
         
-        .hero h1 .large-number {
-            font-size: 8rem;
+        .hero h1 .gold-text {
+            background: linear-gradient(to right, var(--gold-primary), var(--gold-secondary), var(--gold-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: block;
-            line-height: 0.9;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
         }
         
         .slogan {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 2.5rem;
-            color: var(--gold-secondary);
-            margin: 2rem 0;
+            color: var(--gold-primary);
+            margin: 3rem 0;
             position: relative;
             display: inline-block;
             font-style: italic;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        
+        .slogan::before, .slogan::after {
+            content: '✻';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+        }
+        
+        .slogan::before {
+            left: -40px;
         }
         
         .slogan::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            right: -40px;
         }
         
         .hero p {
-            font-size: 1.6rem;
-            max-width: 900px;
-            margin: 3rem 0;
-            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            color: rgba(229, 228, 226, 0.85);
             line-height: 1.8;
             font-weight: 300;
         }
         
         .hero-stats {
             display: flex;
-            gap: 4rem;
-            margin-top: 3rem;
+            justify-content: center;
+            gap: 5rem;
+            margin-top: 5rem;
             flex-wrap: wrap;
-            justify-content: center;
         }
         
-        .stat-circle {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid rgba(212, 175, 55, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(212, 175, 55, 0.05);
-            z-index: -1;
+        .stat-item {
+            text-align: center;
         }
         
         .stat-number {
             font-size: 3.5rem;
-            font-weight: 700;
+            font-weight: 300;
             color: var(--gold-primary);
             line-height: 1;
+            font-family: 'Cormorant Garamond', serif;
         }
         
         .stat-label {
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(229, 228, 226, 0.7);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 0.5rem;
+            letter-spacing: 3px;
+            margin-top: 1rem;
+            font-weight: 300;
         }
         
-        /* Progress Visualization */
-        .progress-section {
+        /* Luxury Book Showcase */
+        .book-showcase {
             max-width: 1400px;
-            margin: 6rem auto;
+            margin: 8rem auto;
             padding: 0 2rem;
-            text-align: center;
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: var(--gold-primary);
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 4px;
-            background: var(--gold-primary);
-        }
-        
-        .progress-container {
-            background: rgba(20, 15, 5, 0.7);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-top: 3rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-        
-        .progress-visual {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin: 3rem 0;
-            min-height: 300px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
             align-items: center;
         }
         
-        .page-dot {
-            width: 12px;
-            height: 12px;
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            transition: all 0.5s ease;
+        .showcase-content {
+            padding: 2rem;
         }
         
-        .page-dot.reserved {
-            background: var(--gold-primary);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-            transform: scale(1.3);
-        }
-        
-        .progress-bar-container {
-            width: 100%;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            margin: 4rem 0 2rem;
-            overflow: hidden;
+        .showcase-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            color: var(--platinum);
+            margin-bottom: 2rem;
             position: relative;
-            border: 1px solid var(--gold-dark);
+            font-weight: 600;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
-            width: 12%;
-            border-radius: 25px;
-            position: relative;
-            transition: width 2s ease;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-        }
-        
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-        }
-        
-        .feature-card {
-            background: rgba(20, 15, 5, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 15px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-        
-        .feature-card::before {
+        .showcase-content h2::after {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: -15px;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05), transparent);
-            z-index: -1;
-            opacity: 0;
-            transition: var(--transition);
+            width: 100px;
+            height: 2px;
+            background: var(--gold-primary);
         }
         
-        .feature-card:hover::before {
-            opacity: 1;
+        .showcase-content p {
+            font-size: 1.2rem;
+            color: rgba(229, 228, 226, 0.8);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+        
+        .premium-features {
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
         }
         
         .feature-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
             color: var(--gold-primary);
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            margin-top: 0.3rem;
+        }
+        
+        .feature-text h3 {
+            font-size: 1.4rem;
+            color: var(--platinum);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .feature-text p {
+            font-size: 1.1rem;
+            color: rgba(229, 228, 226, 0.7);
+        }
+        
+        .book-display {
+            position: relative;
+            perspective: 1200px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .luxury-book {
+            position: relative;
+            width: 300px;
+            height: 420px;
+            transform-style: preserve-3d;
+            transform: rotateY(-25deg);
             transition: var(--transition);
         }
         
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2);
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0806, #1a1612);
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateZ(25px);
+            padding: 2rem;
         }
         
-        .feature-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--gold-secondary);
+        .cover-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--gold-primary);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
         
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
+        .cover-subtitle {
+            color: var(--platinum);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        
+        .cover-detail {
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        }
+        
+        .book-spine-3d {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 25px;
+            height: calc(100% - 40px);
+            background: linear-gradient(to bottom, var(--gold-dark), var(--gold-primary));
+            transform: translateX(-12px) rotateY(90deg);
+        }
+        
+        .book-pages {
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: calc(100% - 5px);
+            height: calc(100% - 20px);
+            background: linear-gradient(to right, #e6d7b8, #f5f0e5);
+            transform: translateZ(-20px);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
         }
         
         /* Contribution Section */
         .contribution {
             max-width: 900px;
             margin: 8rem auto;
-            padding: 5rem 3rem;
-            background: linear-gradient(135deg, rgba(44, 36, 22, 0.8), rgba(20, 15, 5, 0.9));
-            border: 2px solid var(--gold-primary);
-            border-radius: 20px;
+            padding: 6rem 4rem;
+            background: rgba(10, 8, 6, 0.7);
+            border: 1px solid var(--gold-primary);
             position: relative;
             overflow: hidden;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
         }
         
         .contribution::before {
@@ -442,7 +413,7 @@
                     transparent 48%, 
                     rgba(212, 175, 55, 0.05) 50%, 
                     transparent 52%);
-            background-size: 40px 40px;
+            background-size: 50px 50px;
             opacity: 0.3;
             z-index: 0;
         }
@@ -453,74 +424,92 @@
         }
         
         .contribution h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 3.5rem;
             margin-bottom: 2rem;
-            color: var(--gold-primary);
+            color: var(--platinum);
         }
         
         .contribution p {
             font-size: 1.4rem;
             margin-bottom: 3rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.9;
+            color: rgba(229, 228, 226, 0.9);
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 300;
         }
         
         .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            color: #000;
-            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: var(--gold-primary);
+            font-weight: 300;
             font-size: 2.5rem;
             padding: 1.5rem 3.5rem;
-            border-radius: 60px;
+            border-radius: 0;
             margin: 3rem 0;
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
-            text-transform: uppercase;
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
             letter-spacing: 2px;
         }
         
+        .price-tag::before, .price-tag::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 40%;
+            height: 1px;
+            background: var(--gold-primary);
+        }
+        
+        .price-tag::before {
+            left: 0;
+        }
+        
+        .price-tag::after {
+            right: 0;
+        }
+        
         .cta-button {
-            padding: 1.5rem 4.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            border: none;
-            border-radius: 60px;
+            padding: 1.4rem 4.5rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
             cursor: pointer;
-            color: #000;
+            color: var(--platinum);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
             z-index: 1;
             margin-top: 1.5rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.7s;
+            height: 0;
+            background: var(--gold-primary);
+            transition: var(--transition);
             z-index: -1;
         }
         
         .cta-button:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.6);
+            color: var(--onyx);
         }
         
         .cta-button:hover::before {
-            left: 100%;
+            height: 100%;
         }
         
         /* Global Impact */
@@ -531,87 +520,155 @@
             text-align: center;
         }
         
-        .world-map {
+        .impact-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            color: var(--platinum);
+            margin-bottom: 5rem;
             position: relative;
-            width: 100%;
-            height: 500px;
-            margin: 5rem auto;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg') center/cover;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(212, 175, 55, 0.3);
         }
         
-        .contributor-dot {
+        .impact-title::after {
+            content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
             background: var(--gold-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
-            transform: translate(-50%, -50%);
-            animation: pulse 2s infinite;
         }
         
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .impact-card {
+            background: rgba(10, 8, 6, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: var(--transition);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .impact-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-primary);
+        }
+        
+        .impact-icon {
+            font-size: 3.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 2rem;
+        }
+        
+        .impact-card h3 {
+            font-size: 1.8rem;
+            color: var(--platinum);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .impact-card p {
+            color: rgba(229, 228, 226, 0.7);
+            line-height: 1.8;
         }
         
         /* Footer */
         footer {
             padding: 6rem 0 3rem;
             text-align: center;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            margin-top: 4rem;
-            background: rgba(10, 7, 2, 0.7);
+            margin-top: 6rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
         .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--gold-secondary), var(--gold-dark));
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--platinum), var(--gold-primary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
         
+        .footer-slogan {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--gold-primary);
+            color: var(--onyx);
+            transform: translateY(-5px);
+        }
+        
         .copyright {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1.1rem;
+            color: rgba(229, 228, 226, 0.4);
+            font-size: 1rem;
             margin-top: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
         
         /* Animations */
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         /* Responsive Design */
         @media (max-width: 1200px) {
             .hero h1 {
-                font-size: 5rem;
+                font-size: 4.5rem;
             }
             
-            .hero h1 .large-number {
-                font-size: 6.5rem;
+            .book-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .book-display {
+                order: -1;
+                margin-bottom: 4rem;
             }
         }
         
@@ -621,15 +678,11 @@
             }
             
             .hero {
-                padding: 6rem 2rem 4rem;
+                padding: 8rem 2rem 4rem;
             }
             
             .hero h1 {
-                font-size: 4rem;
-            }
-            
-            .hero h1 .large-number {
-                font-size: 5rem;
+                font-size: 3.8rem;
             }
             
             .slogan {
@@ -637,34 +690,29 @@
             }
             
             .hero p {
-                font-size: 1.4rem;
-            }
-            
-            .stat-circle {
-                width: 150px;
-                height: 150px;
+                font-size: 1.3rem;
             }
         }
         
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 3.2rem;
-            }
-            
-            .hero h1 .large-number {
-                font-size: 4rem;
+                font-size: 3rem;
             }
             
             .slogan {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
-            .section-title {
+            .stat-number {
                 font-size: 2.8rem;
+            }
+            
+            .hero-stats {
+                gap: 3rem;
             }
             
             .contribution h2 {
@@ -677,12 +725,6 @@
             
             .price-tag {
                 font-size: 2rem;
-                padding: 1.2rem 2.5rem;
-            }
-            
-            .cta-button {
-                padding: 1.2rem 3rem;
-                font-size: 1.2rem;
             }
         }
         
@@ -691,207 +733,195 @@
                 font-size: 2.5rem;
             }
             
-            .hero h1 .large-number {
-                font-size: 3rem;
-            }
-            
             .logo {
-                font-size: 2rem;
-            }
-            
-            .stat-circle {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .stat-number {
                 font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .stat-item {
+                flex: 1 0 40%;
             }
         }
     </style>
 </head>
 <body>
     <!-- Background Elements -->
-    <div class="grand-background"></div>
-    <div class="floating-pages" id="floatingPages"></div>
+    <div class="luxury-bg"></div>
+    <div class="gold-filigree"></div>
     
     <!-- Main Content -->
     <header>
-        <div class="logo">100K Pages</div>
+        <div class="logo">1D1P</div>
         <nav class="nav-links">
-            <a href="#">The Project</a>
+            <a href="#">Manifesto</a>
             <a href="#">Contribute</a>
-            <a href="#">Progress</a>
-            <a href="#">Gallery</a>
+            <a href="#">Collection</a>
+            <a href="#">Philanthropy</a>
             <a href="#">Contact</a>
         </nav>
     </header>
     
     <section class="hero">
-        <h1><span class="large-number">100,000</span>Pages 1 Dollar</h1>
-        <div class="slogan">A special touch just for you</div>
-        <p>Join our monumental collaborative project where each person contributes one unique page for just $1. Together, we're creating a 100,000-page masterpiece that captures the diversity of human creativity from around the globe.</p>
-        <button class="cta-button">Reserve Your Page</button>
-        
-        <div class="hero-stats">
-            <div class="stat-circle">
-                <div class="stat-number">12,459</div>
-                <div class="stat-label">Pages Reserved</div>
-            </div>
-            <div class="stat-circle">
-                <div class="stat-number">84</div>
-                <div class="stat-label">Countries</div>
-            </div>
-            <div class="stat-circle">
-                <div class="stat-number">$12,459</div>
-                <div class="stat-label">Raised for Charity</div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="progress-section">
-        <h2 class="section-title">Global Progress</h2>
-        <p>Witness the collective effort as we build this unprecedented literary mosaic</p>
-        
-        <div class="progress-container">
-            <div class="progress-visual" id="progressVisual">
-                <!-- Page dots will be generated by JavaScript -->
-            </div>
+        <div class="hero-content">
+            <h1>
+                <span class="gold-text">1 DOLLAR 1 PAGE</span>
+                A COLLECTIVE MASTERPIECE
+            </h1>
+            <div class="slogan">A special touch just for you</div>
+            <p>Join the most exclusive collaborative publishing project in history. For just $1, claim your page in our limited edition 100,000-page tome - a curated collection of human creativity, preserved in luxury for generations to come.</p>
             
-            <div class="progress-bar-container">
-                <div class="progress-fill" id="progressFill">
-                    <div class="progress-text">12,459 of 100,000 Pages</div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">24,817</div>
+                    <div class="stat-label">PAGES RESERVED</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">97</div>
+                    <div class="stat-label">COUNTRIES</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$24,817</div>
+                    <div class="stat-label">FOR LITERACY</div>
                 </div>
             </div>
-            
-            <p class="contribution-call">Every dot represents a unique contribution. Be part of this historic project!</p>
         </div>
     </section>
     
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-globe-americas"></i>
+    <section class="book-showcase">
+        <div class="showcase-content">
+            <h2>The 1D1P Collection</h2>
+            <p>Each page in our collection is a unique expression from a contributor around the globe. When complete, this monumental work will be:</p>
+            
+            <div class="premium-features">
+                <div class="feature-item">
+                    <div class="feature-icon">✧</div>
+                    <div class="feature-text">
+                        <h3>Bound in Premium Materials</h3>
+                        <p>Handcrafted leather binding with gold leaf detailing</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">✧</div>
+                    <div class="feature-text">
+                        <h3>Archival Quality</h3>
+                        <p>Printed on museum-grade paper for centuries of preservation</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">✧</div>
+                    <div class="feature-text">
+                        <h3>Limited Edition</h3>
+                        <p>Only 100 copies will be produced for collectors and institutions</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">✧</div>
+                    <div class="feature-text">
+                        <h3>Charitable Impact</h3>
+                        <p>All proceeds support global literacy initiatives</p>
+                    </div>
+                </div>
             </div>
-            <h3>Global Collaboration</h3>
-            <p>Join creators from every continent to build the world's most diverse collaborative book project. Your voice alongside thousands of others.</p>
         </div>
         
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-book-open"></i>
+        <div class="book-display">
+            <div class="luxury-book">
+                <div class="book-cover">
+                    <div class="cover-title">1D1P</div>
+                    <div class="cover-subtitle">The Collective Anthology</div>
+                    <div class="cover-detail"></div>
+                </div>
+                <div class="book-spine-3d"></div>
+                <div class="book-pages"></div>
             </div>
-            <h3>Historical Archive</h3>
-            <p>Your page becomes part of a permanent cultural artifact that will be preserved in libraries and museums worldwide.</p>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-hands-helping"></i>
-            </div>
-            <h3>Charity Impact</h3>
-            <p>All proceeds support global literacy programs. Your $1 helps provide books and education to children in need.</p>
         </div>
     </section>
     
     <section class="contribution">
         <div class="contribution-content">
-            <h2>Your Page Awaits</h2>
-            <p>For just $1, you can claim your space in this monumental project. Share your story, art, poetry, or wisdom. Your unique contribution will be part of a 100,000-page legacy.</p>
-            <div class="price-tag">Only $1 Per Page</div>
-            <p>Every dollar brings us closer to completing this historic work while supporting literacy worldwide.</p>
-            <button class="cta-button">Contribute Now</button>
+            <h2>Reserve Your Page</h2>
+            <p>For just $1, secure your place in this historic publication. Your contribution becomes a permanent part of a cultural artifact while supporting literacy worldwide.</p>
+            
+            <div class="price-tag">EXCLUSIVELY $1 PER PAGE</div>
+            
+            <p>Each page is a canvas for your creativity - a poem, a story, an artwork, or a personal reflection. This is your opportunity to be part of something extraordinary.</p>
+            
+            <button class="cta-button">Reserve Now</button>
         </div>
     </section>
     
     <section class="global-impact">
-        <h2 class="section-title">Global Participation</h2>
-        <p>Creators from around the world are contributing to this project</p>
+        <h2 class="impact-title">The 1D1P Impact</h2>
         
-        <div class="world-map" id="worldMap">
-            <!-- Contributor dots will be generated by JavaScript -->
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon"><i class="fas fa-globe"></i></div>
+                <h3>Global Collaboration</h3>
+                <p>Join creators from every corner of the world in this unprecedented literary mosaic.</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="impact-icon"><i class="fas fa-book"></i></div>
+                <h3>Cultural Preservation</h3>
+                <p>Your work becomes part of a permanent collection preserved for future generations.</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="impact-icon"><i class="fas fa-hands-helping"></i></div>
+                <h3>Philanthropic Mission</h3>
+                <p>Every dollar contributes to literacy programs in underserved communities worldwide.</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="impact-icon"><i class="fas fa-medal"></i></div>
+                <h3>Collector's Edition</h3>
+                <p>Receive recognition as a contributor in this limited edition luxury publication.</p>
+            </div>
         </div>
     </section>
     
     <footer>
-        <div class="footer-logo">100,000 Pages</div>
-        <div class="slogan">A special touch just for you</div>
-        <p class="copyright">© 2023 The 100,000 Pages Project. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-logo">1D1P</div>
+            <div class="footer-slogan">A special touch just for you</div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <p class="copyright">© 2023 1D1P COLLECTIVE. ALL RIGHTS RESERVED.<br>AN EXCLUSIVE PUBLISHING INITIATIVE</p>
+        </div>
     </footer>
 
     <script>
-        // Create floating pages
-        const floatingPages = document.getElementById('floatingPages');
-        for (let i = 0; i < 100; i++) {
-            const page = document.createElement('div');
-            page.classList.add('page-particle');
-            
-            // Random properties
-            const size = Math.random() * 100 + 30;
-            const left = Math.random() * 100;
-            const delay = Math.random() * 15;
-            const duration = Math.random() * 10 + 15;
-            
-            page.style.width = `${size}px`;
-            page.style.height = `${size * 1.4}px`;
-            page.style.left = `${left}%`;
-            page.style.animationDelay = `${delay}s`;
-            page.style.animationDuration = `${duration}s`;
-            
-            floatingPages.appendChild(page);
-        }
-        
-        // Create progress visualization
-        const progressVisual = document.getElementById('progressVisual');
-        const totalPages = 100000;
-        const reservedPages = 12459;
-        const dotsToShow = 2000; // Visual representation dots
-        
-        for (let i = 0; i < dotsToShow; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('page-dot');
-            
-            // Make some dots "reserved"
-            if (i < (reservedPages / totalPages) * dotsToShow) {
-                dot.classList.add('reserved');
-            }
-            
-            progressVisual.appendChild(dot);
-        }
-        
-        // Animate progress bar
-        document.addEventListener('DOMContentLoaded', function() {
-            const progressFill = document.getElementById('progressFill');
-            setTimeout(() => {
-                progressFill.style.width = '12.459%';
-            }, 500);
+        // Interactive book effect
+        document.addEventListener('mousemove', (e) => {
+            const book = document.querySelector('.luxury-book');
+            const xAxis = (window.innerWidth / 2 - e.clientX) / 80;
+            const yAxis = (window.innerHeight / 2 - e.clientY) / 80;
+            book.style.transform = `rotateY(${-25 - xAxis}deg) rotateX(${yAxis}deg)`;
         });
         
-        // Create world map contributors
-        const worldMap = document.getElementById('worldMap');
-        const contributorCount = 150;
-        
-        for (let i = 0; i < contributorCount; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('contributor-dot');
-            
-            // Random position (simplified world map positioning)
-            const left = Math.random() * 10 + 25; // Americas
-            if (Math.random() > 0.5) {
-                dot.style.left = `${Math.random() * 35 + 55}%`; // Europe/Asia/Africa
-            } else {
-                dot.style.left = `${left}%`;
-            }
-            
-            dot.style.top = `${Math.random() * 70 + 15}%`;
-            dot.style.animationDelay = `${Math.random() * 2}s`;
-            
-            worldMap.appendChild(dot);
-        }
-        
-        // Button ripple effect
+        // Button hover effect
         const buttons = document.querySelectorAll('.cta-button');
         buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.6)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+            
             button.addEventListener('click', function(e) {
                 // Create ripple effect
                 const ripple = document.createElement('span');
@@ -900,7 +930,7 @@
                 ripple.style.borderRadius = '50%';
                 ripple.style.transform = 'scale(0)';
                 ripple.style.animation = 'ripple 0.8s linear';
-                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.backgroundColor = 'rgba(212, 175, 55, 0.3)';
                 
                 const rect = button.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
@@ -920,7 +950,7 @@
                 
                 // Show confirmation
                 setTimeout(() => {
-                    alert("Thank you for your contribution! You'll be redirected to our secure payment page.");
+                    alert("Thank you for your interest in 1D1P. You'll be redirected to our exclusive reservation portal.");
                 }, 400);
             });
         });
@@ -936,6 +966,29 @@
             }
         `;
         document.head.appendChild(style);
+        
+        // Animate stats
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(number => {
+                const target = parseInt(number.textContent.replace(/,/g, ''));
+                let count = 0;
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                
+                const updateCount = () => {
+                    if (count < target) {
+                        count += increment;
+                        number.textContent = Math.floor(count).toLocaleString();
+                        setTimeout(updateCount, 16);
+                    } else {
+                        number.textContent = target.toLocaleString();
+                    }
+                };
+                
+                setTimeout(updateCount, 500);
+            });
+        });
     </script>
 </body>
 </html>
