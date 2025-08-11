@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1D1P | Luxury Collaborative Publishing</title>
+    <title>1D1P | Reserve Your Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -650,6 +650,158 @@
             letter-spacing: 1px;
         }
         
+        /* Reservation Modal */
+        .reservation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 8, 6, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .reservation-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .reservation-container {
+            background: rgba(20, 16, 12, 0.9);
+            width: 90%;
+            max-width: 800px;
+            border: 1px solid var(--gold-primary);
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--platinum);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--gold-primary);
+            transform: rotate(90deg);
+        }
+        
+        .reservation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .reservation-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--platinum);
+            margin-bottom: 1rem;
+        }
+        
+        .reservation-header p {
+            color: rgba(229, 228, 226, 0.8);
+            font-size: 1.2rem;
+        }
+        
+        .timer-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+        }
+        
+        .timer-label {
+            font-size: 1.2rem;
+            color: rgba(229, 228, 226, 0.7);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .timer {
+            font-size: 3rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--platinum);
+            font-size: 1.1rem;
+        }
+        
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 8, 6, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--platinum);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--platinum);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+        }
+        
+        .form-submit:hover {
+            background: var(--gold-primary);
+            color: var(--onyx);
+        }
+        
+        .character-count {
+            text-align: right;
+            color: rgba(229, 228, 226, 0.7);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -692,6 +844,10 @@
             .hero p {
                 font-size: 1.3rem;
             }
+            
+            .reservation-container {
+                padding: 2rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -726,6 +882,10 @@
             .price-tag {
                 font-size: 2rem;
             }
+            
+            .timer {
+                font-size: 2.2rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -743,6 +903,10 @@
             
             .stat-item {
                 flex: 1 0 40%;
+            }
+            
+            .reservation-header h2 {
+                font-size: 2.2rem;
             }
         }
     </style>
@@ -852,7 +1016,7 @@
             
             <p>Each page is a canvas for your creativity - a poem, a story, an artwork, or a personal reflection. This is your opportunity to be part of something extraordinary.</p>
             
-            <button class="cta-button">Reserve Now</button>
+            <button id="reserveBtn" class="cta-button">Reserve Now</button>
         </div>
     </section>
     
@@ -901,8 +1065,216 @@
             <p class="copyright">© 2023 1D1P COLLECTIVE. ALL RIGHTS RESERVED.<br>AN EXCLUSIVE PUBLISHING INITIATIVE</p>
         </div>
     </footer>
+    
+    <!-- Reservation Modal -->
+    <div class="reservation-modal" id="reservationModal">
+        <div class="reservation-container">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="reservation-header">
+                <h2>Reserve Your Page</h2>
+                <p>You have 10 minutes to complete your reservation. After that, your page will be released to others.</p>
+            </div>
+            
+            <div class="timer-container">
+                <div class="timer-label">Time Remaining</div>
+                <div class="timer" id="countdown">10:00</div>
+            </div>
+            
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pageType">Page Type</label>
+                    <select id="pageType" required>
+                        <option value="">Select page type</option>
+                        <option value="text">Text Page (Poem, Story, Essay)</option>
+                        <option value="art">Art Page (Drawing, Painting, Design)</option>
+                        <option value="photo">Photo Page</option>
+                        <option value="mixed">Mixed Media</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pageContent">Your Page Content</label>
+                    <textarea id="pageContent" required placeholder="Create your masterpiece here..."></textarea>
+                    <div class="character-count">
+                        Characters: <span id="charCount">0</span>/1000
+                    </div>
+                </div>
+                
+                <button type="submit" class="form-submit">Confirm Reservation ($1)</button>
+            </form>
+        </div>
+    </div>
 
     <script>
+        // DOM Elements
+        const reserveBtn = document.getElementById('reserveBtn');
+        const reservationModal = document.getElementById('reservationModal');
+        const closeModal = document.getElementById('closeModal');
+        const countdownElement = document.getElementById('countdown');
+        const reservationForm = document.getElementById('reservationForm');
+        const pageContent = document.getElementById('pageContent');
+        const charCount = document.getElementById('charCount');
+        
+        // Timer variables
+        let countdown;
+        let minutes = 10;
+        let seconds = 0;
+        
+        // Open reservation modal
+        reserveBtn.addEventListener('click', () => {
+            reservationModal.classList.add('active');
+            startCountdown();
+        });
+        
+        // Close reservation modal
+        closeModal.addEventListener('click', () => {
+            reservationModal.classList.remove('active');
+            clearInterval(countdown);
+        });
+        
+        // Character counter
+        pageContent.addEventListener('input', () => {
+            const content = pageContent.value;
+            charCount.textContent = content.length;
+            
+            // Limit to 1000 characters
+            if (content.length > 1000) {
+                pageContent.value = content.substring(0, 1000);
+                charCount.textContent = 1000;
+            }
+        });
+        
+        // Start the countdown timer
+        function startCountdown() {
+            minutes = 10;
+            seconds = 0;
+            updateTimerDisplay();
+            
+            countdown = setInterval(() => {
+                if (minutes === 0 && seconds === 0) {
+                    clearInterval(countdown);
+                    alert("Your reservation time has expired. Please try again.");
+                    reservationModal.classList.remove('active');
+                    return;
+                }
+                
+                if (seconds === 0) {
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+                
+                updateTimerDisplay();
+                
+                // Visual warning at 1 minute
+                if (minutes === 1 && seconds === 0) {
+                    countdownElement.style.color = '#ff6b6b';
+                    countdownElement.style.animation = 'pulse 1s infinite';
+                }
+            }, 1000);
+        }
+        
+        // Update timer display
+        function updateTimerDisplay() {
+            countdownElement.textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Form submission
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const pageType = document.getElementById('pageType').value;
+            const content = document.getElementById('pageContent').value;
+            
+            // Validate content length
+            if (content.length < 20) {
+                alert('Your content is too short. Please add more to your masterpiece.');
+                return;
+            }
+            
+            // Clear timer
+            clearInterval(countdown);
+            
+            // Show success message
+            reservationModal.classList.remove('active');
+            
+            // Create success overlay
+            const successOverlay = document.createElement('div');
+            successOverlay.style.position = 'fixed';
+            successOverlay.style.top = '0';
+            successOverlay.style.left = '0';
+            successOverlay.style.width = '100%';
+            successOverlay.style.height = '100%';
+            successOverlay.style.backgroundColor = 'rgba(10, 8, 6, 0.95)';
+            successOverlay.style.display = 'flex';
+            successOverlay.style.alignItems = 'center';
+            successOverlay.style.justifyContent = 'center';
+            successOverlay.style.zIndex = '2000';
+            successOverlay.style.opacity = '0';
+            successOverlay.style.transition = 'opacity 0.8s ease';
+            
+            const successContent = document.createElement('div');
+            successContent.style.textAlign = 'center';
+            successContent.style.padding = '3rem';
+            successContent.style.maxWidth = '700px';
+            
+            successContent.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size: 5rem; color: var(--gold-primary); margin-bottom: 2rem;"></i>
+                <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--platinum); margin-bottom: 1.5rem;">
+                    Congratulations!
+                </h2>
+                <p style="font-size: 1.5rem; color: rgba(229, 228, 226, 0.9); margin-bottom: 2rem; line-height: 1.8;">
+                    Your page has been successfully reserved in the 1D1P Collection.
+                </p>
+                <p style="font-size: 1.2rem; color: rgba(229, 228, 226, 0.8); margin-bottom: 3rem;">
+                    We've sent a confirmation to your email. Your contribution to global literacy is greatly appreciated.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <button id="viewPageBtn" style="padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--gold-primary); color: var(--platinum); font-size: 1.1rem; cursor: pointer; transition: var(--transition);">
+                        View Your Page
+                    </button>
+                    <button id="returnBtn" style="padding: 1rem 2.5rem; background: var(--gold-primary); border: none; color: var(--onyx); font-size: 1.1rem; cursor: pointer; transition: var(--transition);">
+                        Return to Site
+                    </button>
+                </div>
+            `;
+            
+            successOverlay.appendChild(successContent);
+            document.body.appendChild(successOverlay);
+            
+            // Fade in
+            setTimeout(() => {
+                successOverlay.style.opacity = '1';
+            }, 100);
+            
+            // Button events
+            document.getElementById('viewPageBtn').addEventListener('click', () => {
+                alert('Your page preview will be available in your confirmation email.');
+            });
+            
+            document.getElementById('returnBtn').addEventListener('click', () => {
+                document.body.removeChild(successOverlay);
+            });
+        });
+        
         // Interactive book effect
         document.addEventListener('mousemove', (e) => {
             const book = document.querySelector('.luxury-book');
@@ -947,11 +1319,6 @@
                 setTimeout(() => {
                     ripple.remove();
                 }, 800);
-                
-                // Show confirmation
-                setTimeout(() => {
-                    alert("Thank you for your interest in 1D1P. You'll be redirected to our exclusive reservation portal.");
-                }, 400);
             });
         });
         
@@ -963,6 +1330,11 @@
                     transform: scale(4);
                     opacity: 0;
                 }
+            }
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
             }
         `;
         document.head.appendChild(style);
