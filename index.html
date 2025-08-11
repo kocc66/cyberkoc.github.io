@@ -1,102 +1,176 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Basit FIFA 26 Örneği</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 Pages 1 Dollar</title>
 <style>
-  body {
-    background-color: #004d00;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  #field {
-    position: relative;
-    width: 600px;
-    height: 400px;
-    background: linear-gradient(#0a7f0a, #065006);
-    border: 5px solid white;
-    border-radius: 15px;
-  }
-  #ball {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: radial-gradient(circle at center, white 0%, black 100%);
-    border-radius: 50%;
-    top: 185px;
-    left: 285px;
-    transition: top 0.1s, left 0.1s;
-  }
-  #player {
-    position: absolute;
-    width: 40px;
-    height: 60px;
-    background-color: red;
-    top: 170px;
-    left: 100px;
-    border-radius: 10px;
-  }
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+    }
+
+    /* Canvas for particles */
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    /* Center content */
+    .center {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: scale(1);
+        animation: zoomIn 6s ease-in-out forwards;
+    }
+
+    @keyframes zoomIn {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    h1 {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid rgba(255,215,0,0.75);
+        width: 0;
+        animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+        background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 15px rgba(255,215,0,0.8);
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 25ch; }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent; }
+        50% { border-color: rgba(255,215,0,0.75); }
+    }
+
+    button {
+        margin-top: 40px;
+        padding: 15px 35px;
+        font-size: 1.2rem;
+        background: linear-gradient(90deg, #FFD700, #FFA500);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease;
+        box-shadow: 0 0 20px rgba(255,215,0,0.6);
+    }
+
+    button:hover {
+        box-shadow: 0 0 30px rgba(255,215,0,1);
+        transform: translateY(0) scale(1.05);
+    }
+
+    button.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
 </head>
 <body>
 
-<div id="field">
-  <div id="player"></div>
-  <div id="ball"></div>
+<canvas id="bg"></canvas>
+
+<div class="center">
+    <h1 id="title">1 Pages 1 Dollar Premium</h1>
+    <button id="enterBtn">Enter the Experience</button>
 </div>
 
 <script>
-  const player = document.getElementById('player');
-  const ball = document.getElementById('ball');
-  const field = document.getElementById('field');
+    // Particles Background
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
 
-  let playerPos = { x: 100, y: 170 };
-  let ballPos = { x: 285, y: 185 };
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  const speed = 10;
-
-  document.addEventListener('keydown', (e) => {
-    switch(e.key) {
-      case 'ArrowUp':
-        if(playerPos.y > 0) playerPos.y -= speed;
-        break;
-      case 'ArrowDown':
-        if(playerPos.y < field.clientHeight - player.clientHeight) playerPos.y += speed;
-        break;
-      case 'ArrowLeft':
-        if(playerPos.x > 0) playerPos.x -= speed;
-        break;
-      case 'ArrowRight':
-        if(playerPos.x < field.clientWidth - player.clientWidth) playerPos.x += speed;
-        break;
-      case ' ':
-        // Eğer oyuncu topa yakınsa topu ileri doğru it
-        const distX = ballPos.x - playerPos.x;
-        const distY = ballPos.y - playerPos.y;
-        const distance = Math.sqrt(distX * distX + distY * distY);
-        if(distance < 60) {
-          ballPos.x += 50;
-          if(ballPos.x > field.clientWidth - ball.clientWidth) ballPos.x = field.clientWidth - ball.clientWidth;
+    class Particle {
+        constructor(x, y, size, speedX, speedY) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.speedX = speedX;
+            this.speedY = speedY;
         }
-        break;
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y < 0) this.y = canvas.height;
+        }
+        draw() {
+            ctx.fillStyle = 'rgba(255,215,0,0.8)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+        }
     }
-    updatePositions();
-  });
 
-  function updatePositions() {
-    player.style.left = playerPos.x + 'px';
-    player.style.top = playerPos.y + 'px';
+    function initParticles() {
+        particlesArray = [];
+        let numberOfParticles = 80;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = Math.random() * 2 + 1;
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            let speedX = (Math.random() - 0.5) * 0.5;
+            let speedY = (Math.random() - 0.5) * 0.5;
+            particlesArray.push(new Particle(x, y, size, speedX, speedY));
+        }
+    }
 
-    ball.style.left = ballPos.x + 'px';
-    ball.style.top = ballPos.y + 'px';
-  }
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        requestAnimationFrame(animateParticles);
+    }
 
-  updatePositions();
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+    });
+
+    // Show button after typing
+    setTimeout(() => {
+        document.getElementById('enterBtn').classList.add('show');
+    }, 4200);
 </script>
 
 </body>
