@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1D1P | Collective Masterpiece</title>
+    <title>1D1P | Write Your Legacy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,8 @@
             --dark-green: #014D44;
             --gold: #E6D3A7;
             --transition: all 0.4s ease;
+            --error-red: #d9534f;
+            --success-green: #5cb85c;
         }
         
         * {
@@ -56,6 +58,8 @@
             margin: 0 auto;
             position: relative;
             z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .logo {
@@ -79,6 +83,7 @@
         .nav-links {
             display: flex;
             gap: 2.5rem;
+            align-items: center;
         }
         
         .nav-links a {
@@ -109,6 +114,28 @@
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .auth-btn {
+            background: var(--pine-green);
+            color: var(--cream);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .auth-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         /* Hero Section */
@@ -182,46 +209,392 @@
             max-width: 700px;
         }
         
-        .hero-stats {
+        /* Our Mission Section */
+        .mission-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .mission-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .mission-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .mission-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+        
+        .mission-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .mission-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--pine-green);
+        }
+        
+        .mission-card p {
+            color: var(--pine-green);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        /* Authors Section */
+        .authors-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .authors-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .authors-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .authors-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+        
+        .author-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 500px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: left;
+        }
+        
+        .author-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 20px;
+        }
+        
+        .author-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--cream);
+        }
+        
+        .author-info {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--pine-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-title {
+            font-size: 1.1rem;
+            color: var(--dark-green);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        
+        .author-bio {
+            color: var(--pine-green);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .author-divider {
+            height: 2px;
+            background: var(--gold);
+            margin: 1.5rem 0;
+            opacity: 0.3;
+        }
+        
+        .author-book {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            background: rgba(230, 211, 167, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .book-icon {
+            font-size: 1.8rem;
+            color: var(--pine-green);
+        }
+        
+        .book-title {
+            font-weight: 600;
+            color: var(--pine-green);
+        }
+        
+        /* Writing Experience */
+        .writing-experience {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .writing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .writing-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--pine-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .writing-header p {
+            color: var(--pine-green);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .writing-rules {
             display: flex;
             justify-content: center;
-            gap: 4rem;
-            margin-top: 4rem;
+            gap: 3rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
         
-        .stat-item {
+        .rule-card {
+            background: var(--cream);
+            border: 1px solid var(--light-pine);
+            padding: 1.5rem;
+            border-radius: 10px;
             text-align: center;
-            position: relative;
-            padding: 0 15px;
+            min-width: 200px;
         }
         
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(1, 121, 111, 0.3), transparent);
-        }
-        
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 300;
+        .rule-icon {
+            font-size: 2rem;
             color: var(--pine-green);
-            line-height: 1;
-            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
         }
         
-        .stat-label {
-            font-size: 1rem;
+        .rule-title {
+            font-weight: 600;
             color: var(--pine-green);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 1rem;
-            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rule-desc {
+            color: var(--pine-green);
             opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .writing-container {
+            margin-top: 3rem;
+        }
+        
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timer-label {
+            font-size: 1.1rem;
+            color: var(--pine-green);
+        }
+        
+        .timer {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--pine-green);
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .writing-area {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 1.5rem;
+            border: 2px solid var(--light-pine);
+            border-radius: 10px;
+            background: var(--cream);
+            color: var(--pine-green);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            resize: none;
+            transition: var(--transition);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(230, 211, 167, 0.3);
+        }
+        
+        .char-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(143, 192, 192, 0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: var(--pine-green);
+            font-size: 0.9rem;
+        }
+        
+        .writing-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .writing-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            border: none;
+        }
+        
+        .btn-start {
+            background: var(--pine-green);
+            color: var(--cream);
+        }
+        
+        .btn-submit {
+            background: var(--gold);
+            color: var(--dark-green);
+        }
+        
+        .writing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .legal-disclaimer {
+            background: rgba(230, 211, 167, 0.2);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .legal-disclaimer h4 {
+            margin-bottom: 0.5rem;
+            color: var(--pine-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legal-disclaimer ul {
+            padding-left: 1.5rem;
+        }
+        
+        .legal-disclaimer li {
+            margin-bottom: 0.3rem;
         }
         
         /* Creative Progress Visualization */
@@ -339,427 +712,6 @@
             font-size: 1.1rem;
         }
         
-        /* Book Showcase */
-        .book-showcase {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .showcase-content {
-            padding: 1.5rem;
-        }
-        
-        .showcase-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--pine-green);
-            margin-bottom: 1.5rem;
-            position: relative;
-            font-weight: 600;
-        }
-        
-        .showcase-content h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 2px;
-            background: var(--gold);
-        }
-        
-        .showcase-content p {
-            font-size: 1.1rem;
-            color: var(--pine-green);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-        
-        .premium-features {
-            margin-top: 2.5rem;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.5);
-            border-left: 2px solid var(--gold);
-            transition: var(--transition);
-            border-radius: 4px;
-        }
-        
-        .feature-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .feature-icon {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-right: 1.5rem;
-            min-width: 30px;
-            text-align: center;
-        }
-        
-        .feature-text h3 {
-            font-size: 1.3rem;
-            color: var(--pine-green);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .feature-text p {
-            font-size: 1rem;
-            color: var(--pine-green);
-            margin-bottom: 0;
-            opacity: 0.8;
-        }
-        
-        .book-display {
-            position: relative;
-            perspective: 1200px;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .luxury-book {
-            position: relative;
-            width: 280px;
-            height: 380px;
-            transform-style: preserve-3d;
-            transform: rotateY(-20deg);
-            transition: var(--transition);
-        }
-        
-        .book-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--cream);
-            border: 1px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform: translateZ(20px);
-            padding: 2rem;
-        }
-        
-        .cover-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        .cover-subtitle {
-            color: var(--pine-green);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-        
-        .cover-detail {
-            position: absolute;
-            bottom: 20px;
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-        
-        .book-spine-3d {
-            position: absolute;
-            left: 0;
-            top: 20px;
-            width: 20px;
-            height: calc(100% - 40px);
-            background: var(--gold);
-            transform: translateX(-10px) rotateY(90deg);
-        }
-        
-        .book-pages {
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: calc(100% - 5px);
-            height: calc(100% - 20px);
-            background: linear-gradient(to right, #e6d7b8, #f5f0e5);
-            transform: translateZ(-15px);
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Authors Section */
-        .authors {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-        
-        .authors-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--pine-green);
-            margin-bottom: 4rem;
-            position: relative;
-        }
-        
-        .authors-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: var(--gold);
-        }
-        
-        .authors-btn {
-            padding: 1.2rem 3rem;
-            font-size: 1.1rem;
-            background: var(--pine-green);
-            border: none;
-            color: var(--cream);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(1, 121, 111, 0.3);
-        }
-        
-        .authors-btn:hover {
-            background: var(--dark-green);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(1, 121, 111, 0.4);
-        }
-        
-        .authors-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-        
-        .authors-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            background: var(--cream);
-            width: 90%;
-            max-width: 800px;
-            border-radius: 20px;
-            padding: 3rem;
-            position: relative;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.8rem;
-            color: var(--pine-green);
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-modal:hover {
-            color: var(--dark-green);
-            transform: rotate(90deg);
-        }
-        
-        .authors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-        
-        .author-card {
-            background: var(--cream);
-            border: 1px solid rgba(143, 192, 192, 0.5);
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            transition: var(--transition);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-        
-        .author-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .author-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--pine-green);
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--cream);
-        }
-        
-        .author-name {
-            font-size: 1.8rem;
-            color: var(--pine-green);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .author-bio {
-            color: var(--pine-green);
-            line-height: 1.7;
-            text-align: left;
-            opacity: 0.9;
-        }
-        
-        /* Contribution Section */
-        .contribution {
-            max-width: 900px;
-            margin: 6rem auto;
-            padding: 5rem 4rem;
-            background: var(--cream);
-            border: 1px solid var(--gold);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
-            border-radius: 20px;
-        }
-        
-        .contribution::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(45deg, 
-                    transparent 48%, 
-                    rgba(230, 211, 167, 0.05) 50%, 
-                    transparent 52%),
-                linear-gradient(-45deg, 
-                    transparent 48%, 
-                    rgba(230, 211, 167, 0.05) 50%, 
-                    transparent 52%);
-            background-size: 50px 50px;
-            opacity: 0.3;
-            z-index: 0;
-        }
-        
-        .contribution-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .contribution h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--pine-green);
-        }
-        
-        .contribution p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
-            color: var(--pine-green);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-        }
-        
-        .price-tag {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            color: var(--gold);
-            font-weight: 300;
-            font-size: 2.2rem;
-            padding: 1.5rem 3rem;
-            border-radius: 0;
-            margin: 2.5rem 0;
-            position: relative;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-        }
-        
-        .price-tag::before, .price-tag::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 40%;
-            height: 1px;
-            background: var(--gold);
-        }
-        
-        .price-tag::before {
-            left: 0;
-        }
-        
-        .price-tag::after {
-            right: 0;
-        }
-        
-        .cta-button {
-            padding: 1.2rem 4rem;
-            font-size: 1.1rem;
-            font-weight: 400;
-            background: transparent;
-            border: 1px solid var(--gold);
-            cursor: pointer;
-            color: var(--pine-green);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            margin-top: 1.5rem;
-            letter-spacing: 2px;
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .cta-button:hover {
-            background: var(--gold);
-            color: var(--cream);
-        }
-        
         /* Footer */
         footer {
             padding: 6rem 0 3rem;
@@ -788,6 +740,41 @@
             color: var(--gold);
             margin-bottom: 3rem;
             font-style: italic;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--pine-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
         }
         
         .social-links {
@@ -825,10 +812,180 @@
             opacity: 0.7;
         }
         
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.4s ease;
+        }
+        
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--pine-green);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--pine-green);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--pine-green);
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--light-pine);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(230, 211, 167, 0.3);
+        }
+        
+        .form-error {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--pine-green);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+        
+        .form-submit:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--pine-green);
+        }
+        
+        .form-switch a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .form-switch a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--light-pine);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            color: var(--pine-green);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--gold);
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: rgba(92, 184, 92, 0.1);
+            border: 1px solid var(--success-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            color: var(--success-green);
+            display: none;
         }
         
         /* Responsive Design */
@@ -836,19 +993,10 @@
             .hero h1 {
                 font-size: 3rem;
             }
-            
-            .book-showcase {
-                grid-template-columns: 1fr;
-            }
-            
-            .book-display {
-                order: -1;
-                margin-bottom: 4rem;
-            }
         }
         
         @media (max-width: 992px) {
-            .nav-links {
+            .nav-links a:not(.auth-btn-container) {
                 display: none;
             }
             
@@ -884,14 +1032,6 @@
                 padding: 0 30px;
             }
             
-            .stat-number {
-                font-size: 2.2rem;
-            }
-            
-            .hero-stats {
-                gap: 2.5rem;
-            }
-            
             .forest-progress {
                 gap: 10px;
             }
@@ -905,12 +1045,108 @@
                 width: 40px;
                 height: 50px;
             }
+            
+            .writing-experience {
+                padding: 2rem;
+            }
+            
+            .mission-card {
+                padding: 2rem;
+            }
+            
+            .author-card {
+                padding: 1.5rem;
+            }
+            
+            .author-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .modal-content {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Background Elements -->
     <div class="nature-bg"></div>
+    
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Sign In</div>
+                <div class="auth-tab" data-tab="register">Sign Up</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <h2 class="modal-title">Welcome Back</h2>
+                <div class="success-message" id="loginSuccess">
+                    <i class="fas fa-check-circle"></i> Successfully logged in!
+                </div>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="form-error" id="loginEmailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                    <div class="form-error" id="loginPasswordError">Password must be at least 6 characters</div>
+                </div>
+                <button class="form-submit" id="loginSubmit">Sign In</button>
+                <div class="form-switch">
+                    Don't have an account? <a href="#" id="switchToRegister">Sign Up</a>
+                </div>
+            </div>
+            
+            <!-- Registration Form -->
+            <div class="auth-form" id="registerForm">
+                <h2 class="modal-title">Create Account</h2>
+                <div class="success-message" id="registerSuccess">
+                    <i class="fas fa-check-circle"></i> Account created successfully!
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" required>
+                    <div class="form-error" id="firstNameError">Please enter your first name</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" required>
+                    <div class="form-error" id="lastNameError">Please enter your last name</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                    <div class="form-error" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <div class="form-error" id="emailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                    <div class="form-error" id="passwordError">Password must be at least 6 characters</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                    <div class="form-error" id="confirmPasswordError">Passwords do not match</div>
+                </div>
+                <button class="form-submit" id="registerSubmit">Create Account</button>
+                <div class="form-switch">
+                    Already have an account? <a href="#" id="switchToLogin">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Main Content -->
     <header>
@@ -922,8 +1158,14 @@
             <a href="#">Home</a>
             <a href="#">Collection</a>
             <a href="#">Progress</a>
+            <a href="#authors-section">Authors</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
+            <div class="auth-btn-container">
+                <button class="auth-btn" id="authBtn">
+                    <i class="fas fa-user"></i> Sign In / Sign Up
+                </button>
+            </div>
         </nav>
     </header>
     
@@ -931,24 +1173,142 @@
         <div class="hero-content">
             <h1>
                 <span class="gold-text">1 DOLLAR 1 PAGE</span>
-                A COLLECTIVE MASTERPIECE
+                WRITE YOUR LEGACY
             </h1>
             <div class="slogan">A special touch just for you</div>
-            <p>Join our collaborative publishing project. For just $1, claim your page in our limited edition 100,000-page tome - a curated collection of human creativity, preserved for generations to come.</p>
+            <p>Join our collaborative writing project. For just $1, claim your page in our limited edition collection - a curated anthology of human creativity, preserved for generations to come.</p>
+        </div>
+    </section>
+    
+    <!-- Our Mission Section -->
+    <section class="mission-section">
+        <h2 class="mission-title">Our Mission</h2>
+        <div class="mission-content">
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h3>Global Collaboration</h3>
+                <p>We aim to create the world's largest collaborative writing project, connecting writers across continents to craft a unique literary tapestry.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Preserving Stories</h3>
+                <p>Every page becomes a permanent part of our collection, preserving diverse voices and stories for future generations to discover.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Building</h3>
+                <p>We foster a community of writers who inspire each other, creating meaningful connections through the shared experience of storytelling.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Authors Section -->
+    <section class="authors-section" id="authors-section">
+        <h2 class="authors-title">Featured Authors</h2>
+        <div class="authors-content">
+            <div class="author-card">
+                <div class="author-header">
+                    <div class="author-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h3 class="author-name">Tufan Berber</h3>
+                        <div class="author-title">Author & Student</div>
+                    </div>
+                </div>
+                <div class="author-bio">
+                    Born in February 2008 in Istanbul as the first child of a family with two children. He completed his primary education in Ümraniye. He is currently studying at Dr. Vasıf Topçu Science High School in Şile, Istanbul. In May 2024, he stepped into authorship with his book titled "Sultan II. Abdülhamid: A Detailed Evaluation of the Emperor's Era", published by Paradigma Akademi Publishing. He is originally from Şile.
+                </div>
+                <div class="author-divider"></div>
+                <div class="author-book">
+                    <div class="book-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-title">Sultan II. Abdülhamid: A Detailed Evaluation of the Emperor's Era</div>
+                </div>
+            </div>
             
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">24,817</div>
-                    <div class="stat-label">PAGES RESERVED</div>
+            <div class="author-card">
+                <div class="author-header">
+                    <div class="author-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h3 class="author-name">Yasin Emir Koç</h3>
+                        <div class="author-title">Student & Writer</div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">97</div>
-                    <div class="stat-label">COUNTRIES</div>
+                <div class="author-bio">
+                    A former Deneyap student who didn't complete the program, currently studying at Dr. Vasıf Topçu Science High School. Passionate about literature and writing, Yasin contributes to our collaborative writing project with unique perspectives on contemporary themes. His writing reflects a deep understanding of cultural narratives and personal experiences.
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">$24,817</div>
-                    <div class="stat-label">FOR LITERACY</div>
+                <div class="author-divider"></div>
+                <div class="author-book">
+                    <div class="book-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <div class="book-title">Contributor to 1D1P Anthology Project</div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Writing Experience -->
+    <section class="writing-experience">
+        <div class="writing-header">
+            <h2>Craft Your Page</h2>
+            <p>Express yourself in 600 characters or less. Your words will become part of a timeless collection.</p>
+        </div>
+        
+        <div class="writing-rules">
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="rule-title">15 Minutes</div>
+                <div class="rule-desc">Time to write your masterpiece</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="rule-title">600 Characters</div>
+                <div class="rule-desc">Maximum length for your text</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="rule-title">Be Creative</div>
+                <div class="rule-desc">Poetry, story, or personal reflection</div>
+            </div>
+        </div>
+        
+        <div class="writing-container">
+            <div class="timer-container">
+                <div class="timer-label">Time Remaining:</div>
+                <div class="timer" id="timer">15:00</div>
+            </div>
+            
+            <div class="writing-area">
+                <textarea id="writingInput" placeholder="Begin your masterpiece here..." maxlength="600" disabled></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/600</div>
+            </div>
+            
+            <div class="legal-disclaimer">
+                <h4><i class="fas fa-exclamation-circle"></i> Important Legal Notice</h4>
+                <ul>
+                    <li>By submitting your page, you agree that your contribution becomes a permanent part of the collection</li>
+                    <li>Submitted pages cannot be altered or deleted after submission</li>
+                    <li>A $1 fee will be charged to complete your submission</li>
+                    <li>All submissions must comply with our content guidelines</li>
+                </ul>
+            </div>
+            
+            <div class="writing-controls">
+                <button class="writing-btn btn-start" id="startBtn">Start Writing</button>
+                <button class="writing-btn btn-submit btn-disabled" id="submitBtn" disabled>Submit Page & Pay $1</button>
             </div>
         </div>
     </section>
@@ -1011,121 +1371,13 @@
             </div>
             
             <div class="progress-bar-container">
-                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-bar" id="progressBar" style="width: 24.8%;"></div>
             </div>
             
             <div class="progress-info">
-                <span>0 Pages</span>
+                <span>24,800 Pages</span>
                 <span>100,000 Pages</span>
             </div>
-        </div>
-    </section>
-    
-    <section class="book-showcase">
-        <div class="showcase-content">
-            <h2>The 1D1P Collection</h2>
-            <p>Each page in our collection is a unique expression from a contributor around the globe. When complete, this monumental work will be:</p>
-            
-            <div class="premium-features">
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-feather"></i></div>
-                    <div class="feature-text">
-                        <h3>Bound in Premium Materials</h3>
-                        <p>Handcrafted binding with natural materials</p>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-hourglass-half"></i></div>
-                    <div class="feature-text">
-                        <h3>Archival Quality</h3>
-                        <p>Printed on museum-grade paper for preservation</p>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
-                    <div class="feature-text">
-                        <h3>Eco-Friendly</h3>
-                        <p>Sustainably produced with environmental care</p>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-hands-helping"></i></div>
-                    <div class="feature-text">
-                        <h3>Educational Support</h3>
-                        <p>All proceeds support literacy initiatives</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="book-display">
-            <div class="luxury-book">
-                <div class="book-cover">
-                    <div class="cover-title">1D1P</div>
-                    <div class="cover-subtitle">Collective Anthology</div>
-                    <div class="cover-detail"></div>
-                </div>
-                <div class="book-spine-3d"></div>
-                <div class="book-pages"></div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Authors Section -->
-    <section class="authors">
-        <h2 class="authors-title">Featured Contributors</h2>
-        <button class="authors-btn" id="authorsBtn">Meet Our Authors</button>
-        
-        <!-- Authors Modal -->
-        <div class="authors-modal" id="authorsModal">
-            <div class="modal-content">
-                <button class="close-modal" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h2 class="authors-title">Our Authors</h2>
-                
-                <div class="authors-grid">
-                    <div class="author-card">
-                        <div class="author-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3 class="author-name">Tufan Berber</h3>
-                        <p class="author-bio">
-                            Born in February 2008 in Istanbul as the first child of a family with two children. 
-                            He completed his primary education in Ümraniye. He is currently continuing his education 
-                            at Dr. Vasıf Topçu Science High School in Şile, Istanbul. In May 2024, he stepped into 
-                            authorship with his book <em>Sultan II. Abdülhamid: A Detailed Assessment of the Emperor's Era</em>, 
-                            published by Paradigma Akademi Publications. He is originally from Şile.
-                        </p>
-                    </div>
-                    
-                    <div class="author-card">
-                        <div class="author-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3 class="author-name">Yasin Emir KOÇ</h3>
-                        <p class="author-bio">
-                            Yasin Emir KOÇ no notable achievements
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="contribution">
-        <div class="contribution-content">
-            <h2>Reserve Your Page</h2>
-            <p>For just $1, secure your place in this historic publication. Your contribution becomes a permanent part of a cultural artifact while supporting literacy worldwide.</p>
-            
-            <div class="price-tag">ONLY $1 PER PAGE</div>
-            
-            <p>Your page is a canvas for creativity - a poem, a story, an artwork, or a personal reflection. This is your opportunity to be part of something extraordinary.</p>
-            
-            <button class="cta-button">Reserve Now</button>
         </div>
     </section>
     
@@ -1134,116 +1386,389 @@
             <div class="footer-logo">1D1P</div>
             <div class="footer-slogan">A special touch just for you</div>
             
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Content Guidelines</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact Us</a>
+            </div>
+            
             <div class="social-links">
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-x"></i></a>
                 <a href="#"><i class="fab fa-pinterest"></i></a>
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
             </div>
             
-            <p class="copyright">© 2023 1D1P COLLECTIVE. ALL RIGHTS RESERVED.<br>A SPECIAL PUBLISHING INITIATIVE</p>
+            <p class="copyright">© 2025 1D1P COLLECTIVE. ALL RIGHTS RESERVED.<br>A SPECIAL PUBLISHING INITIATIVE</p>
         </div>
     </footer>
     
     <script>
-        // Initialize progress bar
         document.addEventListener('DOMContentLoaded', function() {
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = '24.8%';
-            
-            // Authors modal functionality
-            const authorsBtn = document.getElementById('authorsBtn');
-            const authorsModal = document.getElementById('authorsModal');
+            // DOM Elements
+            const authBtn = document.getElementById('authBtn');
             const closeModal = document.getElementById('closeModal');
+            const authModal = document.getElementById('authModal');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+            const loginSubmit = document.getElementById('loginSubmit');
+            const registerSubmit = document.getElementById('registerSubmit');
+            const startBtn = document.getElementById('startBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const writingInput = document.getElementById('writingInput');
+            const timerElement = document.getElementById('timer');
+            const charCountElement = document.getElementById('charCount');
+            const progressBar = document.getElementById('progressBar');
+            const loginSuccess = document.getElementById('loginSuccess');
+            const registerSuccess = document.getElementById('registerSuccess');
             
-            authorsBtn.addEventListener('click', () => {
-                authorsModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+            // Authentication state
+            let isAuthenticated = false;
+            let currentUser = null;
+            
+            // Timer variables
+            let countdown;
+            let minutes = 15;
+            let seconds = 0;
+            let writingStarted = false;
+            
+            // Initialize character counter
+            charCountElement.textContent = '0';
+            
+            // Open authentication modal
+            authBtn.addEventListener('click', function() {
+                authModal.style.display = 'flex';
             });
             
-            closeModal.addEventListener('click', () => {
-                authorsModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                authModal.style.display = 'none';
+                resetFormMessages();
             });
             
-            // Gentle animations
-            // Animate book on page load
-            const book = document.querySelector('.luxury-book');
-            setTimeout(() => {
-                book.style.transform = 'rotateY(-15deg)';
-            }, 500);
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === authModal) {
+                    authModal.style.display = 'none';
+                    resetFormMessages();
+                }
+            });
             
-            // Animate elements on scroll
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.feature-item, .book-showcase, .contribution');
-                
-                elements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
+            // Switch between login and register tabs
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
                     
-                    if (elementPosition < screenPosition) {
-                        element.style.opacity = '1';
-                        element.style.transform = 'translateY(0)';
+                    // Update active tab
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show active form
+                    loginForm.classList.remove('active');
+                    registerForm.classList.remove('active');
+                    
+                    if (tabName === 'login') {
+                        loginForm.classList.add('active');
+                    } else {
+                        registerForm.classList.add('active');
                     }
-                });
-            };
-            
-            // Set initial state for animated elements
-            document.querySelectorAll('.feature-item').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            });
-            
-            document.querySelector('.book-showcase').style.opacity = '0';
-            document.querySelector('.book-showcase').style.transform = 'translateY(30px)';
-            document.querySelector('.book-showcase').style.transition = 'opacity 1s ease, transform 1s ease';
-            
-            document.querySelector('.contribution').style.opacity = '0';
-            document.querySelector('.contribution').style.transform = 'translateY(30px)';
-            document.querySelector('.contribution').style.transition = 'opacity 1s ease, transform 1s ease';
-            
-            window.addEventListener('scroll', animateOnScroll);
-            // Initial check
-            animateOnScroll();
-            
-            // Gentle hover effect for cards
-            const cards = document.querySelectorAll('.author-card, .feature-item');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-5px)';
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0)';
-                });
-            });
-            
-            // Button hover effect
-            const buttons = document.querySelectorAll('.cta-button');
-            buttons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = '0 5px 15px rgba(230, 211, 167, 0.3)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = 'none';
-                });
-                
-                // Add reservation functionality
-                button.addEventListener('click', function() {
-                    // Update reserved count
-                    const statNumber = document.querySelector('.stat-number');
-                    const currentCount = parseInt(statNumber.textContent.replace(/,/g, ''));
-                    statNumber.textContent = (currentCount + 1).toLocaleString();
                     
-                    // Update progress bar
-                    const newWidth = ((currentCount + 1) / 100000) * 100;
-                    progressBar.style.width = `${newWidth}%`;
-                    
-                    // Show success message
-                    alert('Your page has been successfully reserved!');
+                    resetFormMessages();
                 });
             });
+            
+            // Switch to register form
+            switchToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                authTabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.auth-tab[data-tab="register"]').classList.add('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                resetFormMessages();
+            });
+            
+            // Switch to login form
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                authTabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+                registerForm.classList.remove('active');
+                loginForm.classList.add('active');
+                resetFormMessages();
+            });
+            
+            // Login form submission
+            loginSubmit.addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple validation
+                if (!validateEmail(email)) {
+                    showError('loginEmailError', 'Please enter a valid email');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showError('loginPasswordError', 'Password must be at least 6 characters');
+                    return;
+                }
+                
+                // Simulate login success
+                isAuthenticated = true;
+                currentUser = {
+                    email: email,
+                    name: "Writer"
+                };
+                
+                // Update UI
+                loginSuccess.style.display = 'block';
+                authBtn.innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.name}`;
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    authModal.style.display = 'none';
+                    resetFormMessages();
+                }, 1500);
+            });
+            
+            // Register form submission
+            registerSubmit.addEventListener('click', function() {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Reset errors
+                resetErrors();
+                
+                let hasError = false;
+                
+                if (!firstName) {
+                    showError('firstNameError', 'Please enter your first name');
+                    hasError = true;
+                }
+                
+                if (!lastName) {
+                    showError('lastNameError', 'Please enter your last name');
+                    hasError = true;
+                }
+                
+                if (!validatePhone(phone)) {
+                    showError('phoneError', 'Please enter a valid phone number');
+                    hasError = true;
+                }
+                
+                if (!validateEmail(email)) {
+                    showError('emailError', 'Please enter a valid email');
+                    hasError = true;
+                }
+                
+                if (password.length < 6) {
+                    showError('passwordError', 'Password must be at least 6 characters');
+                    hasError = true;
+                }
+                
+                if (password !== confirmPassword) {
+                    showError('confirmPasswordError', 'Passwords do not match');
+                    hasError = true;
+                }
+                
+                if (hasError) return;
+                
+                // Simulate registration success
+                isAuthenticated = true;
+                currentUser = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    phone: phone
+                };
+                
+                // Update UI
+                registerSuccess.style.display = 'block';
+                authBtn.innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.firstName}`;
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    authModal.style.display = 'none';
+                    resetFormMessages();
+                }, 1500);
+            });
+            
+            // Start writing session
+            startBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    authModal.style.display = 'flex';
+                    return;
+                }
+                
+                writingStarted = true;
+                writingInput.disabled = false;
+                writingInput.focus();
+                startBtn.disabled = true;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('btn-disabled');
+                startCountdown();
+            });
+            
+            // Character counter
+            writingInput.addEventListener('input', function() {
+                const content = writingInput.value;
+                charCountElement.textContent = content.length;
+                
+                // Limit to 600 characters
+                if (content.length > 600) {
+                    writingInput.value = content.substring(0, 600);
+                    charCountElement.textContent = '600';
+                }
+            });
+            
+            // Submit page
+            submitBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    authModal.style.display = 'flex';
+                    return;
+                }
+                
+                const content = writingInput.value.trim();
+                
+                if (content.length < 20) {
+                    alert('Please write at least 20 characters for your page.');
+                    return;
+                }
+                
+                // Clear timer
+                clearInterval(countdown);
+                
+                // Show payment confirmation
+                alert('Your page has been submitted successfully! You will be redirected to payment to complete your $1 contribution.');
+                
+                // Reset writing area
+                writingInput.value = '';
+                writingInput.disabled = true;
+                charCountElement.textContent = '0';
+                startBtn.disabled = false;
+                submitBtn.disabled = true;
+                submitBtn.classList.add('btn-disabled');
+                writingStarted = false;
+                
+                // Reset timer display
+                minutes = 15;
+                seconds = 0;
+                updateTimerDisplay();
+                
+                // Update progress
+                updateProgress();
+            });
+            
+            // Start the countdown timer
+            function startCountdown() {
+                minutes = 15;
+                seconds = 0;
+                updateTimerDisplay();
+                
+                countdown = setInterval(() => {
+                    if (minutes === 0 && seconds === 0) {
+                        clearInterval(countdown);
+                        if (writingStarted) {
+                            alert("Your writing time has expired!");
+                            writingInput.disabled = true;
+                            submitBtn.disabled = true;
+                            submitBtn.classList.add('btn-disabled');
+                            startBtn.disabled = false;
+                            writingStarted = false;
+                        }
+                        return;
+                    }
+                    
+                    if (seconds === 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    updateTimerDisplay();
+                    
+                    // Visual warning at 1 minute
+                    if (minutes === 1 && seconds === 0) {
+                        timerElement.style.color = '#d9534f';
+                    }
+                }, 1000);
+            }
+            
+            // Update timer display
+            function updateTimerDisplay() {
+                timerElement.textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Update progress visualization
+            function updateProgress() {
+                // Simulate progress update
+                const currentWidth = parseFloat(progressBar.style.width);
+                const newWidth = Math.min(currentWidth + 0.1, 100);
+                progressBar.style.width = `${newWidth}%`;
+                
+                // Update trees if milestones are reached
+                if (newWidth >= 10) document.querySelector('.tree:nth-child(3) .tree-top').classList.add('reserved');
+                if (newWidth >= 20) document.querySelector('.tree:nth-child(4) .tree-top').classList.add('reserved');
+                if (newWidth >= 30) document.querySelector('.tree:nth-child(5) .tree-top').classList.add('reserved');
+                if (newWidth >= 40) document.querySelector('.tree:nth-child(6) .tree-top').classList.add('reserved');
+                if (newWidth >= 50) document.querySelector('.tree:nth-child(7) .tree-top').classList.add('reserved');
+                if (newWidth >= 60) document.querySelector('.tree:nth-child(8) .tree-top').classList.add('reserved');
+                if (newWidth >= 70) document.querySelector('.tree:nth-child(9) .tree-top').classList.add('reserved');
+                if (newWidth >= 80) document.querySelector('.tree:nth-child(10) .tree-top').classList.add('reserved');
+                if (newWidth >= 90) document.querySelector('.tree:nth-child(11) .tree-top').classList.add('reserved');
+            }
+            
+            // Helper functions
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            function validatePhone(phone) {
+                const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+                return re.test(phone);
+            }
+            
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+            
+            function resetErrors() {
+                const errors = document.querySelectorAll('.form-error');
+                errors.forEach(error => {
+                    error.style.display = 'none';
+                });
+            }
+            
+            function resetFormMessages() {
+                loginSuccess.style.display = 'none';
+                registerSuccess.style.display = 'none';
+                
+                // Reset form fields
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('firstName').value = '';
+                document.getElementById('lastName').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                resetErrors();
+            }
         });
     </script>
 </body>
