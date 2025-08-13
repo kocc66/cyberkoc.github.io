@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1D1P | Yazı Türüne Göre Yazın</title>
+    <title>1D1P | Write Your Legacy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -431,41 +431,6 @@
             margin: 0 auto;
         }
         
-        .writing-type-selector {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .writing-type-btn {
-            padding: 1rem 2rem;
-            background: var(--light-pine);
-            border: 2px solid var(--pine-green);
-            border-radius: 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1.1rem;
-            color: var(--dark-green);
-        }
-        
-        .writing-type-btn.active {
-            background: var(--pine-green);
-            color: var(--cream);
-            border-color: var(--gold);
-        }
-        
-        .warning-box {
-            background: rgba(230, 211, 167, 0.3);
-            border: 2px solid var(--gold);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            text-align: center;
-        }
-        
         .writing-rules {
             display: flex;
             justify-content: center;
@@ -556,26 +521,11 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            background: rgba(1, 121, 111, 0.2);
-            padding: 6px 12px;
+            background: rgba(143, 192, 192, 0.3);
+            padding: 5px 10px;
             border-radius: 20px;
             color: var(--pine-green);
             font-size: 0.9rem;
-            font-weight: 600;
-        }
-        
-        .disclaimer-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 1rem;
-            padding: 10px;
-            background: rgba(230, 211, 167, 0.1);
-            border-radius: 8px;
-        }
-        
-        .disclaimer-checkbox input {
-            width: auto;
         }
         
         .writing-controls {
@@ -1041,21 +991,6 @@
             display: none;
         }
         
-        .privacy-checkbox {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .privacy-checkbox input {
-            margin-top: 5px;
-        }
-        
-        .privacy-text {
-            font-size: 0.9rem;
-        }
-        
         /* Responsive Design */
         @media (max-width: 1200px) {
             .hero h1 {
@@ -1087,10 +1022,6 @@
             .tree {
                 width: 50px;
                 height: 80px;
-            }
-            
-            .writing-type-btn {
-                padding: 0.8rem 1.5rem;
             }
         }
         
@@ -1147,11 +1078,6 @@
             
             .modal-content {
                 padding: 1.5rem;
-            }
-            
-            .writing-type-selector {
-                flex-direction: column;
-                align-items: center;
             }
         }
         
@@ -1366,15 +1292,6 @@
                     <input type="password" id="confirmPassword" required>
                     <div class="form-error" id="confirmPasswordError">Passwords do not match</div>
                 </div>
-                
-                <!-- Gizlilik Politikası Onayı -->
-                <div class="privacy-checkbox">
-                    <input type="checkbox" id="privacyCheckbox" required>
-                    <div class="privacy-text">
-                        <label for="privacyCheckbox">I agree to the <a href="#" style="color: var(--gold);">Privacy Policy</a> and <a href="#" style="color: var(--gold);">Terms of Service</a></label>
-                    </div>
-                </div>
-                
                 <button class="form-submit" id="registerSubmit">Create Account</button>
                 <div class="form-switch">
                     Already have an account? <a href="#" id="switchToLogin">Sign In</a>
@@ -1480,7 +1397,7 @@
                 </div>
                 <div class="author-bio">
                     Yasin Emir Koç was born in Istanbul and is currently continuing his education at Dr. Vasıf Topçu Science High School. He attended Deneyap Türkiye, receiving training in technology and engineering, but did not complete the program. During his middle school years, he developed two different projects within the scope of TEKNOFEST, focusing on domestic violence against women and energy production. Interested in innovative ideas and socially beneficial work, Yasin Emir aims to create impactful projects in the fields of technology and innovation in the future.
-                </div>
+
                 <div class="author-divider"></div>
                 <div class="author-book">
                     <div class="book-icon">
@@ -1496,24 +1413,27 @@
     <section class="writing-experience">
         <div class="writing-header">
             <h2>Craft Your Page</h2>
-            <p>Express yourself in 1400 characters or less. Select your writing type below.</p>
+            <p>Express yourself in 600 characters or less. Your words will become part of a timeless collection.</p>
         </div>
         
-        <!-- Yazı Türü Seçim Butonları -->
-        <div class="writing-type-selector">
-            <button class="writing-type-btn active" id="poetryBtn">
-                <i class="fas fa-feather-alt"></i> Poetry (100-1400 characters)
-            </button>
-            <button class="writing-type-btn" id="proseBtn">
-                <i class="fas fa-pen-fancy"></i> Prose (1000-1400 characters)
-            </button>
-        </div>
-        
-        <!-- Uyarı Kutusu -->
-        <div class="warning-box">
-            <i class="fas fa-exclamation-triangle"></i>
-            <strong>Important:</strong> If you write prose in the poetry section, your $1 may be wasted. 
-            We do not take responsibility for incorrect writing type selections.
+        <div class="writing-rules">
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="rule-title">15 Minutes</div>
+                <div class="rule-desc">Time to write your masterpiece</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="rule-title">600 Characters</div>
+                <div class="rule-desc">Maximum length for your text</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="rule-title">Be Creative</div>
+                <div class="rule-desc">Poetry, story, or personal reflection</div>
+            </div>
         </div>
         
         <div class="writing-container">
@@ -1523,14 +1443,8 @@
             </div>
             
             <div class="writing-area">
-                <textarea id="writingInput" placeholder="Begin your masterpiece here..." minlength="100" maxlength="1400"></textarea>
-                <div class="char-counter"><span id="charCount">0</span>/<span id="maxChar">1400</span> (Min: <span id="minChar">100</span>)</div>
-            </div>
-            
-            <!-- Sorumluluk Reddi Onay Kutusu -->
-            <div class="disclaimer-checkbox">
-                <input type="checkbox" id="disclaimerCheckbox">
-                <label for="disclaimerCheckbox">I understand that if I write prose in the poetry section, my $1 may be wasted and 1D1P takes no responsibility for this.</label>
+                <textarea id="writingInput" placeholder="Begin your masterpiece here..." maxlength="600" disabled></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/600</div>
             </div>
             
             <div class="legal-disclaimer">
@@ -1696,14 +1610,9 @@
             const writingInput = document.getElementById('writingInput');
             const timerElement = document.getElementById('timer');
             const charCountElement = document.getElementById('charCount');
-            const minCharElement = document.getElementById('minChar');
-            const maxCharElement = document.getElementById('maxChar');
             const progressBar = document.getElementById('progressBar');
             const loginSuccess = document.getElementById('loginSuccess');
             const registerSuccess = document.getElementById('registerSuccess');
-            const poetryBtn = document.getElementById('poetryBtn');
-            const proseBtn = document.getElementById('proseBtn');
-            const disclaimerCheckbox = document.getElementById('disclaimerCheckbox');
             
             // Authentication state
             let isAuthenticated = false;
@@ -1714,9 +1623,6 @@
             let minutes = 15;
             let seconds = 0;
             let writingStarted = false;
-            
-            // Yazı türü değişkeni (default: poetry)
-            let writingType = 'poetry';
             
             // Initialize character counter
             charCountElement.textContent = '0';
@@ -1910,10 +1816,10 @@
                 const content = writingInput.value;
                 charCountElement.textContent = content.length;
                 
-                // Limit to 1400 characters
-                if (content.length > 1400) {
-                    writingInput.value = content.substring(0, 1400);
-                    charCountElement.textContent = '1400';
+                // Limit to 600 characters
+                if (content.length > 600) {
+                    writingInput.value = content.substring(0, 600);
+                    charCountElement.textContent = '600';
                 }
             });
             
@@ -1927,16 +1833,8 @@
                 
                 const content = writingInput.value.trim();
                 
-                // Minimum karakter kontrolü (türe göre)
-                const minChars = writingType === 'poetry' ? 100 : 1000;
-                if (content.length < minChars) {
-                    alert(`Please write at least ${minChars} characters for your ${writingType}.`);
-                    return;
-                }
-                
-                // Sorumluluk reddi onayı kontrolü
-                if (!disclaimerCheckbox.checked) {
-                    alert('Please confirm the disclaimer to proceed.');
+                if (content.length < 20) {
+                    alert('Please write at least 20 characters for your page.');
                     return;
                 }
                 
@@ -1954,7 +1852,6 @@
                 submitBtn.disabled = true;
                 submitBtn.classList.add('btn-disabled');
                 writingStarted = false;
-                disclaimerCheckbox.checked = false;
                 
                 // Reset timer display
                 minutes = 15;
@@ -1963,38 +1860,6 @@
                 
                 // Update progress
                 updateProgress();
-            });
-            
-            // Şiir butonuna tıklandığında
-            poetryBtn.addEventListener('click', function() {
-                poetryBtn.classList.add('active');
-                proseBtn.classList.remove('active');
-                writingType = 'poetry';
-                minCharElement.textContent = '100';
-                writingInput.minLength = 100;
-                
-                // Uyarı mesajını güncelle
-                document.querySelector('.warning-box').innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Important:</strong> If you write prose in the poetry section, your $1 may be wasted. 
-                    We do not take responsibility for incorrect writing type selections.
-                `;
-            });
-            
-            // Düz yazı butonuna tıklandığında
-            proseBtn.addEventListener('click', function() {
-                proseBtn.classList.add('active');
-                poetryBtn.classList.remove('active');
-                writingType = 'prose';
-                minCharElement.textContent = '1000';
-                writingInput.minLength = 1000;
-                
-                // Uyarı mesajını güncelle
-                document.querySelector('.warning-box').innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Important:</strong> Poetry is not allowed in the prose section. 
-                    If you submit poetry as prose, your $1 may be wasted and we take no responsibility.
-                `;
             });
             
             // Start the countdown timer
