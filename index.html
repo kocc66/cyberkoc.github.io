@@ -32,6 +32,7 @@
             overflow-x: hidden;
             position: relative;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
         
         /* Nature Background */
@@ -828,13 +829,15 @@
         
         .modal-content {
             background: var(--cream);
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 20px;
             width: 100%;
             max-width: 500px;
             position: relative;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             animation: modalAppear 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         @keyframes modalAppear {
@@ -996,8 +999,8 @@
         }
         
         @media (max-width: 992px) {
-            .nav-links a:not(.auth-btn-container) {
-                display: none;
+            .nav-links {
+                gap: 1.5rem;
             }
             
             .hero {
@@ -1023,6 +1026,16 @@
         }
         
         @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .auth-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
             .hero h1 {
                 font-size: 2.2rem;
             }
@@ -1064,8 +1077,227 @@
             }
             
             .modal-content {
-                padding: 2rem;
+                padding: 1.5rem;
             }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .auth-tabs {
+                flex-direction: column;
+            }
+            
+            .auth-tab {
+                padding: 0.8rem;
+            }
+            
+            .form-group input {
+                padding: 0.7rem;
+            }
+        }
+        
+        /* Collection Section */
+        .collection-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .collection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .collection-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .collection-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .book-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-cover {
+            width: 150px;
+            height: 200px;
+            background: var(--gold);
+            margin: 0 auto 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--cream);
+        }
+        
+        .book-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--pine-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-author {
+            font-size: 1.1rem;
+            color: var(--dark-green);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        /* About Section */
+        .about-section {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .about-content {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--pine-green);
+            line-height: 1.7;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+        }
+        
+        /* Section IDs */
+        #home {
+            padding-top: 100px;
+        }
+        
+        #collection-section {
+            padding-top: 100px;
+        }
+        
+        #progress-section {
+            padding-top: 100px;
+        }
+        
+        #authors-section {
+            padding-top: 100px;
+        }
+        
+        #about-section {
+            padding-top: 100px;
+        }
+        
+        #contact-section {
+            padding-top: 100px;
+            padding-bottom: 50px;
         }
     </style>
 </head>
@@ -1155,12 +1387,12 @@
             1D1P
         </div>
         <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Collection</a>
-            <a href="#">Progress</a>
+            <a href="#home">Home</a>
+            <a href="#collection-section">Collection</a>
+            <a href="#progress-section">Progress</a>
             <a href="#authors-section">Authors</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#about-section">About</a>
+            <a href="#contact-section">Contact</a>
             <div class="auth-btn-container">
                 <button class="auth-btn" id="authBtn">
                     <i class="fas fa-user"></i> Sign In / Sign Up
@@ -1169,7 +1401,7 @@
         </nav>
     </header>
     
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>
                 <span class="gold-text">1 DOLLAR 1 PAGE</span>
@@ -1177,6 +1409,39 @@
             </h1>
             <div class="slogan">A special touch just for you</div>
             <p>Join our collaborative writing project. For just $1, claim your page in our limited edition collection - a curated anthology of human creativity, preserved for generations to come.</p>
+        </div>
+    </section>
+    
+    <!-- Collection Section -->
+    <section class="collection-section" id="collection-section">
+        <h2 class="collection-title">Our Collection</h2>
+        <div class="collection-content">
+            <div class="book-card">
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="book-name">Human Stories Anthology</h3>
+                <div class="book-author">Various Authors</div>
+                <p>Volume 1: A collection of 10,000 unique stories</p>
+            </div>
+            
+            <div class="book-card">
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="book-name">Global Perspectives</h3>
+                <div class="book-author">International Contributors</div>
+                <p>Volume 2: Stories from 50+ countries</p>
+            </div>
+            
+            <div class="book-card">
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="book-name">Future Voices</h3>
+                <div class="book-author">Young Writers Collective</div>
+                <p>Volume 3: Next generation storytellers</p>
+            </div>
         </div>
     </section>
     
@@ -1314,7 +1579,7 @@
     </section>
     
     <!-- Creative Progress Visualization -->
-    <section class="progress-visualization">
+    <section class="progress-visualization" id="progress-section">
         <h2 class="progress-title">Project Progress</h2>
         <div class="progress-container">
             <div class="forest-progress">
@@ -1381,6 +1646,42 @@
         </div>
     </section>
     
+    <!-- About Section -->
+    <section class="about-section" id="about-section">
+        <h2 class="about-title">About Us</h2>
+        <div class="about-content">
+            <p>1D1P Collective is a groundbreaking publishing initiative that brings together writers from around the world to create a unique anthology of human experiences. Our mission is to preserve diverse voices and stories in a timeless collection that will be cherished by future generations.</p>
+            
+            <p>Founded in 2025, our project has already collected over 24,000 unique stories from 120 countries. We believe everyone has a story worth telling, and our platform makes it possible for anyone to contribute to this global literary tapestry.</p>
+            
+            <p>Each page in our collection represents a $1 contribution, making this project accessible to everyone while ensuring the highest quality publication. Our team of editors and designers work tirelessly to curate and present these stories in beautiful limited-edition volumes.</p>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact-section">
+        <h2 class="contact-title">Contact Us</h2>
+        <div class="contact-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" required></textarea>
+            </div>
+            <button class="form-submit">Send Message</button>
+        </div>
+    </section>
+    
     <footer>
         <div class="footer-content">
             <div class="footer-logo">1D1P</div>
@@ -1391,7 +1692,7 @@
                 <a href="#">Privacy Policy</a>
                 <a href="#">Content Guidelines</a>
                 <a href="#">FAQ</a>
-                <a href="#">Contact Us</a>
+                <a href="#contact-section">Contact Us</a>
             </div>
             
             <div class="social-links">
@@ -1443,11 +1744,13 @@
             // Open authentication modal
             authBtn.addEventListener('click', function() {
                 authModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             });
             
             // Close modal
             closeModal.addEventListener('click', function() {
                 authModal.style.display = 'none';
+                document.body.style.overflow = '';
                 resetFormMessages();
             });
             
@@ -1455,6 +1758,7 @@
             window.addEventListener('click', function(event) {
                 if (event.target === authModal) {
                     authModal.style.display = 'none';
+                    document.body.style.overflow = '';
                     resetFormMessages();
                 }
             });
@@ -1532,6 +1836,7 @@
                 // Close modal after delay
                 setTimeout(() => {
                     authModal.style.display = 'none';
+                    document.body.style.overflow = '';
                     resetFormMessages();
                 }, 1500);
             });
@@ -1598,6 +1903,7 @@
                 // Close modal after delay
                 setTimeout(() => {
                     authModal.style.display = 'none';
+                    document.body.style.overflow = '';
                     resetFormMessages();
                 }, 1500);
             });
@@ -1606,6 +1912,7 @@
             startBtn.addEventListener('click', function() {
                 if (!isAuthenticated) {
                     authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
                     return;
                 }
                 
@@ -1634,6 +1941,7 @@
             submitBtn.addEventListener('click', function() {
                 if (!isAuthenticated) {
                     authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
                     return;
                 }
                 
@@ -1769,6 +2077,24 @@
                 
                 resetErrors();
             }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
