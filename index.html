@@ -1,1 +1,1987 @@
-çalıncak proje kalmadı hacı
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1D1P | Write Your Legacy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pine-green: #01796F;
+            --light-pine: #8FC0C0;
+            --cream: #F8F5F0;
+            --dark-green: #014D44;
+            --gold: #E6D3A7;
+            --transition: all 0.4s ease;
+            --error-red: #d9534f;
+            --success-green: #5cb85c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-green);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        /* Nature Background */
+        .nature-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(143, 192, 192, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(143, 192, 192, 0.1) 0%, transparent 20%),
+                linear-gradient(to bottom, rgba(248, 245, 240, 0.9), rgba(248, 245, 240, 0.95));
+            z-index: -2;
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--pine-green);
+            letter-spacing: 1px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            margin-right: 12px;
+            color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--pine-green);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            font-weight: 400;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-btn {
+            background: var(--pine-green);
+            color: var(--cream);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .auth-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--pine-green);
+            position: relative;
+            line-height: 1.2;
+        }
+        
+        .hero h1 .gold-text {
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slogan {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--pine-green);
+            margin: 3rem 0;
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+            font-weight: 400;
+            padding: 0 40px;
+        }
+        
+        .slogan::before, .slogan::after {
+            content: '❧';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .slogan::before {
+            left: 0;
+        }
+        
+        .slogan::after {
+            right: 0;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin: 2.5rem auto;
+            color: var(--pine-green);
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 700px;
+        }
+        
+        /* Our Mission Section */
+        .mission-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .mission-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .mission-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .mission-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+        
+        .mission-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 350px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .mission-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--pine-green);
+        }
+        
+        .mission-card p {
+            color: var(--pine-green);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        /* Authors Section */
+        .authors-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .authors-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .authors-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .authors-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+        
+        .author-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 500px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: left;
+        }
+        
+        .author-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 20px;
+        }
+        
+        .author-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--cream);
+        }
+        
+        .author-info {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--pine-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-title {
+            font-size: 1.1rem;
+            color: var(--dark-green);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        
+        .author-bio {
+            color: var(--pine-green);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .author-divider {
+            height: 2px;
+            background: var(--gold);
+            margin: 1.5rem 0;
+            opacity: 0.3;
+        }
+        
+        .author-book {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            background: rgba(230, 211, 167, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .book-icon {
+            font-size: 1.8rem;
+            color: var(--pine-green);
+        }
+        
+        .book-title {
+            font-weight: 600;
+            color: var(--pine-green);
+        }
+        
+        /* Writing Experience */
+        .writing-experience {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .writing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .writing-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--pine-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .writing-header p {
+            color: var(--pine-green);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .writing-rules {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .rule-card {
+            background: var(--cream);
+            border: 1px solid var(--light-pine);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .rule-icon {
+            font-size: 2rem;
+            color: var(--pine-green);
+            margin-bottom: 1rem;
+        }
+        
+        .rule-title {
+            font-weight: 600;
+            color: var(--pine-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .rule-desc {
+            color: var(--pine-green);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .writing-container {
+            margin-top: 3rem;
+        }
+        
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timer-label {
+            font-size: 1.1rem;
+            color: var(--pine-green);
+        }
+        
+        .timer {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--pine-green);
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .writing-area {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 1.5rem;
+            border: 2px solid var(--light-pine);
+            border-radius: 10px;
+            background: var(--cream);
+            color: var(--pine-green);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            resize: none;
+            transition: var(--transition);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(230, 211, 167, 0.3);
+        }
+        
+        .char-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(143, 192, 192, 0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: var(--pine-green);
+            font-size: 0.9rem;
+        }
+        
+        .writing-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .writing-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            border: none;
+        }
+        
+        .btn-start {
+            background: var(--pine-green);
+            color: var(--cream);
+        }
+        
+        .btn-submit {
+            background: var(--gold);
+            color: var(--dark-green);
+        }
+        
+        .writing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .legal-disclaimer {
+            background: rgba(230, 211, 167, 0.2);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .legal-disclaimer h4 {
+            margin-bottom: 0.5rem;
+            color: var(--pine-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legal-disclaimer ul {
+            padding-left: 1.5rem;
+        }
+        
+        .legal-disclaimer li {
+            margin-bottom: 0.3rem;
+        }
+        
+        /* Creative Progress Visualization */
+        .progress-visualization {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .progress-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 2rem;
+        }
+        
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        
+        .forest-progress {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .tree {
+            position: relative;
+            width: 60px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .tree-trunk {
+            width: 10px;
+            height: 40px;
+            background: #8B4513;
+            z-index: 2;
+        }
+        
+        .tree-top {
+            width: 50px;
+            height: 60px;
+            background: var(--light-pine);
+            border-radius: 50%;
+            margin-bottom: -20px;
+            z-index: 1;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .tree-top.reserved {
+            background: var(--pine-green);
+            box-shadow: 0 0 10px rgba(1, 121, 111, 0.5);
+        }
+        
+        .tree-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--pine-green);
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            max-width: 600px;
+            height: 30px;
+            background: rgba(143, 192, 192, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--light-pine), var(--pine-green));
+            width: 24.8%;
+            border-radius: 15px;
+            transition: width 2s ease;
+            position: relative;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+            color: var(--pine-green);
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 6rem 0 3rem;
+            text-align: center;
+            margin-top: 6rem;
+            background: rgba(143, 192, 192, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--pine-green);
+            display: inline-block;
+        }
+        
+        .footer-slogan {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--pine-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--cream);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: var(--pine-green);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--pine-green);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--pine-green);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--pine-green);
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--light-pine);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(230, 211, 167, 0.3);
+        }
+        
+        .form-error {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--pine-green);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+        
+        .form-submit:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--pine-green);
+        }
+        
+        .form-switch a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .form-switch a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--light-pine);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            color: var(--pine-green);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--gold);
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: rgba(92, 184, 92, 0.1);
+            border: 1px solid var(--success-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            color: var(--success-green);
+            display: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .hero {
+                padding: 6rem 2rem 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slogan {
+                font-size: 1.8rem;
+            }
+            
+            .forest-progress {
+                gap: 15px;
+            }
+            
+            .tree {
+                width: 50px;
+                height: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .auth-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .slogan {
+                font-size: 1.6rem;
+                padding: 0 30px;
+            }
+            
+            .forest-progress {
+                gap: 10px;
+            }
+            
+            .tree {
+                width: 40px;
+                height: 70px;
+            }
+            
+            .tree-top {
+                width: 40px;
+                height: 50px;
+            }
+            
+            .writing-experience {
+                padding: 2rem;
+            }
+            
+            .mission-card {
+                padding: 2rem;
+            }
+            
+            .author-card {
+                padding: 1.5rem;
+            }
+            
+            .author-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .auth-tabs {
+                flex-direction: column;
+            }
+            
+            .auth-tab {
+                padding: 0.8rem;
+            }
+            
+            .form-group input {
+                padding: 0.7rem;
+            }
+        }
+        
+        /* About Section */
+        .about-section {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .about-content {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--pine-green);
+            line-height: 1.7;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pine-green);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+        }
+        
+        /* Section IDs */
+        #home {
+            padding-top: 100px;
+        }
+        
+        #progress-section {
+            padding-top: 100px;
+        }
+        
+        #authors-section {
+            padding-top: 100px;
+        }
+        
+        #about-section {
+            padding-top: 100px;
+        }
+        
+        #contact-section {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="nature-bg"></div>
+    
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Sign In</div>
+                <div class="auth-tab" data-tab="register">Sign Up</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <h2 class="modal-title">Welcome Back</h2>
+                <div class="success-message" id="loginSuccess">
+                    <i class="fas fa-check-circle"></i> Successfully logged in!
+                </div>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="form-error" id="loginEmailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                    <div class="form-error" id="loginPasswordError">Password must be at least 6 characters</div>
+                </div>
+                <button class="form-submit" id="loginSubmit">Sign In</button>
+                <div class="form-switch">
+                    Don't have an account? <a href="#" id="switchToRegister">Sign Up</a>
+                </div>
+            </div>
+            
+            <!-- Registration Form -->
+            <div class="auth-form" id="registerForm">
+                <h2 class="modal-title">Create Account</h2>
+                <div class="success-message" id="registerSuccess">
+                    <i class="fas fa-check-circle"></i> Account created successfully!
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" required>
+                    <div class="form-error" id="firstNameError">Please enter your first name</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" required>
+                    <div class="form-error" id="lastNameError">Please enter your last name</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                    <div class="form-error" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <div class="form-error" id="emailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                    <div class="form-error" id="passwordError">Password must be at least 6 characters</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                    <div class="form-error" id="confirmPasswordError">Passwords do not match</div>
+                </div>
+                <button class="form-submit" id="registerSubmit">Create Account</button>
+                <div class="form-switch">
+                    Already have an account? <a href="#" id="switchToLogin">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-book-open logo-icon"></i>
+            1D1P
+        </div>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#progress-section">Progress</a>
+            <a href="#authors-section">Authors</a>
+            <a href="#about-section">About</a>
+            <a href="#contact-section">Contact</a>
+            <div class="auth-btn-container">
+                <button class="auth-btn" id="authBtn">
+                    <i class="fas fa-user"></i> Sign In / Sign Up
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>
+                <span class="gold-text">1 DOLLAR 1 PAGE</span>
+                WRITE YOUR LEGACY
+            </h1>
+            <div class="slogan">A special touch just for you</div>
+            <p>Join our collaborative writing project. For just $1, claim your page in our limited edition collection - a curated anthology of human creativity, preserved for generations to come.</p>
+        </div>
+    </section>
+    
+    <!-- Our Mission Section -->
+    <section class="mission-section">
+        <h2 class="mission-title">Our Mission</h2>
+        <div class="mission-content">
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h3>Global Collaboration</h3>
+                <p>We aim to create the world's largest collaborative writing project, connecting writers across continents to craft a unique literary tapestry.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Preserving Stories</h3>
+                <p>Every page becomes a permanent part of our collection, preserving diverse voices and stories for future generations to discover.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Building</h3>
+                <p>We foster a community of writers who inspire each other, creating meaningful connections through the shared experience of storytelling.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Authors Section -->
+    <section class="authors-section" id="authors-section">
+        <h2 class="authors-title">Featured Authors</h2>
+        <div class="authors-content">
+            <div class="author-card">
+                <div class="author-header">
+                    <div class="author-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h3 class="author-name">Tufan Berber</h3>
+                        <div class="author-title">Author & Student</div>
+                    </div>
+                </div>
+                <div class="author-bio">
+                    Born in February 2008 in Istanbul as the first child of a family with two children. He completed his primary education in Ümraniye. He is currently studying at Dr. Vasıf Topçu Science High School in Şile, Istanbul. In May 2024, he stepped into authorship with his book titled "Sultan II. Abdülhamid: A Detailed Evaluation of the Emperor's Era", published by Paradigma Akademi Publishing. He is originally from Şile.
+                </div>
+                <div class="author-divider"></div>
+                <div class="author-book">
+                    <div class="book-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-title">Sultan II. Abdülhamid: A Detailed Evaluation of the Emperor's Era</div>
+                </div>
+            </div>
+            
+            <div class="author-card">
+                <div class="author-header">
+                    <div class="author-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="author-info">
+                        <h3 class="author-name">Yasin Emir Koç</h3>
+                        <div class="author-title">Student & Programmer</div>
+                    </div>
+                </div>
+                <div class="author-bio">
+                    Yasin Emir Koç was born in Istanbul and is currently continuing his education at Dr. Vasıf Topçu Science High School. He attended Deneyap Türkiye, receiving training in technology and engineering, but did not complete the program. During his middle school years, he developed two different projects within the scope of TEKNOFEST, focusing on domestic violence against women and energy production. Interested in innovative ideas and socially beneficial work, Yasin Emir aims to create impactful projects in the fields of technology and innovation in the future.
+
+                <div class="author-divider"></div>
+                <div class="author-book">
+                    <div class="book-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <div class="book-title">Violence Against Women Project, Energy Production Project</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Writing Experience -->
+    <section class="writing-experience">
+        <div class="writing-header">
+            <h2>Craft Your Page</h2>
+            <p>Express yourself in 600 characters or less. Your words will become part of a timeless collection.</p>
+        </div>
+        
+        <div class="writing-rules">
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="rule-title">15 Minutes</div>
+                <div class="rule-desc">Time to write your masterpiece</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="rule-title">600 Characters</div>
+                <div class="rule-desc">Maximum length for your text</div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="rule-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="rule-title">Be Creative</div>
+                <div class="rule-desc">Poetry, story, or personal reflection</div>
+            </div>
+        </div>
+        
+        <div class="writing-container">
+            <div class="timer-container">
+                <div class="timer-label">Time Remaining:</div>
+                <div class="timer" id="timer">15:00</div>
+            </div>
+            
+            <div class="writing-area">
+                <textarea id="writingInput" placeholder="Begin your masterpiece here..." maxlength="600" disabled></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/600</div>
+            </div>
+            
+            <div class="legal-disclaimer">
+                <h4><i class="fas fa-exclamation-circle"></i> Important Legal Notice</h4>
+                <ul>
+                    <li>By submitting your page, you agree that your contribution becomes a permanent part of the collection</li>
+                    <li>Submitted pages cannot be altered or deleted after submission</li>
+                    <li>A $1 fee will be charged to complete your submission</li>
+                    <li>All submissions must comply with our content guidelines</li>
+                </ul>
+            </div>
+            
+            <div class="writing-controls">
+                <button class="writing-btn btn-start" id="startBtn">Start Writing</button>
+                <button class="writing-btn btn-submit btn-disabled" id="submitBtn" disabled>Submit Page & Pay $1</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Creative Progress Visualization -->
+    <section class="progress-visualization" id="progress-section">
+        <h2 class="progress-title">Project Progress</h2>
+        <div class="progress-container">
+            <div class="forest-progress">
+                <div class="tree">
+                    <div class="tree-top reserved"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">10,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top reserved"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">20,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">30,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">40,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">50,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">60,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">70,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">80,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">90,000</div>
+                </div>
+                <div class="tree">
+                    <div class="tree-top"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-label">100,000</div>
+                </div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 24.8%;"></div>
+            </div>
+            
+            <div class="progress-info">
+                <span>24,800 Pages</span>
+                <span>100,000 Pages</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about-section">
+        <h2 class="about-title">About Us</h2>
+        <div class="about-content">
+            <p>1D1P Collective is a groundbreaking publishing initiative that brings together writers from around the world to create a unique anthology of human experiences. Our mission is to preserve diverse voices and stories in a timeless collection that will be cherished by future generations.</p>
+            
+            <p>Founded in 2025, our project has already collected over 24,000 unique stories from 120 countries. We believe everyone has a story worth telling, and our platform makes it possible for anyone to contribute to this global literary tapestry.</p>
+            
+            <p>Each page in our collection represents a $1 contribution, making this project accessible to everyone while ensuring the highest quality publication. Our team of editors and designers work tirelessly to curate and present these stories in beautiful limited-edition volumes.</p>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact-section">
+        <h2 class="contact-title">Contact Us</h2>
+        <div class="contact-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" required></textarea>
+            </div>
+            <button class="form-submit">Send Message</button>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">1D1P</div>
+            <div class="footer-slogan">A special touch just for you</div>
+            
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Content Guidelines</a>
+                <a href="#">FAQ</a>
+                <a href="#contact-section">Contact Us</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <p class="copyright">© 2025 1D1P COLLECTIVE. ALL RIGHTS RESERVED.<br>A SPECIAL PUBLISHING INITIATIVE</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const authBtn = document.getElementById('authBtn');
+            const closeModal = document.getElementById('closeModal');
+            const authModal = document.getElementById('authModal');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+            const loginSubmit = document.getElementById('loginSubmit');
+            const registerSubmit = document.getElementById('registerSubmit');
+            const startBtn = document.getElementById('startBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const writingInput = document.getElementById('writingInput');
+            const timerElement = document.getElementById('timer');
+            const charCountElement = document.getElementById('charCount');
+            const progressBar = document.getElementById('progressBar');
+            const loginSuccess = document.getElementById('loginSuccess');
+            const registerSuccess = document.getElementById('registerSuccess');
+            
+            // Authentication state
+            let isAuthenticated = false;
+            let currentUser = null;
+            
+            // Timer variables
+            let countdown;
+            let minutes = 15;
+            let seconds = 0;
+            let writingStarted = false;
+            
+            // Initialize character counter
+            charCountElement.textContent = '0';
+            
+            // Open authentication modal
+            authBtn.addEventListener('click', function() {
+                authModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                authModal.style.display = 'none';
+                document.body.style.overflow = '';
+                resetFormMessages();
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === authModal) {
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    resetFormMessages();
+                }
+            });
+            
+            // Switch between login and register tabs
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show active form
+                    loginForm.classList.remove('active');
+                    registerForm.classList.remove('active');
+                    
+                    if (tabName === 'login') {
+                        loginForm.classList.add('active');
+                    } else {
+                        registerForm.classList.add('active');
+                    }
+                    
+                    resetFormMessages();
+                });
+            });
+            
+            // Switch to register form
+            switchToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                authTabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.auth-tab[data-tab="register"]').classList.add('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                resetFormMessages();
+            });
+            
+            // Switch to login form
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                authTabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+                registerForm.classList.remove('active');
+                loginForm.classList.add('active');
+                resetFormMessages();
+            });
+            
+            // Login form submission
+            loginSubmit.addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple validation
+                if (!validateEmail(email)) {
+                    showError('loginEmailError', 'Please enter a valid email');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showError('loginPasswordError', 'Password must be at least 6 characters');
+                    return;
+                }
+                
+                // Simulate login success
+                isAuthenticated = true;
+                currentUser = {
+                    email: email,
+                    name: "Writer"
+                };
+                
+                // Update UI
+                loginSuccess.style.display = 'block';
+                authBtn.innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.name}`;
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    resetFormMessages();
+                }, 1500);
+            });
+            
+            // Register form submission
+            registerSubmit.addEventListener('click', function() {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Reset errors
+                resetErrors();
+                
+                let hasError = false;
+                
+                if (!firstName) {
+                    showError('firstNameError', 'Please enter your first name');
+                    hasError = true;
+                }
+                
+                if (!lastName) {
+                    showError('lastNameError', 'Please enter your last name');
+                    hasError = true;
+                }
+                
+                if (!validatePhone(phone)) {
+                    showError('phoneError', 'Please enter a valid phone number');
+                    hasError = true;
+                }
+                
+                if (!validateEmail(email)) {
+                    showError('emailError', 'Please enter a valid email');
+                    hasError = true;
+                }
+                
+                if (password.length < 6) {
+                    showError('passwordError', 'Password must be at least 6 characters');
+                    hasError = true;
+                }
+                
+                if (password !== confirmPassword) {
+                    showError('confirmPasswordError', 'Passwords do not match');
+                    hasError = true;
+                }
+                
+                if (hasError) return;
+                
+                // Simulate registration success
+                isAuthenticated = true;
+                currentUser = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    phone: phone
+                };
+                
+                // Update UI
+                registerSuccess.style.display = 'block';
+                authBtn.innerHTML = `<i class="fas fa-user-check"></i> ${currentUser.firstName}`;
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                    resetFormMessages();
+                }, 1500);
+            });
+            
+            // Start writing session
+            startBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    return;
+                }
+                
+                writingStarted = true;
+                writingInput.disabled = false;
+                writingInput.focus();
+                startBtn.disabled = true;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('btn-disabled');
+                startCountdown();
+            });
+            
+            // Character counter
+            writingInput.addEventListener('input', function() {
+                const content = writingInput.value;
+                charCountElement.textContent = content.length;
+                
+                // Limit to 600 characters
+                if (content.length > 600) {
+                    writingInput.value = content.substring(0, 600);
+                    charCountElement.textContent = '600';
+                }
+            });
+            
+            // Submit page
+            submitBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    return;
+                }
+                
+                const content = writingInput.value.trim();
+                
+                if (content.length < 20) {
+                    alert('Please write at least 20 characters for your page.');
+                    return;
+                }
+                
+                // Clear timer
+                clearInterval(countdown);
+                
+                // Show payment confirmation
+                alert('Your page has been submitted successfully! You will be redirected to payment to complete your $1 contribution.');
+                
+                // Reset writing area
+                writingInput.value = '';
+                writingInput.disabled = true;
+                charCountElement.textContent = '0';
+                startBtn.disabled = false;
+                submitBtn.disabled = true;
+                submitBtn.classList.add('btn-disabled');
+                writingStarted = false;
+                
+                // Reset timer display
+                minutes = 15;
+                seconds = 0;
+                updateTimerDisplay();
+                
+                // Update progress
+                updateProgress();
+            });
+            
+            // Start the countdown timer
+            function startCountdown() {
+                minutes = 15;
+                seconds = 0;
+                updateTimerDisplay();
+                
+                countdown = setInterval(() => {
+                    if (minutes === 0 && seconds === 0) {
+                        clearInterval(countdown);
+                        if (writingStarted) {
+                            alert("Your writing time has expired!");
+                            writingInput.disabled = true;
+                            submitBtn.disabled = true;
+                            submitBtn.classList.add('btn-disabled');
+                            startBtn.disabled = false;
+                            writingStarted = false;
+                        }
+                        return;
+                    }
+                    
+                    if (seconds === 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    updateTimerDisplay();
+                    
+                    // Visual warning at 1 minute
+                    if (minutes === 1 && seconds === 0) {
+                        timerElement.style.color = '#d9534f';
+                    }
+                }, 1000);
+            }
+            
+            // Update timer display
+            function updateTimerDisplay() {
+                timerElement.textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Update progress visualization
+            function updateProgress() {
+                // Simulate progress update
+                const currentWidth = parseFloat(progressBar.style.width);
+                const newWidth = Math.min(currentWidth + 0.1, 100);
+                progressBar.style.width = `${newWidth}%`;
+                
+                // Update trees if milestones are reached
+                if (newWidth >= 10) document.querySelector('.tree:nth-child(3) .tree-top').classList.add('reserved');
+                if (newWidth >= 20) document.querySelector('.tree:nth-child(4) .tree-top').classList.add('reserved');
+                if (newWidth >= 30) document.querySelector('.tree:nth-child(5) .tree-top').classList.add('reserved');
+                if (newWidth >= 40) document.querySelector('.tree:nth-child(6) .tree-top').classList.add('reserved');
+                if (newWidth >= 50) document.querySelector('.tree:nth-child(7) .tree-top').classList.add('reserved');
+                if (newWidth >= 60) document.querySelector('.tree:nth-child(8) .tree-top').classList.add('reserved');
+                if (newWidth >= 70) document.querySelector('.tree:nth-child(9) .tree-top').classList.add('reserved');
+                if (newWidth >= 80) document.querySelector('.tree:nth-child(10) .tree-top').classList.add('reserved');
+                if (newWidth >= 90) document.querySelector('.tree:nth-child(11) .tree-top').classList.add('reserved');
+            }
+            
+            // Helper functions
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            function validatePhone(phone) {
+                const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+                return re.test(phone);
+            }
+            
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+            
+            function resetErrors() {
+                const errors = document.querySelectorAll('.form-error');
+                errors.forEach(error => {
+                    error.style.display = 'none';
+                });
+            }
+            
+            function resetFormMessages() {
+                loginSuccess.style.display = 'none';
+                registerSuccess.style.display = 'none';
+                
+                // Reset form fields
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('firstName').value = '';
+                document.getElementById('lastName').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                resetErrors();
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
